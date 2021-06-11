@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
-import ContactUs from "./components/contactus/ContactUs";
 import "./App.css";
+import ContactUs from "./components/contactus/ContactUs";
 
 function App() {
   return <ContactUs />;
