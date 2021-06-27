@@ -1,27 +1,29 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
+import "./Footer.css";
 const Footer = () => {
   return (
     <footer className="footer mt-auto py-3 text-white">
       <div className="container">
         <div className="row">
           <div className="col-5">
-            <a className="text-white" id="footer-link" href="/">
+            <Link className="text-white" id="footer-link" to="/">
               Terms & Conditions
-            </a>
+            </Link>
           </div>
           <div className="col-4">
             <span> Review Me</span>
           </div>
           <div className="col">
-            <a className="text-white" id="footer-link" href="/">
+            <Link className="text-white" id="footer-link" to="/">
               About Us
-            </a>
+            </Link>
           </div>
           <div className="col">
-            <a className="text-white" id="footer-link" href="/">
+            <Link className="text-white" id="footer-link" to="/contact-us">
               Contact Us
-            </a>
+            </Link>
           </div>
         </div>
       </div>

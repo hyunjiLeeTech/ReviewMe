@@ -1,0 +1,15 @@
+nav {
+  background-color: #b56576;
+}
+
+#head-link {
+  color: white;
+}
+
+.nav-link a:hover,
+.nav-link a:active,
+.navbar a.active {
+  font-weight: bold;
+  color: white;
+  text-decoration: none;
+}

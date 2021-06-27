@@ -1,44 +1,23 @@
-/*
-*Header
-*/
-
-nav {
-  background-color: #b56576;
-}
-
-a#head-link {
-  text-decoration: none;
-  color: white;
-}
-
-/*
-*Footer
-*/
-
-.footer {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: #b56576;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-}
-
-a#footer-link {
-  text-decoration: none;
-}
-
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #feeafa;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+@font-face {
+  font-family: "Lato";
+  src: local("Lato"), url(./fonts/Lato-Regular.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"),
+    url(./fonts/Montserrat-Regular.ttf) format("opentype");
+}
+
+@font-face {
+  font-family: "Source Sans Pro";
+  src: local("Source Sans Pro"),
+    url(./fonts/SourceSansPro-Regular.ttf) format("opentype");
 }
