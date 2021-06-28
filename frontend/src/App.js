@@ -6,7 +6,9 @@ import "bootstrap/dist/css/bootstrap.css";
 import ContactUs from "./components/contactus/ContactUs";
 import Header from "./components/style/Header";
 import Footer from "./components/style/Footer";
+import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
+
 
 function App() {
   return (
@@ -19,6 +21,9 @@ function App() {
           </Route>
           <Route path="/contact-us">
             <ContactUs />
+          </Route>
+          <Route path="/report">
+            <Report />
           </Route>
           <Route exact path="/details/:id">
             <BookDetails />
