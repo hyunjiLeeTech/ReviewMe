@@ -52,7 +52,7 @@ const ForgotPassword = () => {
               )}
             </div>
           </div>
-          <div className="text-center">
+          <div className="text-center mb-3">
             <button type="submit" className="button">
               Submit
             </button>
