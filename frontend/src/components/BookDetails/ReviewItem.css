@@ -1,0 +1,9 @@
+.reviewBtn {
+  border: none;
+  background-color: #feeafa;
+  text-decoration: underline;
+}
+
+.reviewItemContainer {
+  margin-bottom: 50px;
+}
