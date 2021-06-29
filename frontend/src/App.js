@@ -6,6 +6,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import ContactUs from "./components/contactus/ContactUs";
 import Header from "./components/style/Header";
 import Footer from "./components/style/Footer";
+import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
@@ -22,6 +23,9 @@ function App() {
           </Route>
           <Route path="/contact-us">
             <ContactUs />
+          </Route>
+          <Route path="/signup">
+            <SignUp />
           </Route>
           <Route path="/forgot-password">
             <ForgotPassword />
