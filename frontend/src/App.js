@@ -9,6 +9,7 @@ import Footer from "./components/style/Footer";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
+import BookShelf from "./components/BookShelf/BookShelf";
 
 function App() {
   return (
@@ -30,6 +31,12 @@ function App() {
           </Route>
           <Route exact path="/details/:id">
             <BookDetails />
+          </Route>
+          <Route exact path="/library">
+            <BookShelf title="Library" />
+          </Route>
+          <Route exact path="/wish-list">
+            <BookShelf title="Wish List" />
           </Route>
         </Switch>
         <Footer />
