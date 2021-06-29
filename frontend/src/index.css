@@ -21,3 +21,17 @@ body {
   src: local("Source Sans Pro"),
     url(./fonts/SourceSansPro-Regular.ttf) format("opentype");
 }
+
+html {
+  position: relative;
+  min-height: 100%;
+  padding-bottom: 90px;
+}
+body {
+  margin-bottom: 90px;
+}
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
