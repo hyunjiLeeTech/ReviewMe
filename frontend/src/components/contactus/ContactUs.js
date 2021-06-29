@@ -27,7 +27,7 @@ export default function ContactUs() {
   return (
     <div className="card">
       <div className="card-body">
-        <div className="mt-4 text-center">
+        <div className="mb-4 text-center">
           <h1 className="card-title">Contact Us</h1>
           <p className="card-subtitle">
             Please include your name, email and message and we contact you as
@@ -48,9 +48,11 @@ export default function ContactUs() {
           <div className="mb-4">
             <textarea className="form-control" name="message" rows="6" />
           </div>
-          <button className="button" type="submit">
-            Send
-          </button>
+          <div className="d-flex justify-content-center">
+            <button className="btn" type="submit">
+              Send
+            </button>
+          </div>
         </form>
       </div>
     </div>
