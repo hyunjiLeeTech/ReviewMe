@@ -1,0 +1,29 @@
+.card {
+  width: 40rem;
+  margin: 0 auto;
+  float: none;
+  margin-top: 5rem;
+  border-color: #feeafa;
+  background-color: #feeafa;
+}
+
+.control.invalid input {
+  border-color: red;
+}
+
+.button {
+  width: 160px;
+  height: 50px;
+  background-color: #6d597a;
+  color: white;
+  margin-top: 10px;
+}
+
+@media (min-width: 318px) and (max-width: 734px) {
+  .card {
+    width: 19rem;
+    margin: 0 auto;
+    float: none;
+    margin-top: 2rem;
+  }
+}
