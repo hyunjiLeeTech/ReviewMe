@@ -38,7 +38,12 @@ export default function ContactUs() {
           <div className="mb-4">
             <input type="hidden" name="contact_number" />
             <label className="form-label">Name</label>
-            <input className="form-control" type="text" name="from_name" />
+            <input
+              className="form-control"
+              type="text"
+              autoFocus
+              name="from_name"
+            />
           </div>
           <div className="mb-4">
             <label className="form-label">Email</label>
