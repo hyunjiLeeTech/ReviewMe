@@ -7,6 +7,7 @@ import ContactUs from "./components/contactus/ContactUs";
 import Header from "./components/style/Header";
 import LogIn from "./components/registration/LogIn";
 import Footer from "./components/style/Footer";
+import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
@@ -24,6 +25,9 @@ function App() {
           </Route>
           <Route path="/contact-us">
             <ContactUs />
+          </Route>
+          <Route path="/about">
+            <AboutUs />
           </Route>
           <Route path="/login">
             <LogIn />

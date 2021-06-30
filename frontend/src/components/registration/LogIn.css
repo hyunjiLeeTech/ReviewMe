@@ -18,6 +18,9 @@
   color: white;
   margin-top: 10px;
 }
+.link-forgot {
+  margin-left: 100px;
+}
 
 @media (min-width: 318px) and (max-width: 734px) {
   .card {
@@ -25,5 +28,9 @@
     margin: 0 auto;
     float: none;
     margin-top: 2rem;
+  }
+
+  .link-forgot {
+    margin-left: 0;
   }
 }

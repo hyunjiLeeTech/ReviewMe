@@ -16,7 +16,7 @@ const Footer = () => {
             <span> Review Me</span>
           </div>
           <div className="col">
-            <Link className="text-white" id="footer-link" to="/">
+            <Link className="text-white" id="footer-link" to="/about">
               About Us
             </Link>
           </div>
