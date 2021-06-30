@@ -12,6 +12,7 @@ import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
+import Profile from "./components/ProfilePage/Profile";
 
 function App() {
   return (
@@ -45,6 +46,9 @@ function App() {
           </Route>
           <Route exact path="/wish-list">
             <BookShelf title="Wish List" />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
         </Switch>
         <Footer />
