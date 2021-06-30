@@ -1,6 +1,7 @@
 import React from 'react'
 import './Profile.css';
 import { Link } from "react-router-dom";
+import Dropdown from "react-dropdown";
 import { useState } from 'react';
 
 const Profile = () => {
@@ -11,6 +12,8 @@ const Profile = () => {
     const [gender, setGender] = useState("Male");
     const [dob, setDob] = useState("1999/11/11");
     const [email, setEmail] = useState("johndoe@mail.com");
+
+    const options = ["Male", "Female", "Other"];
 
     return (
         <div className="container light-style">
@@ -64,41 +67,38 @@ const Profile = () => {
                                         </div>
                                         <div className="col-md-6">
                                             <label className="form-label">Gender</label>
-                                            <select className="form-select" aria-label="Default select example" onChange={(event) => {
-                                                setGender(event.target.value);
-                                            }}>
-                                                <option value={gender} selected>Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Other">Other</option>
-                                            </select>
+                                            <Dropdown
+                                                className="dropdown" options={options} value={gender} onChange={(target) => {
+                                                    setGender(target.value);
+                                                }} />
                                         </div>
                                     </div>
                                     <br />
-                                    <div className="col-md-12">
-                                        <div className="form-group">
-                                            <label className="form-label">Date of Birth</label>
-                                            <input type="text" className="form-control" value={dob} onChange={(event) => {
-                                                setDob(event.target.value);
-                                            }} />
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <label className="form-label">Date of Birth</label>
+                                                <input type="text" className="form-control" value={dob} onChange={(event) => {
+                                                    setDob(event.target.value);
+                                                }} />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <br />
-                                    <div className="col-md-12">
-                                        <div className="form-group">
-                                            <label className="form-label">E-mail</label>
-                                            <input type="email" className="form-control" value={email} onChange={(event) => {
-                                                setEmail(event.target.value);
-                                            }} />
+                                        <div className="col-md-6">
+                                            <div className="form-group">
+                                                <label className="form-label">E-mail</label>
+                                                <input type="email" className="form-control" value={email} onChange={(event) => {
+                                                    setEmail(event.target.value);
+                                                }} />
+                                            </div>
                                         </div>
                                     </div>
 
                                 </div>
 
                                 <div className="text-center mt-3">
-                                    <button type="button" className="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" className="btn btn-default">Cancel</button>
+                                    <button type="button" className="button mb-4">Save changes</button>&nbsp;
+                                    <button type="button" className="button mb-4">Cancel</button>
                                 </div>
-                                <br />
                             </div>
 
                         </div>
