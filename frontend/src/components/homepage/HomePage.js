@@ -24,7 +24,7 @@ const HomePage = () => {
       <SliderImage />
       <div className="grid">
         <div>
-          <form onSubmit={onSubmit} className="bg-gray-200 p-5">
+          <form onSubmit={onSubmit} className="searchBar">
             <input
               type="text"
               name="text"

@@ -1,9 +1,27 @@
 .grid {
   display: grid;
   grid-template-columns: auto auto;
-  margin: 0 200px;
+  margin: 0 300px;
 }
 
-.searchSeaction {
-  margin-top: 20px;
+.searchBar {
+  margin-top: 60px;
+}
+
+@media screen and (max-width: 734px) {
+  .grid {
+    margin: 0 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}
+
+@media (min-width: 734px) and (max-width: 1034px) {
+  .grid {
+    margin: 0 200px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+  }
 }
