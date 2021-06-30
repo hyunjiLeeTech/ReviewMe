@@ -12,15 +12,17 @@ import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
+import HomePage from "./components/homepage/HomePage";
 
 function App() {
   return (
     <Router>
       <div className="App">
         <Header />
+
         <Switch>
           <Route exact path="/">
-            <h1>Home</h1>
+            <HomePage />
           </Route>
           <Route path="/contact-us">
             <ContactUs />
@@ -47,6 +49,7 @@ function App() {
             <BookShelf title="Wish List" />
           </Route>
         </Switch>
+
         <Footer />
       </div>
     </Router>
