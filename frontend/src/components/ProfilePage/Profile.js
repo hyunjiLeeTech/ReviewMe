@@ -15,14 +15,15 @@ const Profile = () => {
     return (
         <div className="container light-style">
 
+            <h1 className="card-title">
+                <center>Account Settings</center>
+            </h1>
+
             <div className="card overflow-hidden">
-                <h1 className="card-title">
-                    Account Settings
-                </h1>
 
                 <div className="row no-gutters row-bordered row-border-light">
                     <div className="col-md-3 pt-0">
-                        <div className="list-group list-group-flush account-settings-links">
+                        <div className="list-group list-group-flush account-settings-links ">
                             <Link className="list-group-item list-group-item-action active" data-toggle="list" to="/profile">Profile</Link>
                             <Link className="list-group-item list-group-item-action" data-toggle="list" to="/resetpassword">Reset Password</Link>
                         </div>
@@ -31,7 +32,6 @@ const Profile = () => {
                         <div className="tab-content">
 
                             <div className="tab-pane fade active show" id="profile">
-                                <hr className="border-light m-0" />
                                 <div className="card-body">
 
                                     <div className="row">
