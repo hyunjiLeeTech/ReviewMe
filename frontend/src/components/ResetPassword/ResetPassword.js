@@ -51,7 +51,6 @@ const ResetPassword = () => {
                                     <button type="button" className="button mb-4">Save changes</button>&nbsp;
                                     <button type="button" className="button mb-4">Cancel</button>
                                 </div>
-                                <br />
                             </div>
 
                         </div>
