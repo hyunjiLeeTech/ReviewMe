@@ -1,12 +1,6 @@
 import React from "react";
-import Slider from "react-slick";
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import "slick-carousel/slick/slick.css";
-
-import "slick-carousel/slick/slick-theme.css";
-
-import "./SliderImage.css";
+import "./BookListing.css";
 
 const bookList = [
   {
@@ -88,49 +82,18 @@ const bookList = [
       "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
 ];
-const SliderImage = () => {
-  let settings = {
-    dots: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 6000,
-    arrows: false,
-    className: "slideImg",
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
+const BookListing = () => {
   return (
-    <Slider {...settings}>
-      {bookList.map((post, index) => (
-        <div className="slidePoster">
-          <img className="slideImg" key={index} src={post.image} alt="" />
+    <div className="books">
+      {bookList.map((post) => (
+        <div className="bookContainer">
+          <img src={post.image} alt="" />
+          <h3>{post.title}</h3>
+          <p> by {post.author}</p>
         </div>
       ))}
-    </Slider>
+    </div>
   );
 };
 
-export default SliderImage;
+export default BookListing;

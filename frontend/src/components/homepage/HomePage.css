@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 0 200px;
+}
+
+.searchSeaction {
+  margin-top: 20px;
+}
