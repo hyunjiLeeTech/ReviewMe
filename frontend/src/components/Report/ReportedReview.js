@@ -7,11 +7,11 @@ const ReportedReview = (props) => {
   return (
     <div className="reviewContainer">
       <div className="row">
-        <div className="col-2">
+        <div className="col-lg-4 col-6">
           <h5>{nickname}</h5>
         </div>
-        <div className="col-2">{date}</div>
-        <div className="col">
+        <div className="col-lg-2 col-5">{date}</div>
+        <div className="col-lg-2 col-11">
           <Rating name="rating" value={rating} />
         </div>
       </div>
