@@ -15,6 +15,8 @@ import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import TermCondition from "./components/TermCondition/TermCondition";
 
+import ReportManager from "./components/ReportManager/ReportManager";
+
 function App() {
   return (
     <Router>
@@ -50,6 +52,9 @@ function App() {
           </Route>
           <Route exact path="/wish-list">
             <BookShelf title="Wish List" />
+          </Route>
+          <Route exact path="/report-admin">
+            <ReportManager />
           </Route>
           <Route path="/terms">
             <TermCondition />
