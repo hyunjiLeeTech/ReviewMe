@@ -1,8 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import './ResetPassword.css';
+import { useState } from 'react';
 
 const ResetPassword = () => {
+
+    const [password, setPassword] = useState("");
+    const [confirmedPassword, setConfirmedPassword] = useState("");
+    const [validatePassword, setValidatePassword] = useState();
+    const [validateConfirmedPassword, setValidateConfirmedPassword] = useState();
+
+    const passwordHandler = (event) => {
+        setPassword(event.target.value);
+    }
+
+    const confirmedPasswordHandler = (event) => {
+        setConfirmedPassword(event.target.value);
+    }
+
+    const validatePasswordHandler = () => {
+        setValidatePassword((password.trim().length > 8) ? true : false);
+    }
+
+    const validateConfirmedPasswordHandler = () => {
+        setValidateConfirmedPassword((confirmedPassword === password) ? true : false);
+    }
+
     return (
         <div className="container light-style">
 
@@ -35,12 +58,14 @@ const ResetPassword = () => {
 
                                         <div className="form-group">
                                             <label className="form-label">New password</label>
-                                            <input type="password" className="form-control" />
+                                            <input type="password" className="form-control" onChange={passwordHandler} onBlur={validatePasswordHandler} />
+                                            {validatePassword === false ? <p>Password length should be greater than 8</p> : ""}
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label">Repeat new password</label>
-                                            <input type="password" className="form-control" />
+                                            <label className="form-label">Confirm password</label>
+                                            <input type="password" className="form-control" onChange={confirmedPasswordHandler} onBlur={validateConfirmedPasswordHandler} />
+                                            {validateConfirmedPassword === false ? <p>Passwords don't match. Re-enter the password</p> : ""}
                                         </div>
 
                                     </div>
