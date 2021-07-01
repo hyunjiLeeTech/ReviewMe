@@ -1,44 +1,77 @@
 import React, { useState } from "react";
+import { Route, useParams, Link } from "react-router-dom";
 import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
+import SearchResult from "./SearchResult";
 
 import "./HomePage.css";
 
 const HomePage = () => {
-  const [text, setText] = useState("");
+  const [bookName, setBookName] = useState("");
+  const [authorName, setAuthorName] = useState("");
+  const [year, setYear] = useState("");
+  const [searching, setSearching] = useState(false);
+  const [advancedSearch, setAdvancedSearch] = useState(false);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    if (text === "") {
+    if (bookName === "") {
       alert("Please enter something!");
     } else {
-      alert(text);
-      setText("");
+      setBookName("");
+      setAuthorName("");
+      setYear("");
     }
+    setSearching(true);
   };
 
-  const onChange = (evt) => setText(evt.target.value);
+  const advancedSearchHandler = () => {
+    setAdvancedSearch((prevState) => !prevState);
+  };
+  const onChangeBookNameHandler = (name) => {
+    setBookName(name.target.value);
+  };
+  const onChangeAuthorNameHandler = (author) => {
+    setAuthorName(author.target.value);
+  };
+  const onChangeYearHandler = (year) => {
+    setYear(year.target.value);
+  };
 
   return (
     <>
-      <SliderImage />
+      {!searching && <SliderImage />}
       <div className="grid">
-        <div>
-          <form onSubmit={onSubmit} className="searchBar">
+        <div className="searchBar">
+          <form onSubmit={onSubmit}>
             <input
               type="text"
-              name="text"
-              placeholder="search users..."
-              value={text}
-              onChange={onChange}
-              className="bg-white p-2 w-3/4 outline-none"
+              name="bookName"
+              placeholder="search by book title"
+              value={bookName}
+              onChange={onChangeBookNameHandler}
             />
-            <button
-              type="submit"
-              className="p-2 text-center text-blue-500 w-1/4 bg-white border-l"
-            >
-              Search
-            </button>
+            {!advancedSearch && (
+              <button onClick={advancedSearchHandler}>Advanced Search</button>
+            )}
+            {advancedSearch && (
+              <>
+                <input
+                  type="text"
+                  name="author"
+                  placeholder="search by author"
+                  value={authorName}
+                  onChange={onChangeAuthorNameHandler}
+                />
+                <input
+                  type="text"
+                  name="year"
+                  placeholder="filter by year"
+                  value={year}
+                  onChange={onChangeYearHandler}
+                />
+              </>
+            )}
           </form>
         </div>
 
