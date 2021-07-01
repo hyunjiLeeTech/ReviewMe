@@ -1,40 +1,27 @@
-.card-section {
-  width: 400px;
-}
-
 @media screen and (min-width: 768px) {
-  .show_desc {
+  .movie_image {
     width: 50%;
+    margin-right: 30px;
   }
-  .show_header {
+  .movie_header {
     width: 70%;
   }
-  .big_image {
-    background-position: -100% 10% !important;
+  .movie-info.grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .show_details {
-    width: 95%;
-    margin: 70px auto;
-    min-height: 350px;
-    height: auto;
+  .movie_image {
+    width: 50%;
+    margin-right: 30px;
   }
-  .info_section {
-    display: inline-grid;
+  .movie_header {
+    width: 70%;
   }
-  .big_image {
-    width: 100%;
-    background-position: 50% 50% !important;
-  }
-
-  .show_header {
-    width: 100%;
-    margin-top: 85px;
-  }
-
-  .show_desc {
-    width: 100%;
+  .movie-info.grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
   }
 }

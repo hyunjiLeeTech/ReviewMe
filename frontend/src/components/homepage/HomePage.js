@@ -11,6 +11,8 @@ const bookList = [
     title: "Cooked",
     id: "be2XOQ2sB_EC",
     author: "Michael Pollan",
+    date: 2013,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -18,6 +20,8 @@ const bookList = [
     title: "You Suck at Cooking",
     id: "5KqxDwAAQBAJ",
     author: "Clarkson Potter, You Suck at Cooking",
+    date: 2019,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=5KqxDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -26,6 +30,8 @@ const bookList = [
       "The Essential New York Times Cookbook: Classic Recipes for a New Century",
     id: "QWrVBAAAQBAJ",
     author: "Amanda Hesser",
+    date: 2010,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=QWrVBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -33,6 +39,8 @@ const bookList = [
     title: "Home Cooking",
     id: "TB4FEAAAQBAJ",
     author: "Laurie Colwin",
+    date: 2010,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=TB4FEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -40,6 +48,8 @@ const bookList = [
     title: "College Cooking",
     id: "UwYJsklz7WkC",
     author: "Megan Carle, Jill Carle",
+    date: 2007,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=UwYJsklz7WkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -47,6 +57,8 @@ const bookList = [
     title: "Mastering the Art of Soviet Cooking",
     id: "GGuODQAAQBAJ",
     author: "Anya Von Bremzen",
+    date: 2014,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=GGuODQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -54,6 +66,8 @@ const bookList = [
     title: "Salt, Fat, Acid, Heat",
     id: "yvqxDgAAQBAJ",
     author: "Samin Nosrat",
+    date: 2017,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=yvqxDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -61,6 +75,8 @@ const bookList = [
     title: "Maangchi's Big Book of Korean Cooking",
     id: "ROJ-DwAAQBAJ",
     author: "Maangchi, Martha Rose Shulman",
+    date: 2019,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=ROJ-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -68,6 +84,8 @@ const bookList = [
     title: "Cooked",
     id: "be2XOQ2sB_EC",
     author: "Michael Pollan",
+    date: 2013,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -75,6 +93,8 @@ const bookList = [
     title: "Where Cooking Begins",
     id: "A9hhDwAAQBAJ",
     author: "Carla Lalli Music",
+    date: 2019,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -82,6 +102,8 @@ const bookList = [
     title: "The Science of Cooking",
     id: "az8pDwAAQBAJ",
     author: "Stuart Farrimond",
+    date: 2017,
+    category: "cooking",
     image:
       "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -101,16 +123,25 @@ const HomePage = () => {
     let filtered = [];
     if (bookName !== "") {
       const value = bookName.toLowerCase();
-      console.log(value);
-      console.log(bookName);
-      console.log(bookList);
       filtered = bookList.filter((entry) => {
         return entry.title.toLowerCase().search(value) !== -1;
       });
-      console.log(filtered);
+
+      setSelectedBook(filtered);
+    } else if (authorName !== "") {
+      const temp = authorName.toLowerCase();
+      filtered = bookList.filter((entry) => {
+        return entry.author.toLowerCase().search(temp) !== -1;
+      });
+      setSelectedBook(filtered);
+    } else if (year !== "") {
+      console.log(year);
+      const tempYear = year;
+      filtered = bookList.filter((entry) => {
+        return entry.date.toString().search(tempYear) !== -1;
+      });
+      setSelectedBook(filtered);
     }
-    setSelectedBook(filtered);
-    console.log(selectedBook);
   };
   const onChangeBookNameHandler = (name) => {
     setBookName(name.target.value);
@@ -186,13 +217,15 @@ const HomePage = () => {
         <div>
           {!searching && <BookListing bookList={bookList} />}
           {searching && (
-            <div className="search-result">
+            <div className="search_result">
               {selectedBook.map((book, index) => (
                 <SearchResult
                   key={index}
                   image={book.image}
                   title={book.title}
                   author={book.author}
+                  date={book.date}
+                  category={book.category}
                 />
               ))}
             </div>
