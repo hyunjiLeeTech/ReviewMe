@@ -57,15 +57,19 @@ const ResetPassword = () => {
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label">New password</label>
-                                            <input type="password" className="form-control" onChange={passwordHandler} onBlur={validatePasswordHandler} />
-                                            {validatePassword === false ? <p>Password length should be greater than 8</p> : ""}
+                                            <div className={` ${validatePassword === false ? "invalid" : ""}`} >
+                                                <label className="form-label">New password</label>
+                                                <input type="password" className="form-control" onChange={passwordHandler} onBlur={validatePasswordHandler} />
+                                                {validatePassword === false ? <p>Password length should be greater than 8</p> : ""}
+                                            </div>
                                         </div>
 
                                         <div className="form-group">
-                                            <label className="form-label">Confirm password</label>
-                                            <input type="password" className="form-control" onChange={confirmedPasswordHandler} onBlur={validateConfirmedPasswordHandler} />
-                                            {validateConfirmedPassword === false ? <p>Passwords don't match. Re-enter the password</p> : ""}
+                                            <div className={` ${validateConfirmedPassword === false ? "invalid" : ""}`}>
+                                                <label className="form-label">Confirm password</label>
+                                                <input type="password" className="form-control" onChange={confirmedPasswordHandler} onBlur={validateConfirmedPasswordHandler} />
+                                                {validateConfirmedPassword === false ? <p>Passwords don't match. Re-enter the password</p> : ""}
+                                            </div>
                                         </div>
 
                                     </div>
