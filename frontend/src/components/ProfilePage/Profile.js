@@ -1,7 +1,6 @@
 import React from 'react'
 import './Profile.css';
 import { Link } from "react-router-dom";
-import Dropdown from "react-dropdown";
 import { useState } from 'react';
 
 const Profile = () => {
@@ -37,7 +36,8 @@ const Profile = () => {
                             <div className="tab-pane fade active show" id="profile">
                                 <div className="card-body">
 
-                                    <div className="row">
+                                    <form className="row g-3 mt-3">
+
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">First Name</label>
@@ -46,6 +46,7 @@ const Profile = () => {
                                                 }} />
                                             </div>
                                         </div>
+
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">Last Name</label>
@@ -54,9 +55,7 @@ const Profile = () => {
                                                 }} />
                                             </div>
                                         </div>
-                                    </div>
-                                    <br />
-                                    <div className="row">
+
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">Nickname</label>
@@ -65,16 +64,19 @@ const Profile = () => {
                                                 }} />
                                             </div>
                                         </div>
+
                                         <div className="col-md-6">
                                             <label className="form-label">Gender</label>
-                                            <Dropdown
-                                                className="dropdown" options={options} value={gender} onChange={(target) => {
-                                                    setGender(target.value);
-                                                }} />
+                                            <select className="form-select" value={gender} onChange={(target) => {
+                                                setGender(target.value);
+                                            }} >
+                                                <option> {options[0]} </option>
+                                                <option> {options[1]} </option>
+                                                <option> {options[2]} </option>
+                                            </select>
+
                                         </div>
-                                    </div>
-                                    <br />
-                                    <div className="row">
+
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">Date of Birth</label>
@@ -83,6 +85,7 @@ const Profile = () => {
                                                 }} />
                                             </div>
                                         </div>
+
                                         <div className="col-md-6">
                                             <div className="form-group">
                                                 <label className="form-label">E-mail</label>
@@ -91,7 +94,8 @@ const Profile = () => {
                                                 }} />
                                             </div>
                                         </div>
-                                    </div>
+
+                                    </form>
 
                                 </div>
 
