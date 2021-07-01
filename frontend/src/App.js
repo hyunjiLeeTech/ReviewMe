@@ -18,6 +18,7 @@ import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import HomePage from "./components/homepage/HomePage";
+import SearchResult from "./components/homepage/SearchResult";
 
 function App() {
   return (
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/homepage">
             <HomePage />
+          </Route>
+          <Route path="/search">
+            <SearchResult />
           </Route>
           <Route path="/contact-us">
             <ContactUs />

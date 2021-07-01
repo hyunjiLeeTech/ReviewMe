@@ -1,6 +1,6 @@
 .books {
   display: flex;
-  margin-top: 40px;
+  margin-top: 15px;
   flex-wrap: wrap;
   align-content: center;
   justify-content: center;
@@ -24,6 +24,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   flex: 0 1 auto;
   font-weight: bold;
+}
+
+.booksSection h4 {
+  margin-top: 40px;
+  margin-left: 340px;
+  align-items: center;
+}
+
+.bookContainer .author {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

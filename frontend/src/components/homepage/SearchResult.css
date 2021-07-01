@@ -1,0 +1,40 @@
+.card-section {
+  width: 400px;
+}
+
+@media screen and (min-width: 768px) {
+  .show_desc {
+    width: 50%;
+  }
+  .show_header {
+    width: 70%;
+  }
+  .big_image {
+    background-position: -100% 10% !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .show_details {
+    width: 95%;
+    margin: 70px auto;
+    min-height: 350px;
+    height: auto;
+  }
+  .info_section {
+    display: inline-grid;
+  }
+  .big_image {
+    width: 100%;
+    background-position: 50% 50% !important;
+  }
+
+  .show_header {
+    width: 100%;
+    margin-top: 85px;
+  }
+
+  .show_desc {
+    width: 100%;
+  }
+}
