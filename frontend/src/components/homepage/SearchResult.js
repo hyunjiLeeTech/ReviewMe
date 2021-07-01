@@ -19,7 +19,7 @@ const SearchResult = (props) => {
               {props.title}
             </h4>
             <span className="row justify-content-around">
-              <span className="col-8 d-flex justify-content-center">
+              <span className="col-8 d-flex">
                 <span className="fw-bold">Author</span>: {props.author}
               </span>
               <span className="col-4">
@@ -27,7 +27,7 @@ const SearchResult = (props) => {
               </span>
             </span>
             <span className="row justify-content-around">
-              <span className="col-8 d-flex justify-content-center">
+              <span className="col-8 d-flex">
                 <span className="fw-bold">Category</span>: {props.category}
               </span>
               <span className="col-4">
