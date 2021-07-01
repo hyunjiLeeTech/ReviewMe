@@ -159,8 +159,8 @@ const HomePage = () => {
   };
   return (
     <>
-      {!searching && <SliderImage />}
-      <div className="grid">
+      <SliderImage />
+      <div className="grid container">
         <div className="searchBar">
           <form onSubmit={onSubmitHandler}>
             <input
@@ -193,7 +193,8 @@ const HomePage = () => {
                   <option value="detective">Detective</option>
                   <option value="mystery">Mystery</option>
                   <option value="fantasy">Fantasy</option>
-                  <option value="Horror">Horror</option>
+                  <option value="horror">Horror</option>
+                  <option value="cooking">Cooking</option>
                 </select>
               </div>
             </div>
