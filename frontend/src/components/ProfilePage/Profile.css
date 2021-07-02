@@ -15,6 +15,10 @@ body{
     padding-top:50px ;
 }
 
+.invalid input{
+    border-color: red;
+}
+
 .text-light {
     color: #babbbc !important;
 }
