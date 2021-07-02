@@ -32,10 +32,10 @@ const SearchResult = (props) => {
                 </span>
               </span>
               <span className="row justify-content-around">
-                <span className="col-8 d-flex">
+                <span className="col-7 d-flex">
                   <span className="fw-bold">Category</span>: {props.category}
                 </span>
-                <span className="col-4">
+                <span className="col-5">
                   <Rating
                     name="hover-feedback"
                     value={props.rating}

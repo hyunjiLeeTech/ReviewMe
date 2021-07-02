@@ -37,3 +37,11 @@
   text-decoration: none;
   color: black;
 }
+@media screen and (max-width: 534px) {
+  .bookContainer {
+    width: 145px;
+    height: 350px;
+    margin: 1rem 1rem 1rem 0;
+    padding: 0.5rem;
+  }
+}

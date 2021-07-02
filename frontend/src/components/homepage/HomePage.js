@@ -168,7 +168,7 @@ const HomePage = () => {
   };
   return (
     <>
-      <SliderImage />
+      <SliderImage bookList={bookList} />
       <div className="grid container">
         <div className="searchBar">
           <form onSubmit={onSubmitHandler}>

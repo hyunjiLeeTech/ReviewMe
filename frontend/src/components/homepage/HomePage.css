@@ -101,11 +101,11 @@
     justify-content: center;
   }
   .searchBar {
-    margin-left: 140px;
+    margin-left: 60px;
   }
   .booksSection h4 {
     margin-top: 40px;
-    margin-left: 85px;
+    margin-left: 25px;
     align-items: center;
   }
   .books {
@@ -139,7 +139,7 @@
 
 @media (min-width: 735px) and (max-width: 1700px) {
   .grid {
-    margin: 0 110px 0 110px;
+    margin: 0 110px 0 80px;
     display: flex;
     justify-content: space-around;
   }
@@ -153,7 +153,7 @@
     align-items: center;
   }
   .books {
-    margin-left: 100px;
+    margin-left: 20px;
   }
 }
 
