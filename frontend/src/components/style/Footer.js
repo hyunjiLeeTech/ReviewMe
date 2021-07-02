@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Footer.css";
-import logo from "../../images/blue-logo.png";
+import logo from "../../images/logo.png";
 const Footer = () => {
   return (
     <footer className="footer mt-auto py-3 text-white">
