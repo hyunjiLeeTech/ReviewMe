@@ -82,25 +82,27 @@
 
 @media screen and (max-width: 534px) {
   .grid {
-    margin: 0 80px;
+    margin: 0 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .searchBar {
-    margin-left: 90px;
+    margin-left: 110px;
   }
 }
 
 @media (min-width: 535px) and (max-width: 734px) {
   .grid {
-    margin: 0 80px;
+    margin: 0 50px;
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
   }
 
   .searchBar {
-    width: 250px;
+    margin-left: 180px;
+    width: 200px;
   }
 }
 
@@ -112,7 +114,7 @@
   }
 
   .searchBar {
-    width: 250px;
+    width: 200px;
   }
 }
 

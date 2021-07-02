@@ -113,7 +113,6 @@ const HomePage = () => {
   const [authorName, setAuthorName] = useState("");
   const [year, setYear] = useState("");
   const [searching, setSearching] = useState(false);
-  const [advancedSearch, setAdvancedSearch] = useState(false);
   const [selectedBook, setSelectedBook] = useState([]);
 
   const onSubmitHandler = (e) => {

@@ -3,7 +3,7 @@
   margin-top: 15px;
   flex-wrap: wrap;
   align-content: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-left: 100px;
 }
 .bookContainer {
@@ -45,7 +45,7 @@
 @media screen and (max-width: 534px) {
   .booksSection h4 {
     margin-top: 40px;
-    margin-left: 5px;
+    margin-left: 85px;
     align-items: center;
   }
 }
@@ -53,7 +53,7 @@
 @media (min-width: 535px) and (max-width: 734px) {
   .booksSection h4 {
     margin-top: 40px;
-    margin-left: 30px;
+    margin-left: 120px;
     align-items: center;
   }
 }
@@ -61,7 +61,7 @@
 @media (min-width: 735px) and (max-width: 1700px) {
   .booksSection h4 {
     margin-top: 40px;
-    margin-left: 200px;
+    margin-left: 20px;
     align-items: center;
   }
 }
