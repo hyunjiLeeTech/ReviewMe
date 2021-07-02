@@ -53,7 +53,7 @@ const bookList = [
     author: "Megan Carle, Jill Carle",
     date: 2007,
     rating: 1.5,
-    category: "cooking",
+    category: "Detective",
     image:
       "http://books.google.com/books/content?id=UwYJsklz7WkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -73,7 +73,7 @@ const bookList = [
     author: "Samin Nosrat",
     date: 2017,
     rating: 3.5,
-    category: "cooking",
+    category: "adventure",
     image:
       "http://books.google.com/books/content?id=yvqxDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -102,7 +102,7 @@ const bookList = [
     id: "A9hhDwAAQBAJ",
     author: "Carla Lalli Music",
     date: 2019,
-    category: "cooking",
+    category: "action",
     rating: 4,
     image:
       "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -124,13 +124,21 @@ const HomePage = () => {
   const [year, setYear] = useState("");
   const [searching, setSearching] = useState(false);
   const [selectedBook, setSelectedBook] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("action");
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     setSearching(true);
     let filtered = [];
-    if (bookName !== "") {
+    if (selectedCategory !== "") {
+      console.log(selectedCategory);
+      filtered = bookList.filter((entry) => {
+        return entry.category.toLowerCase() === selectedCategory;
+      });
+      console.log(filtered);
+      setSelectedBook(filtered);
+    } else if (bookName !== "") {
       const value = bookName.toLowerCase();
       filtered = bookList.filter((entry) => {
         return entry.title.toLowerCase().search(value) !== -1;
@@ -160,6 +168,9 @@ const HomePage = () => {
   };
   const onChangeYearHandler = (year) => {
     setYear(year.target.value);
+  };
+  const filterCategoryHandler = (filtered) => {
+    setSelectedCategory(filtered.target.value);
   };
   const onClearHandler = () => {
     setBookName("");
@@ -195,7 +206,10 @@ const HomePage = () => {
             />
             <div className="category-selector">
               <div className="category-selector__control">
-                <select name="category">
+                <select
+                  value={selectedCategory}
+                  onChange={filterCategoryHandler}
+                >
                   <option value="action">Action</option>
                   <option value="adventure">Adventure</option>
                   <option value="comic_book">Comic Book</option>
