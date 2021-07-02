@@ -2,27 +2,28 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 import "./Header.css";
+import logo from "../../images/logo.png";
 
 const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark">
       <div className="container-fluid">
         <NavLink className="navbar-brand" to="/">
-          Review Me
+          <img src={logo} alt="Review Me" />
         </NavLink>
 
         <button
-          className="navbar-toggler"
+          className="navbar-toggler navbar-toggler-button"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
+          data-bs-target="#navbarBar"
+          aria-controls="navbarBar"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse" id="navbarBar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
               <NavLink id="head-link" className="nav-link" to="/wish-list">
