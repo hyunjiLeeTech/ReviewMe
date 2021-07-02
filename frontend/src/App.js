@@ -15,6 +15,7 @@ import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
+import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 
 function App() {
@@ -61,6 +62,9 @@ function App() {
           </Route>
           <Route path="/terms">
             <TermCondition />
+          </Route>
+          <Route path="">
+            <NotFound />
           </Route>
         </Switch>
         <Footer />
