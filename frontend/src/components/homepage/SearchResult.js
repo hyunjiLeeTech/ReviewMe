@@ -9,7 +9,7 @@ const SearchResult = (props) => {
         <div className="col-md-3">
           <img
             src={props.image}
-            className="img-fluid rounded-start"
+            className="img-thumbnail mx-auto d-block"
             alt="..."
           />
         </div>

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Route, useParams, Link } from "react-router-dom";
 import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
 import SearchResult from "./SearchResult";
