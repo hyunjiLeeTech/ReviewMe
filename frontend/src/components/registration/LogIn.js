@@ -29,9 +29,9 @@ const LogIn = () => {
   };
 
   return (
-    <div className="card">
+    <div className="card mt-5">
       <div className="card-body">
-        <div className="mt-4 text-center">
+        <div className="mt-3 text-center">
           <h1 className="card-title">Welcome</h1>
           <p className="card-subtitle">
             Don't have an account? Join us{" "}
@@ -42,53 +42,62 @@ const LogIn = () => {
         </div>
 
         <form onSubmit={submitHandler}>
-          <div className="mb-4 mt-3">
-            <div
-              className={`control ${validatedEmail === false ? "invalid" : ""}`}
-            >
-              <label className="form-label" htmlFor="email">
-                Email{" "}
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="form-control"
-                value={providedEmail}
-                onChange={emailHandler}
-                onBlur={validateEmailHandler}
-                autoFocus
-                required
-              />
-              {validatedEmail === false && <p>Please provide correct email</p>}
+          <div className="d-flex justify-content-center">
+            <div className="col-8 mb-4 mt-3">
+              <div
+                className={`control ${
+                  validatedEmail === false ? "invalid" : ""
+                }`}
+              >
+                <label className="form-label" htmlFor="email">
+                  Email{" "}
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="form-control"
+                  value={providedEmail}
+                  onChange={emailHandler}
+                  onBlur={validateEmailHandler}
+                  autoFocus
+                  required
+                />
+                {validatedEmail === false && (
+                  <p>Please provide correct email</p>
+                )}
+              </div>
             </div>
           </div>
-          <div className="mb-4">
-            <div
-              className={`control ${
-                validatedPassword === false ? "invalid" : ""
-              }`}
-            >
-              <label className="form-label" htmlFor="password">
-                Password
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                value={providedPassword}
-                onChange={passwordHandler}
-                onBlur={validatePasswordHandler}
-                required
-              />
-              {validatedPassword === false && (
-                <p>Password should contain at least 8 characters</p>
-              )}
+          <div className="d-flex justify-content-center">
+            <div className="col-8 mb-4">
+              <div
+                className={`control ${
+                  validatedPassword === false ? "invalid" : ""
+                }`}
+              >
+                <label className="form-label" htmlFor="password">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  id="password"
+                  className="form-control"
+                  value={providedPassword}
+                  onChange={passwordHandler}
+                  onBlur={validatePasswordHandler}
+                  required
+                />
+                {validatedPassword === false && (
+                  <p>Password should contain at least 8 characters</p>
+                )}
+              </div>
             </div>
           </div>
+
           <div className="row mb-4">
             <div className="col d-flex justify-content-center">
               <div className="form-check">
-                <label className="form-check-label" htmlFor="form2Example3">
+                <label className="form-check-label" htmlFor="rememberMe">
                   {" "}
                   Remember me{" "}
                 </label>
@@ -100,9 +109,10 @@ const LogIn = () => {
                 />
               </div>
             </div>
-
             <div className="col">
-              <Link to="/forgot-password">Forgot password?</Link>
+              <Link className="link-forgot" to="/forgot-password">
+                Forgot password?
+              </Link>
             </div>
           </div>
           <div className="d-flex justify-content-center">

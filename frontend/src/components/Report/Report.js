@@ -34,8 +34,8 @@ const Report = () => {
 
   return (
     <div className="container reportContainer">
-      <div className="row justify-content-md-center">
-        <div className="col-9">
+      <div className="row justify-content-center">
+        <div className="col-lg-9 col-11">
           <Title name="Report Review" />
           <ReportedReview
             nickname={reviewInfo.nickname}

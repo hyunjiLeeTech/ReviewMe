@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-5">
-            <Link className="text-white" id="footer-link" to="/">
+            <Link className="text-white" id="footer-link" to="/terms">
               Terms & Conditions
             </Link>
           </div>
@@ -16,7 +16,7 @@ const Footer = () => {
             <span> Review Me</span>
           </div>
           <div className="col">
-            <Link className="text-white" id="footer-link" to="/">
+            <Link className="text-white" id="footer-link" to="/about">
               About Us
             </Link>
           </div>
