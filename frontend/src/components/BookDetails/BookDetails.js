@@ -148,8 +148,8 @@ const BookDetails = () => {
 
   return (
     <div className="container detailContainer">
-      <div className="row justify-content-md-center">
-        <div className="col-5">
+      <div className="row justify-content-center">
+        <div className="col-lg-5 col-6">
           <h1>{bookInfo.volumeInfo.title}</h1>
           <p className="bookInfo">Author: {bookInfo.volumeInfo.authors}</p>
           <p className="bookInfo">
@@ -163,19 +163,20 @@ const BookDetails = () => {
             ISBN: {bookInfo.volumeInfo.industryIdentifiers[0].identifier}
           </p>
         </div>
-        <div className="col-4 test imageContainer">
+        <div className="col-lg-4 col-5 imageContainer">
           <img
+            className="bookImage"
             src={bookInfo.volumeInfo.imageLinks.thumbnail}
             alt={bookInfo.volumeInfo.title}
           />
-        </div>{" "}
+        </div>
       </div>
-      <div className="row justify-content-md-center">
-        <div className="col-9">
+      <div className="row justify-content-center">
+        <div className="col-lg-9 col-11 ">
           <div className="buttonContainer">
             <Button name="Wish List" isMargin={true} />
             <Button name="Library" isMargin={true} />
-            <Button name="Rent/Borrow" isMargin={true} />
+            <Button name="Rent / Borrow" isMargin={true} />
             <Button name="Preview" isMargin={false} />
           </div>
           <div className="subContainer">
@@ -204,8 +205,9 @@ const BookDetails = () => {
             </form>
 
             <div className="subContainer">
-              {reviewArr.map((data) => (
+              {reviewArr.map((data, index) => (
                 <ReviewItem
+                  key={index}
                   rating={data.rating}
                   nickname={data.nickname}
                   date={data.date}
@@ -216,7 +218,7 @@ const BookDetails = () => {
           </div>
         </div>
       </div>
-      <div className="row justify-content-md-center"></div>
+      <div className="row justify-content-center"></div>
     </div>
   );
 };

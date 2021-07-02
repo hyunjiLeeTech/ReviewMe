@@ -14,6 +14,8 @@ h6 {
 
 p,
 span,
-a {
+a,
+ul,
+li {
   font-family: Source Sans Pro;
 }
