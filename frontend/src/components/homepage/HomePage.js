@@ -131,13 +131,18 @@ const HomePage = () => {
 
     setSearching(true);
     let filtered = [];
-    if (selectedCategory !== "") {
+    if (
+      selectedCategory &&
+      bookName === "" &&
+      year === "" &&
+      authorName === ""
+    ) {
       console.log(selectedCategory);
-      filtered = bookList.filter((entry) => {
+      const filteredArray = bookList.filter((entry) => {
         return entry.category.toLowerCase() === selectedCategory;
       });
       console.log(filtered);
-      setSelectedBook(filtered);
+      setSelectedBook(filteredArray);
     } else if (bookName !== "") {
       const value = bookName.toLowerCase();
       filtered = bookList.filter((entry) => {
