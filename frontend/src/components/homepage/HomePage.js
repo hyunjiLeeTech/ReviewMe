@@ -12,6 +12,7 @@ const bookList = [
     author: "Michael Pollan",
     date: 2013,
     category: "cooking",
+    rating: 5,
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -21,6 +22,7 @@ const bookList = [
     author: "Clarkson Potter, You Suck at Cooking",
     date: 2019,
     category: "cooking",
+    rating: 4,
     image:
       "http://books.google.com/books/content?id=5KqxDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -31,6 +33,7 @@ const bookList = [
     author: "Amanda Hesser",
     date: 2010,
     category: "cooking",
+    rating: 2,
     image:
       "http://books.google.com/books/content?id=QWrVBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -40,6 +43,7 @@ const bookList = [
     author: "Laurie Colwin",
     date: 2010,
     category: "cooking",
+    rating: 1,
     image:
       "http://books.google.com/books/content?id=TB4FEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -48,6 +52,7 @@ const bookList = [
     id: "UwYJsklz7WkC",
     author: "Megan Carle, Jill Carle",
     date: 2007,
+    rating: 1.5,
     category: "cooking",
     image:
       "http://books.google.com/books/content?id=UwYJsklz7WkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -58,6 +63,7 @@ const bookList = [
     author: "Anya Von Bremzen",
     date: 2014,
     category: "cooking",
+    rating: 4.5,
     image:
       "http://books.google.com/books/content?id=GGuODQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -66,6 +72,7 @@ const bookList = [
     id: "yvqxDgAAQBAJ",
     author: "Samin Nosrat",
     date: 2017,
+    rating: 3.5,
     category: "cooking",
     image:
       "http://books.google.com/books/content?id=yvqxDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -76,6 +83,7 @@ const bookList = [
     author: "Maangchi, Martha Rose Shulman",
     date: 2019,
     category: "cooking",
+    rating: 5,
     image:
       "http://books.google.com/books/content?id=ROJ-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -85,6 +93,7 @@ const bookList = [
     author: "Michael Pollan",
     date: 2013,
     category: "cooking",
+    rating: 1,
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -94,6 +103,7 @@ const bookList = [
     author: "Carla Lalli Music",
     date: 2019,
     category: "cooking",
+    rating: 4,
     image:
       "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -103,6 +113,7 @@ const bookList = [
     author: "Stuart Farrimond",
     date: 2017,
     category: "cooking",
+    rating: 2.5,
     image:
       "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -214,17 +225,34 @@ const HomePage = () => {
         </div>
 
         <div>
-          {!searching && <BookListing bookList={bookList} />}
+          {!searching && (
+            <div className="booksSection">
+              <h4>Recommendation of the Week</h4>
+              <div className="books">
+                {bookList.map((book) => (
+                  <BookListing
+                    key={book.id}
+                    image={book.image}
+                    title={book.title}
+                    author={book.author}
+                    bookId={book.id}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
           {searching && (
             <div className="search_result">
               {selectedBook.map((book, index) => (
                 <SearchResult
                   key={index}
                   image={book.image}
+                  rating={book.rating}
                   title={book.title}
                   author={book.author}
                   date={book.date}
                   category={book.category}
+                  bookId={book.id}
                 />
               ))}
             </div>

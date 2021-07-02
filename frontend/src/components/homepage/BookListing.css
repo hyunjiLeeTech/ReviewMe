@@ -1,11 +1,3 @@
-.books {
-  display: flex;
-  margin-top: 15px;
-  flex-wrap: wrap;
-  align-content: center;
-  justify-content: flex-start;
-  margin-left: 100px;
-}
 .bookContainer {
   width: 195px;
   height: 350px;
@@ -13,6 +5,10 @@
   padding: 0.5rem;
 }
 
+.bookLink {
+  text-decoration: none;
+  color: black;
+}
 .bookContainer img {
   max-width: 100%;
   min-height: 250px;
@@ -30,46 +26,14 @@
   font-weight: bold;
 }
 
-.booksSection h4 {
-  margin-top: 40px;
-  margin-left: 340px;
-  align-items: center;
-}
-
 .bookContainer .author {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-@media screen and (max-width: 534px) {
-  .booksSection h4 {
-    margin-top: 40px;
-    margin-left: 85px;
-    align-items: center;
-  }
-}
-
-@media (min-width: 535px) and (max-width: 734px) {
-  .booksSection h4 {
-    margin-top: 40px;
-    margin-left: 120px;
-    align-items: center;
-  }
-}
-
-@media (min-width: 735px) and (max-width: 1700px) {
-  .booksSection h4 {
-    margin-top: 40px;
-    margin-left: 20px;
-    align-items: center;
-  }
-}
-
-@media (min-width: 1701px) {
-  .booksSection h4 {
-    margin-top: 40px;
-    margin-left: 340px;
-    align-items: center;
-  }
+.bookLink:hover,
+.bookLink:active {
+  text-decoration: none;
+  color: black;
 }

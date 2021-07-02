@@ -25,3 +25,12 @@
     grid-template-columns: 200px 200px;
   }
 }
+.bookLink:hover,
+.bookLink:active {
+  text-decoration: none;
+  color: black;
+}
+.bookLink {
+  text-decoration: none;
+  color: black;
+}
