@@ -13,6 +13,7 @@ import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
+import Profile from "./components/ProfilePage/Profile";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
 import NotFound from "./components/NotFoundPage/NotFound";
@@ -53,6 +54,9 @@ function App() {
           </Route>
           <Route exact path="/wish-list">
             <BookShelf title="Wish List" />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
           <Route path="/resetpassword">
             <ResetPassword />
