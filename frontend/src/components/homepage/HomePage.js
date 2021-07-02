@@ -201,10 +201,10 @@ const HomePage = () => {
             <div className="sorting-selector">
               <div className="sorting-selector__control">
                 <select name="sorting">
-                  <option value="reviews_hi_low">Reviews Hi-Low</option>
-                  <option value="reviews_low_hi">Reviews Low-Hi</option>
-                  <option value="rating_hi_low">Rating Hi-Low</option>
-                  <option value="rating_low_hi">Rating Low-Hi</option>
+                  <option value="reviews_hi_low">Reviews: Hi to Low</option>
+                  <option value="reviews_low_hi">Reviews: Low to Hi</option>
+                  <option value="rating_hi_low">Rating: Hi to Low</option>
+                  <option value="rating_low_hi">Rating: Low to Hi</option>
                 </select>
               </div>
             </div>
