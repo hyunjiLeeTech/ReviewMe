@@ -13,8 +13,8 @@ import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
-
 import ReportManager from "./components/ReportManager/ReportManager";
 
 function App() {
@@ -52,6 +52,9 @@ function App() {
           </Route>
           <Route exact path="/wish-list">
             <BookShelf title="Wish List" />
+          </Route>
+          <Route path="/resetpassword">
+            <ResetPassword />
           </Route>
           <Route exact path="/report-admin">
             <ReportManager />
