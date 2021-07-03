@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Footer.css";
-import logo from "../../images/logo.png";
 const Footer = () => {
   return (
     <footer className="footer mt-auto py-3 text-white">
@@ -14,7 +13,10 @@ const Footer = () => {
             </Link>
           </div>
           <div className="col-md-4">
-            <img src={logo} alt="Review Me" />
+            <img
+              src={`${process.env.PUBLIC_URL}/images/logo.png`}
+              alt="Review Me"
+            />
           </div>
           <div className="col">
             <Link className="text-white" id="footer-link" to="/about">
