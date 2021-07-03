@@ -29,18 +29,32 @@ const ResetPassword = () => {
     return (
         <div className="container light-style">
 
-            <div className="card">
+            <h1 className="card-title">
+                <center>Account Settings</center>
+            </h1>
 
-                <h1 className="card-title">
-                    <center>Account Settings</center>
-                </h1>
+            <div className="card">
 
                 <div className="row no-gutters row-bordered row-border-light">
 
                     <div className="col-md-3 pt-0">
                         <div className="list-group list-group-flush account-settings-links ">
-                            <Link className="list-group-item list-group-item-action" data-toggle="list" to="/profile">Profile</Link>
-                            <Link className="list-group-item list-group-item-action active" data-toggle="list" to="/resetpassword">Reset Password</Link>
+                            <Link
+                                className="list-group-item list-group-item-action"
+                                data-toggle="list"
+                                to="/profile"
+                            >
+                                Profile
+                            </Link>
+                            <div>
+                                <Link
+                                    className="list-group-item list-group-item-action active"
+                                    data-toggle="list"
+                                    to="/resetpassword"
+                                >
+                                    Reset Password
+                                </Link>
+                            </div>
                         </div>
                     </div>
 
