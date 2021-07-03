@@ -1,12 +1,13 @@
 import React from "react";
 
+import Title from "../style/Title";
 import "./TermCondition.css";
 
 const TermCondition = () => {
   return (
     <div className="container mt-5">
       <div className="text-center">
-        <h1>Terms and Conditions</h1>
+        <Title name="Terms and Conditions" />
       </div>
       <div className="mx-4 mb-4">
         <h4 className="last-update">Last Updated: June 29, 2020</h4>

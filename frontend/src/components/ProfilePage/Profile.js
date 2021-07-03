@@ -1,7 +1,9 @@
 import React from "react";
-import "./Profile.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+
+import Title from "../style/Title";
+import "./Profile.css";
 
 const Profile = () => {
   const dobExpression =
@@ -46,9 +48,9 @@ const Profile = () => {
 
   return (
     <div className="container light-style">
-      <h1 className="card-title">
-        <center>Account Settings</center>
-      </h1>
+      <div className="card-title">
+        <Title name="Account Settings" />
+      </div>
 
       <div className="card overflow-hidden">
         <div className="row no-gutters row-bordered row-border-light">

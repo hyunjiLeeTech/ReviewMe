@@ -1,4 +1,4 @@
-import Title from "../Title";
+import Title from "../style/Title";
 import BookItem from "./BookItem";
 
 import "./BookShelf.css";

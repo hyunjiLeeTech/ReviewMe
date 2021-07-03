@@ -5,13 +5,15 @@ import koala from "../../images/koala.png";
 import rabbit from "../../images/rabbit.png";
 import toucan from "../../images/toucan.png";
 
+import Title from "../style/Title";
+
 import "./AboutUs.css";
 
 const AboutUs = () => {
   return (
     <div className="container mt-5">
       <div className="text-center">
-        <h1>About Us</h1>
+        <Title name="About Us" />
         <h4>Meet our team of developers! </h4>
       </div>
 

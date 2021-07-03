@@ -1,6 +1,8 @@
 import React from "react";
 
 import emailjs from "emailjs-com";
+
+import Title from "../style/Title";
 import "./ContactUs.css";
 
 export default function ContactUs() {
@@ -28,7 +30,7 @@ export default function ContactUs() {
     <div className="card">
       <div className="card-body">
         <div className="mb-4 text-center">
-          <h1 className="card-title">Contact Us</h1>
+          <Title name="Contact Us" />
           <p className="card-subtitle">
             Please include your name, email and message and we contact you as
             soon as possible.
