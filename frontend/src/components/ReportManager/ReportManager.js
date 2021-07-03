@@ -2,8 +2,10 @@ import React from "react";
 import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
 import SpeakerNotesOffOutlinedIcon from "@material-ui/icons/SpeakerNotesOffOutlined";
 
-import "./ReportManager.css";
 import ReportComment from "./ReportComment";
+import Title from "../style/Title";
+
+import "./ReportManager.css";
 
 const ReportManager = (props) => {
   const commentList = [
@@ -62,7 +64,9 @@ const ReportManager = (props) => {
           </div>
         </div>
         <div className="col py-3">
-          <h1 className="text-center mt-3">Reports</h1>
+          <div className="text-center mt-3">
+            <Title name="Reports" />
+          </div>
           <div className="row d-flex justify-content-center">
             <div className="col-md-8">
               <div id="spoiler" className="cards">

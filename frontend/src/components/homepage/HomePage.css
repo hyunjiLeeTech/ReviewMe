@@ -1,0 +1,218 @@
+.grid {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 0 300px;
+}
+
+.searchBar {
+  font: inherit;
+  border-radius: 4px;
+
+  border: 2px solid white;
+  background-color: #f0b4c1;
+  height: 300px;
+  width: 240px;
+  text-align: left;
+  padding: 0.25rem;
+  margin-top: 60px;
+  margin-right: 10px;
+  padding-left: 8px;
+  padding-top: 10px;
+  justify-content: flex-start;
+  box-shadow: 0 0 6px 6px rgba(0, 0, 0, 0.35), 6px 7px 0 0 rgba(0, 0, 0, 0.35);
+}
+
+.searchBar input {
+  width: 100%;
+  height: 2rem;
+  border-radius: 1.625rem;
+  color: #6d597a;
+  outline: none;
+  margin-bottom: 10px;
+}
+
+.searchBar input:active {
+  border-radius: 1.625rem;
+  -webkit-border-radius: 1.625rem;
+}
+
+.searchBar button {
+  width: 90px;
+  height: 40px;
+  background-color: #6d597a;
+  margin: 0 10px;
+  color: white;
+  margin-top: 20px;
+  margin-left: 10px;
+  border-radius: 1.625rem;
+}
+
+.searchBar.category-selector {
+  color: white;
+  text-align: center;
+}
+
+.category-selector__control {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 220px;
+  margin-bottom: 10px;
+}
+
+.category-selector select {
+  font: inherit;
+  text-align: left;
+  height: 2rem;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  font-weight: bold;
+  color: #6d597a;
+  border-radius: 9px;
+}
+
+.sorting-selector {
+  color: white;
+  text-align: center;
+}
+
+.sorting-selector__control {
+  display: flex;
+  width: 220px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+.sorting-selector select {
+  font: inherit;
+  text-align: left;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 100%;
+  font-weight: bold;
+  color: #6d597a;
+  border-radius: 9px;
+}
+
+.booksSection h4 {
+  margin-top: 40px;
+  margin-left: 340px;
+  align-items: center;
+}
+.books {
+  display: flex;
+  margin-top: 15px;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: flex-start;
+  margin-left: 100px;
+}
+@media screen and (max-width: 534px) {
+  .grid {
+    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .searchBar {
+    margin-left: 30px;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 25px;
+    align-items: center;
+  }
+  .books {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 5px;
+  }
+}
+
+@media (min-width: 535px) and (max-width: 734px) {
+  .grid {
+    margin: 0 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .searchBar {
+    margin-left: 100px;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 80px;
+    align-items: center;
+  }
+  .books {
+    margin-left: 20px;
+  }
+}
+
+@media (min-width: 735px) and (max-width: 991px) {
+  .grid {
+    margin: 0 110px 0 80px;
+    display: flex;
+    justify-content: space-around;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 50px;
+    align-items: center;
+  }
+  .books {
+    margin-left: 20px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1170px) {
+  .grid {
+    margin: 0 100px 0 80px;
+    display: flex;
+    justify-content: space-evenly;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 100px;
+    align-items: center;
+  }
+  .books {
+    margin-left: 20px;
+  }
+}
+
+@media (min-width: 1171px) and (max-width: 1500px) {
+  .grid {
+    margin: 0 110px 0 80px;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 280px;
+    align-items: center;
+  }
+  .books {
+    margin-left: 20px;
+  }
+}
+
+@media (min-width: 1501px) and (max-width: 1700px) {
+  .grid {
+    display: grid;
+    grid-template-columns: auto auto;
+    margin: 0 190px 0 190px;
+  }
+  .booksSection h4 {
+    margin-top: 40px;
+    margin-left: 340px;
+    align-items: center;
+  }
+  .books {
+    margin-left: 100px;
+  }
+}

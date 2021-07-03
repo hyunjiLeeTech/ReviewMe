@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Title from "../style/Title";
+
 import "./LogIn.css";
 
 const LogIn = () => {
@@ -32,7 +34,7 @@ const LogIn = () => {
     <div className="card mt-5">
       <div className="card-body">
         <div className="mt-3 text-center">
-          <h1 className="card-title">Welcome</h1>
+          <Title name="Welcome" />
           <p className="card-subtitle">
             Don't have an account? Join us{" "}
             <Link to="/signup" className="card-link">

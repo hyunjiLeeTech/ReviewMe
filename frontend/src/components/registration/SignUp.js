@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import Title from "../style/Title";
 import "./SignUp.css";
 
 const dateRegex = RegExp(
@@ -116,7 +117,7 @@ const SignUp = () => {
     <div className="card mt-5">
       <div className="card-body">
         <div className="text-center mt-3">
-          <h1 className="card-title">Welcome</h1>
+          <Title name="Welcome" />
           <p className="card-subtitle">
             Come and join our community! Already have an account?{" "}
             <Link to="/login" className="card-link">
