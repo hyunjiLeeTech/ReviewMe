@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 
 import ReviewItem from "./ReviewItem";
@@ -40,61 +41,83 @@ const BookDetails = () => {
 
   const bookInfo = {
     kind: "books#volume",
-    id: "be2XOQ2sB_EC",
-    etag: "q9WZVe7sg6s",
-    selfLink: "https://www.googleapis.com/books/v1/volumes/be2XOQ2sB_EC",
+    id: "UwYJsklz7WkC",
+    etag: "+CoqB4vCW38",
+    selfLink: "https://www.googleapis.com/books/v1/volumes/UwYJsklz7WkC",
     volumeInfo: {
-      title: "Cooked",
-      subtitle: "A Natural History of Transformation",
-      authors: ["Michael Pollan"],
-      publisher: "Penguin UK",
-      publishedDate: "2013-04-23",
+      title: "College Cooking",
+      subtitle: "Feed Yourself and Your Friends [A Cookbook]",
+      authors: ["Megan Carle", "Jill Carle"],
+      publisher: "Ten Speed Press",
+      publishedDate: "2011-02-09",
       description:
-        "THE INSPIRATION FOR THE NEW NETFLIX SERIES 'It's not often that a life-changing book falls into one's lap ... Yet Michael Pollan's Cooked is one of them.' SundayTelegraph 'This is a love song to old, slow kitchen skills at their delicious best' Kathryn Huges, GUARDIAN BOOKS OF THE YEAR The New York Times Top Five Bestseller - Michael Pollan's uniquely enjoyable quest to understand the transformative magic of cooking Michael Pollan's Cooked takes us back to basics and first principles: cooking with fire, with water, with air and with earth. Meeting cooks from all over the world, who share their wisdom and stories, Pollan shows how cooking is at the heart of our culture and that when it gets down to it, it also fundamentally shapes our lives. Filled with fascinating facts and curious, mouthwatering tales from cast of eccentrics, Cooked explores the deepest mysteries of how and why we cook.",
+        "You have a midterm tomorrow and a fierce growl in your stomach. Your roommate just nabbed your last cup o' ramen. Do you: (A) Ignore your stomach and brew another pot of coffee? (B) Break out the PB&J? (C) Order pizza—again? (D) Make a quick trip to the grocery store? The answer's D, and College Cooking is the only study guide you'll need. Sisters Megan and Jill Carle know all about leaving a well-stocked kitchen to face an empty apartment fridge with little time to cook and very little money. They practically grew up in their parents' kitchen, but even that didn't prepare them for braving the supermarket aisles on their own. That's why they wrote COLLEGE COOKING—to share the tips and tricks they've learned while feeding themselves between late-night studying, papers, parties, and other distractions. Starting with kitchen basics, Megan and Jill first cover ingredients, equipment, and other prereqs for cooking a decent meal. They then provide more than ninety simple yet tasteworthy recipes—hearty home-style dishes, study-break snacks, healthy salads, sweet treats, and more (along with low-cal and veggie options). You'll find easy and cheap-to-make dishes, like: Tortilla Soup • Chili with Green Chile Cornbread • Chicken Salad Pita Sandwiches • Baked Penne Pasta with Italian Sausage • What's-in-the-Fridge Frittata • Peanut Butter Cup Bars • Brownie Bites You'll also find recipes for feeding a household of roommates, maximizing leftovers, cooking for a dinner date, and hosting parties with minimal prep and cost. Just consider COLLEGE COOKING your crash course in kitchen survival—and required reading for off-campus living. Reviews: “College Cooking is a must-pack, along with the fry pan and the blender, for those going back to college or starting this year.” —Arizona Republic “The recipes are quick, easy, and simple.” —Kansas City Star “This is reasonable food reasonably fast. I was going too give the cookbook to someone in college, but no way. This is going straight into my collection.” —Oakland Tribune",
       industryIdentifiers: [
         {
           type: "ISBN_13",
-          identifier: "9780141975634",
+          identifier: "9781607741213",
         },
         {
           type: "ISBN_10",
-          identifier: "0141975636",
+          identifier: "1607741210",
         },
       ],
       readingModes: {
         text: true,
         image: false,
       },
-      pageCount: 480,
+      pageCount: 160,
       printType: "BOOK",
-      categories: ["Technology & Engineering"],
-      averageRating: 4,
-      ratingsCount: 29,
+      categories: ["Cooking"],
       maturityRating: "NOT_MATURE",
       allowAnonLogging: true,
-      contentVersion: "1.13.14.0.preview.2",
+      contentVersion: "1.2.1.0.preview.2",
       panelizationSummary: {
         containsEpubBubbles: false,
         containsImageBubbles: false,
       },
       imageLinks: {
         smallThumbnail:
-          "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "http://books.google.com/books/content?id=UwYJsklz7WkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
         thumbnail:
-          "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+          "http://books.google.com/books/content?id=UwYJsklz7WkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
       },
-      language: "en",
+      language: "un",
       previewLink:
-        "http://books.google.ca/books?id=be2XOQ2sB_EC&printsec=frontcover&dq=cooking&hl=&cd=1&source=gbs_api",
+        "http://books.google.ca/books?id=UwYJsklz7WkC&printsec=frontcover&dq=cooking&hl=&cd=7&source=gbs_api",
       infoLink:
-        "http://books.google.ca/books?id=be2XOQ2sB_EC&dq=cooking&hl=&source=gbs_api",
+        "https://play.google.com/store/books/details?id=UwYJsklz7WkC&source=gbs_api",
       canonicalVolumeLink:
-        "https://books.google.com/books/about/Cooked.html?hl=&id=be2XOQ2sB_EC",
+        "https://play.google.com/store/books/details?id=UwYJsklz7WkC",
     },
     saleInfo: {
       country: "CA",
-      saleability: "NOT_FOR_SALE",
-      isEbook: false,
+      saleability: "FOR_SALE",
+      isEbook: true,
+      listPrice: {
+        amount: 7.99,
+        currencyCode: "CAD",
+      },
+      retailPrice: {
+        amount: 7.99,
+        currencyCode: "CAD",
+      },
+      buyLink:
+        "https://play.google.com/store/books/details?id=UwYJsklz7WkC&rdid=book-UwYJsklz7WkC&rdot=1&source=gbs_api",
+      offers: [
+        {
+          finskyOfferType: 1,
+          listPrice: {
+            amountInMicros: 7990000,
+            currencyCode: "CAD",
+          },
+          retailPrice: {
+            amountInMicros: 7990000,
+            currencyCode: "CAD",
+          },
+          giftable: true,
+        },
+      ],
     },
     accessInfo: {
       country: "CA",
@@ -105,19 +128,19 @@ const BookDetails = () => {
       epub: {
         isAvailable: true,
         acsTokenLink:
-          "http://books.google.ca/books/download/Cooked-sample-epub.acsm?id=be2XOQ2sB_EC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api",
+          "http://books.google.ca/books/download/College_Cooking-sample-epub.acsm?id=UwYJsklz7WkC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api",
       },
       pdf: {
         isAvailable: false,
       },
       webReaderLink:
-        "http://play.google.com/books/reader?id=be2XOQ2sB_EC&hl=&printsec=frontcover&source=gbs_api",
+        "http://play.google.com/books/reader?id=UwYJsklz7WkC&hl=&printsec=frontcover&source=gbs_api",
       accessViewStatus: "SAMPLE",
       quoteSharingAllowed: false,
     },
     searchInfo: {
       textSnippet:
-        "&#39; SundayTelegraph &#39;This is a love song to old, slow kitchen skills at their delicious best&#39; Kathryn Huges, GUARDIAN BOOKS OF THE YEAR The New York Times Top Five Bestseller - Michael Pollan&#39;s uniquely enjoyable quest to understand the ...",
+        "I was going too give the cookbook to someone in college, but no way. This is going straight into my collection.” —Oakland Tribune",
     },
   };
 
@@ -144,6 +167,12 @@ const BookDetails = () => {
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+
+  const openInNewTab = (url) => {
+    console.log(url);
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+    if (newWindow) newWindow.opener = null;
   };
 
   return (
@@ -174,10 +203,20 @@ const BookDetails = () => {
       <div className="row justify-content-center">
         <div className="col-lg-9 col-11 ">
           <div className="buttonContainer">
-            <Button name="Wish List" isMargin={true} />
-            <Button name="Library" isMargin={true} />
-            <Button name="Rent / Borrow" isMargin={true} />
-            <Button name="Preview" isMargin={false} />
+            <Button name="Wish List" isMargin={true} isRedirect={false} />
+            <Button name="Library" isMargin={true} isRedirect={false} />
+            <Button
+              name="Rent / Borrow"
+              isMargin={true}
+              isRedirect={true}
+              link={bookInfo.saleInfo.buyLink}
+            />
+            <Button
+              name="Preview"
+              isMargin={false}
+              isRedirect={true}
+              link={bookInfo.volumeInfo.previewLink}
+            />
           </div>
           <div className="subContainer">
             <h3>Description</h3>
