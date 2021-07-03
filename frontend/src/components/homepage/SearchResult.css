@@ -1,0 +1,36 @@
+@media screen and (min-width: 768px) {
+  .movie_image {
+    width: 50%;
+    margin-right: 30px;
+  }
+  .movie_header {
+    width: 70%;
+  }
+  .movie-info.grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .movie_image {
+    width: 50%;
+    margin-right: 30px;
+  }
+  .movie_header {
+    width: 70%;
+  }
+  .movie-info.grid {
+    display: grid;
+    grid-template-columns: 200px 200px;
+  }
+}
+.bookLink:hover,
+.bookLink:active {
+  text-decoration: none;
+  color: black;
+}
+.bookLink {
+  text-decoration: none;
+  color: black;
+}

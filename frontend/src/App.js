@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -13,6 +18,8 @@ import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
+import HomePage from "./components/homepage/HomePage";
+import SearchResult from "./components/homepage/SearchResult";
 import Profile from "./components/ProfilePage/Profile";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
@@ -24,9 +31,16 @@ function App() {
     <Router>
       <div className="App">
         <Header />
+
         <Switch>
           <Route exact path="/">
-            <h1>Home</h1>
+            <Redirect to="/homepage" />
+          </Route>
+          <Route path="/homepage">
+            <HomePage />
+          </Route>
+          <Route path="/search">
+            <SearchResult />
           </Route>
           <Route path="/contact-us">
             <ContactUs />
@@ -71,6 +85,7 @@ function App() {
             <NotFound />
           </Route>
         </Switch>
+
         <Footer />
       </div>
     </Router>
