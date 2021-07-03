@@ -89,7 +89,7 @@ const bookList = [
   },
   {
     title: "Cooked",
-    id: "be2XOQ2sB_EC",
+    id: "be2XOQ2sB_ED",
     author: "Michael Pollan",
     date: 2013,
     category: "cooking",
@@ -133,9 +133,9 @@ const HomePage = () => {
     let filtered = [];
     if (
       selectedCategory &&
-      bookName === "" &&
-      year === "" &&
-      authorName === ""
+      bookName !== "" &&
+      year !== "" &&
+      authorName !== ""
     ) {
       console.log(selectedCategory);
       const filteredArray = bookList.filter((entry) => {
@@ -181,6 +181,7 @@ const HomePage = () => {
     setBookName("");
     setAuthorName("");
     setYear("");
+    setSelectedCategory("");
   };
   return (
     <>
@@ -215,6 +216,9 @@ const HomePage = () => {
                   value={selectedCategory}
                   onChange={filterCategoryHandler}
                 >
+                  <option selected disabled>
+                    Choose an option
+                  </option>
                   <option value="action">Action</option>
                   <option value="adventure">Adventure</option>
                   <option value="comic_book">Comic Book</option>
