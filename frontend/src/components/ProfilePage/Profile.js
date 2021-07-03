@@ -1,23 +1,22 @@
 import React from "react";
-import "./Profile.css";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Profile = () => {
+import Title from "../style/Title";
+import "./Profile.css";
 
+const Profile = () => {
   const initialState = {
     firstName: "John",
     lastName: "Doe",
     nickname: "JohnDoe12",
     gender: "Male",
     dob: "11/13/1999",
-    email: "johndoe@mail.com"
+    email: "johndoe@mail.com",
   };
 
-  const [
-    { firstName, lastName, nickname, gender, dob, email },
-    setState
-  ] = useState(initialState);
+  const [{ firstName, lastName, nickname, gender, dob, email }, setState] =
+    useState(initialState);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -43,7 +42,9 @@ const Profile = () => {
   };
 
   const validateNicknameHandler = () => {
-    setValidateNickname((nickname.trim().length >= 3 && nickname.trim().length <= 15) ? true : false);
+    setValidateNickname(
+      nickname.trim().length >= 3 && nickname.trim().length <= 15 ? true : false
+    );
   };
 
   const editButtonHandler = () => {
@@ -53,11 +54,14 @@ const Profile = () => {
     document.getElementById("edit").style.display = "none";
     document.getElementById("save").style.display = "inline";
     document.getElementById("cancel").style.display = "inline";
-  }
+  };
 
   const saveChangesButtonHandler = () => {
-
-    if (validateFirstName === true && validateLastName === true && validateNickname === true) {
+    if (
+      validateFirstName === true &&
+      validateLastName === true &&
+      validateNickname === true
+    ) {
       document.getElementById("fname").disabled = true;
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
@@ -65,8 +69,7 @@ const Profile = () => {
       document.getElementById("save").style.display = "none";
       document.getElementById("cancel").style.display = "none";
     }
-
-  }
+  };
 
   const cancelButtonHandler = () => {
     clearState();
@@ -76,19 +79,15 @@ const Profile = () => {
     document.getElementById("edit").style.display = "inline";
     document.getElementById("save").style.display = "none";
     document.getElementById("cancel").style.display = "none";
-  }
-
+  };
 
   return (
-
     <div className="container light-style">
       <h1 className="card-title">
-        <center>Account Settings</center>
+        <Title name="Account Settings" />
       </h1>
       <div className="card">
-
         <div className="row no-gutters row-bordered row-border-light">
-
           <div className="col-md-3 pt-0">
             <div className="list-group list-group-flush account-settings-links ">
               <div className="color">
@@ -113,16 +112,15 @@ const Profile = () => {
 
           <div className="col-md-9">
             <div className="tab-content">
-
               <div className="tab-pane fade active show" id="profile">
                 <div className="card-body">
                   <form className="row g-3">
-
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateFirstName === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateFirstName === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">First Name</label>
                           <input
@@ -135,14 +133,20 @@ const Profile = () => {
                             onChange={onChange}
                             disabled
                           />
-                          {validateFirstName === false ? <p>Please enter your First Name</p> : ""}
+                          {validateFirstName === false ? (
+                            <p>Please enter your First Name</p>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     </div>
 
                     <div className="col-md-6">
                       <div className="form-group">
-                        <div className={` ${validateLastName === false ? "invalid" : ""
+                        <div
+                          className={` ${
+                            validateLastName === false ? "invalid" : ""
                           }`}
                         >
                           <label className="form-label">Last Name</label>
@@ -156,14 +160,20 @@ const Profile = () => {
                             onChange={onChange}
                             disabled
                           />
-                          {validateLastName === false ? <p>Please enter your Last Name</p> : ""}
+                          {validateLastName === false ? (
+                            <p>Please enter your Last Name</p>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     </div>
 
                     <div className="col-md-6">
                       <div className="form-group">
-                        <div className={` ${validateNickname === false ? "invalid" : ""
+                        <div
+                          className={` ${
+                            validateNickname === false ? "invalid" : ""
                           }`}
                         >
                           <label className="form-label">Nickname</label>
@@ -177,18 +187,18 @@ const Profile = () => {
                             onChange={onChange}
                             disabled
                           />
-                          {validateNickname === false ? <p>Nickname must not be more than 15 characters</p> : ""}
+                          {validateNickname === false ? (
+                            <p>Nickname must not be more than 15 characters</p>
+                          ) : (
+                            ""
+                          )}
                         </div>
                       </div>
                     </div>
 
                     <div className="col-md-6">
                       <label className="form-label">Gender</label>
-                      <select
-                        className="form-select"
-                        value={gender}
-                        disabled
-                      >
+                      <select className="form-select" value={gender} disabled>
                         <option> {options[0]} </option>
                         <option> {options[1]} </option>
                         <option> {options[2]} </option>
@@ -218,37 +228,42 @@ const Profile = () => {
                         />
                       </div>
                     </div>
-
                   </form>
                 </div>
 
                 <div className="text-center mt-3">
-                  <button type="button" id="edit" className="button1 mb-4"
-                    onClick={editButtonHandler} >
+                  <button
+                    type="button"
+                    id="edit"
+                    className="button1 mb-4"
+                    onClick={editButtonHandler}
+                  >
                     Edit
                   </button>
-                  <button type="button" id="save" className="button2 mb-4"
-                    onClick={saveChangesButtonHandler}>
+                  <button
+                    type="button"
+                    id="save"
+                    className="button2 mb-4"
+                    onClick={saveChangesButtonHandler}
+                  >
                     Save changes
                   </button>
-                  <button type="button" id="cancel" className="button3 mb-4"
-                    onClick={cancelButtonHandler}>
+                  <button
+                    type="button"
+                    id="cancel"
+                    className="button3 mb-4"
+                    onClick={cancelButtonHandler}
+                  >
                     Cancel
                   </button>
                 </div>
-
               </div>
-
             </div>
           </div>
-
         </div>
-
       </div>
-
-    </div >
-
+    </div>
   );
-}
+};
 
 export default Profile;

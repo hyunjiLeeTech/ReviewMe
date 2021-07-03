@@ -1,75 +1,75 @@
-body{
-    background: #f5f5f5;
-    margin:0;
+body {
+  background: #f5f5f5;
+  margin: 0;
 }
 
-.card-title{
-    padding-bottom: 20px;   
+.card-title {
+  padding-bottom: 20px;
 }
 
-.card{
-    margin-top: 20px;
-    background-color: white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+.card {
+  margin-top: 20px;
+  background-color: white;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .button1 {
-    border-radius: 1.5rem;
-    width: 160px;
-    padding: 2%;
-    color: #6c757d;
-    font-weight: bold;
-    margin-top: 10px;
+  border-radius: 1.5rem;
+  width: 160px;
+  padding: 2%;
+  color: #6c757d;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
-.button2{ 
-    width: 160px;
-    height: 50px;
-    background-color: #6d597a;
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
-    margin-right: 20px;
-    display: none;
-}       
+.button2 {
+  width: 160px;
+  height: 50px;
+  background-color: #6d597a;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-right: 20px;
+  display: none;
+}
 
-.button3{
-    width: 160px;
-    height: 50px;
-    background-color: white;
-    color: #6d597a;
-    font-weight: bold;
-    margin-top: 10px;
-    display: none;
-}       
+.button3 {
+  width: 160px;
+  height: 50px;
+  background-color: white;
+  color: #6d597a;
+  font-weight: bold;
+  margin-top: 10px;
+  display: none;
+}
 
-.invalid input{
-    border-color: red;
+.invalid input {
+  border-color: red;
 }
 
 .text-light {
-    color: #babbbc !important;
+  color: #babbbc !important;
 }
 
-.color{
-    background-color: #fff0f3;
+.color {
+  background-color: #fff0f3;
 }
 
 .account-settings-links .list-group-item.active {
-    font-weight: bold !important;
-    background-color: lightpink;
+  font-weight: bold !important;
+  background-color: lightpink;
 }
 
 html:not(.dark-style) .account-settings-links .list-group-item.active {
-    background: white !important;
+  background: white !important;
 }
 
 .light-style .account-settings-links .list-group-item {
-    padding: 0.85rem 1.5rem;
-    border-color:  palevioletred !important;     
+  padding: 0.85rem 1.5rem;
+  border-color: palevioletred !important;
 }
 
 .light-style .account-settings-links .list-group-item.active {
-    color: #4e5155 !important;
-    background-color: blanchedalmond;
+  color: #4e5155 !important;
+  background-color: blanchedalmond;
 }

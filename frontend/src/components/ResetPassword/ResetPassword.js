@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./ResetPassword.css";
 import { useState } from "react";
+
+import Title from "../style/Title";
+import "./ResetPassword.css";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
@@ -26,10 +28,10 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container light-style">
-      <h1 className="card-title">
-        <center>Account Settings</center>
-      </h1>
+    <div className="container light-style mb-5">
+      <div className="card-title">
+        <Title name="Account Settings" />
+      </div>
 
       <div className="card overflow-hidden">
         <div className="row no-gutters row-bordered row-border-light">
@@ -105,13 +107,9 @@ const ResetPassword = () => {
                   </div>
                 </div>
 
-                <div className="text-center mt-3">
+                <div className="text-center mt-3 mb-3">
                   <button type="button" className="button mb-4">
                     Save changes
-                  </button>
-                  &nbsp;
-                  <button type="button" className="button mb-4">
-                    Cancel
                   </button>
                 </div>
               </div>

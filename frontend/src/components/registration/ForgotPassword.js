@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+import Title from "../style/Title";
 import "./ForgotPassword.css";
 
 const ForgotPassword = () => {
@@ -22,7 +23,9 @@ const ForgotPassword = () => {
     <div className="card">
       <div className="card-body">
         <div className="text-center">
-          <h1 className="card-title">Forgot Password?</h1>
+          <div className="card-title">
+            <Title name="Forgot Password?" />
+          </div>
           <h6 className="card-subtitle mx-2">
             {" "}
             Please provide the email you enter to login{" "}

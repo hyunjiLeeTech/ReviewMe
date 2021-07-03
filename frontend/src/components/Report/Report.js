@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
-import Title from "../Title";
+import Title from "../style/Title";
 import ReportedReview from "./ReportedReview";
 
 import "./Report.css";

@@ -1,10 +1,10 @@
-import Title from "../Title";
+import Title from "../style/Title";
 import BookItem from "./BookItem";
 
 import "./BookShelf.css";
 
 const BookShelf = (props) => {
-  const { title } = props;
+  const { title, subTitle } = props;
   const bookShelfList = [
     {
       title: "Cooked",
@@ -88,6 +88,7 @@ const BookShelf = (props) => {
   return (
     <div className="container bookShelfContainer">
       <Title name={title} />
+      <h5 className="subTitle">{subTitle}</h5>
       <div className="row justify-content-first bookItemcontainer">
         {bookShelfList.map((data, index) => (
           <BookItem
