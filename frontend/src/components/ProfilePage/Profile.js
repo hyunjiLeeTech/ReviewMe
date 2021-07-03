@@ -5,12 +5,28 @@ import { useState } from "react";
 
 const Profile = () => {
 
-  const [firstName, setFirstName] = useState("John");
-  const [lastName, setLastName] = useState("Doe");
-  const [nickname, setNickname] = useState("JohnDoe12");
-  const [gender, setGender] = useState("Male");
-  const [dob, setDob] = useState("11/13/1999");
-  const [email, setEmail] = useState("johndoe@mail.com");
+  const initialState = {
+    firstName: "John",
+    lastName: "Doe",
+    nickname: "JohnDoe12",
+    gender: "Male",
+    dob: "11/13/1999",
+    email: "johndoe@mail.com"
+  };
+
+  const [
+    { firstName, lastName, nickname, gender, dob, email },
+    setState
+  ] = useState(initialState);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setState((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const clearState = () => {
+    setState({ ...initialState });
+  };
 
   const options = ["Male", "Female", "Other"];
 
@@ -34,8 +50,9 @@ const Profile = () => {
     document.getElementById("fname").disabled = false;
     document.getElementById("lname").disabled = false;
     document.getElementById("nname").disabled = false;
-    document.getElementById("edit").disabled = true;
-    document.getElementById("save").disabled = false;
+    document.getElementById("edit").style.display = "none";
+    document.getElementById("save").style.display = "inline";
+    document.getElementById("cancel").style.display = "inline";
   }
 
   const saveChangesButtonHandler = () => {
@@ -44,11 +61,23 @@ const Profile = () => {
       document.getElementById("fname").disabled = true;
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
-      document.getElementById("edit").disabled = false;
-      document.getElementById("save").disabled = true;
+      document.getElementById("edit").style.display = "inline";
+      document.getElementById("save").style.display = "none";
+      document.getElementById("cancel").style.display = "none";
     }
 
   }
+
+  const cancelButtonHandler = () => {
+    clearState();
+    document.getElementById("fname").disabled = true;
+    document.getElementById("lname").disabled = true;
+    document.getElementById("nname").disabled = true;
+    document.getElementById("edit").style.display = "inline";
+    document.getElementById("save").style.display = "none";
+    document.getElementById("cancel").style.display = "none";
+  }
+
 
   return (
 
@@ -97,14 +126,13 @@ const Profile = () => {
                         >
                           <label className="form-label">First Name</label>
                           <input
+                            name="firstName"
                             id="fname"
                             type="text"
                             className="form-control"
                             value={firstName}
                             onBlur={validatedFirstNameHandler}
-                            onChange={(event) => {
-                              setFirstName(event.target.value);
-                            }}
+                            onChange={onChange}
                             disabled
                           />
                           {validateFirstName === false ? <p>Please enter your First Name</p> : ""}
@@ -119,14 +147,13 @@ const Profile = () => {
                         >
                           <label className="form-label">Last Name</label>
                           <input
+                            name="lastName"
                             id="lname"
                             type="text"
                             className="form-control"
                             value={lastName}
                             onBlur={validatedLastNameHandler}
-                            onChange={(event) => {
-                              setLastName(event.target.value);
-                            }}
+                            onChange={onChange}
                             disabled
                           />
                           {validateLastName === false ? <p>Please enter your Last Name</p> : ""}
@@ -141,14 +168,13 @@ const Profile = () => {
                         >
                           <label className="form-label">Nickname</label>
                           <input
+                            name="nickname"
                             id="nname"
                             type="text"
                             className="form-control"
                             value={nickname}
                             onBlur={validateNicknameHandler}
-                            onChange={(event) => {
-                              setNickname(event.target.value);
-                            }}
+                            onChange={onChange}
                             disabled
                           />
                           {validateNickname === false ? <p>Nickname must not be more than 15 characters</p> : ""}
@@ -204,6 +230,10 @@ const Profile = () => {
                   <button type="button" id="save" className="button2 mb-4"
                     onClick={saveChangesButtonHandler}>
                     Save changes
+                  </button>
+                  <button type="button" id="cancel" className="button3 mb-4"
+                    onClick={cancelButtonHandler}>
+                    Cancel
                   </button>
                 </div>
 
