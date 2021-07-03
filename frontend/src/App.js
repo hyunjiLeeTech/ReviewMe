@@ -64,10 +64,16 @@ function App() {
             <BookDetails />
           </Route>
           <Route exact path="/library">
-            <BookShelf title="Library" />
+            <BookShelf
+              title="Library"
+              subTitle="Keep the books you've already read!"
+            />
           </Route>
           <Route exact path="/wish-list">
-            <BookShelf title="Wish List" />
+            <BookShelf
+              title="Wish List"
+              subTitle="Store the books you want to read in the future!"
+            />
           </Route>
           <Route path="/profile">
             <Profile />
