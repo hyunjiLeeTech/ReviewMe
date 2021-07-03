@@ -44,7 +44,7 @@ const SliderImage = (props) => {
   return (
     <Slider {...settings}>
       {props.bookList.map((post, index) => (
-        <div className="slidePoster">
+        <div key={index} className="slidePoster">
           <Link to={`/details/${post.id}`}>
             <img className="slideImg" key={index} src={post.image} alt="" />
           </Link>

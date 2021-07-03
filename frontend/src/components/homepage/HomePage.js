@@ -11,7 +11,7 @@ const bookList = [
     id: "be2XOQ2sB_EC",
     author: "Michael Pollan",
     date: 2013,
-    category: "cooking",
+    category: "Cooking",
     rating: 5,
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -21,7 +21,7 @@ const bookList = [
     id: "5KqxDwAAQBAJ",
     author: "Clarkson Potter, You Suck at Cooking",
     date: 2019,
-    category: "cooking",
+    category: "Cooking",
     rating: 4,
     image:
       "http://books.google.com/books/content?id=5KqxDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -32,7 +32,7 @@ const bookList = [
     id: "QWrVBAAAQBAJ",
     author: "Amanda Hesser",
     date: 2010,
-    category: "cooking",
+    category: "Cooking",
     rating: 2,
     image:
       "http://books.google.com/books/content?id=QWrVBAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -42,7 +42,7 @@ const bookList = [
     id: "TB4FEAAAQBAJ",
     author: "Laurie Colwin",
     date: 2010,
-    category: "cooking",
+    category: "Cooking",
     rating: 1,
     image:
       "http://books.google.com/books/content?id=TB4FEAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -62,7 +62,7 @@ const bookList = [
     id: "GGuODQAAQBAJ",
     author: "Anya Von Bremzen",
     date: 2014,
-    category: "cooking",
+    category: "Cooking",
     rating: 4.5,
     image:
       "http://books.google.com/books/content?id=GGuODQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -73,7 +73,7 @@ const bookList = [
     author: "Samin Nosrat",
     date: 2017,
     rating: 3.5,
-    category: "adventure",
+    category: "Adventure",
     image:
       "http://books.google.com/books/content?id=yvqxDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
@@ -82,17 +82,17 @@ const bookList = [
     id: "ROJ-DwAAQBAJ",
     author: "Maangchi, Martha Rose Shulman",
     date: 2019,
-    category: "cooking",
+    category: "Cooking",
     rating: 5,
     image:
       "http://books.google.com/books/content?id=ROJ-DwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
   {
     title: "Cooked",
-    id: "be2XOQ2sB_EC",
+    id: "be2XOQ2sB_ED",
     author: "Michael Pollan",
     date: 2013,
-    category: "cooking",
+    category: "Cooking",
     rating: 1,
     image:
       "http://books.google.com/books/content?id=be2XOQ2sB_EC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -102,7 +102,7 @@ const bookList = [
     id: "A9hhDwAAQBAJ",
     author: "Carla Lalli Music",
     date: 2019,
-    category: "action",
+    category: "Action",
     rating: 4,
     image:
       "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -112,7 +112,7 @@ const bookList = [
     id: "az8pDwAAQBAJ",
     author: "Stuart Farrimond",
     date: 2017,
-    category: "cooking",
+    category: "Cooking",
     rating: 2.5,
     image:
       "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -181,6 +181,7 @@ const HomePage = () => {
     setBookName("");
     setAuthorName("");
     setYear("");
+    setSelectedCategory("");
   };
   return (
     <>
@@ -215,6 +216,9 @@ const HomePage = () => {
                   value={selectedCategory}
                   onChange={filterCategoryHandler}
                 >
+                  <option selected disabled>
+                    Choose an option
+                  </option>
                   <option value="action">Action</option>
                   <option value="adventure">Adventure</option>
                   <option value="comic_book">Comic Book</option>
