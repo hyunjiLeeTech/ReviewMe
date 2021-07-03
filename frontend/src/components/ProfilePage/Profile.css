@@ -3,17 +3,34 @@ body{
     margin:0;
 }
 
-.button {
+.card-title{
+    padding-bottom: 20px;   
+}
+
+.card{
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.button1 {
+    border-radius: 1.5rem;
+    width: 160px;
+    padding: 2%;
+    color: #6c757d;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+.button2{
     width: 160px;
     height: 50px;
     background-color: #6d597a;
     color: white;
+    font-weight: bold;
     margin-top: 10px;
-}
-
-.card-title{
-    padding-top:50px ;
-}
+}       
 
 .invalid input{
     border-color: red;
@@ -23,17 +40,25 @@ body{
     color: #babbbc !important;
 }
 
+.color{
+    background-color: #fff0f3;
+}
+
 .account-settings-links .list-group-item.active {
     font-weight: bold !important;
+    background-color: lightpink;
 }
+
 html:not(.dark-style) .account-settings-links .list-group-item.active {
-    background: transparent !important;
+    background: white !important;
 }
 
 .light-style .account-settings-links .list-group-item {
     padding: 0.85rem 1.5rem;
     border-color:  palevioletred !important;     
 }
+
 .light-style .account-settings-links .list-group-item.active {
     color: #4e5155 !important;
+    background-color: blanchedalmond;
 }

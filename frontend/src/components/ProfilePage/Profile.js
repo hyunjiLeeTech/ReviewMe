@@ -4,10 +4,6 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 
 const Profile = () => {
-  const dobExpression =
-    /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-  const emailExpression =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
   const [firstName, setFirstName] = useState("John");
   const [lastName, setLastName] = useState("Doe");
@@ -16,51 +12,66 @@ const Profile = () => {
   const [dob, setDob] = useState("11/13/1999");
   const [email, setEmail] = useState("johndoe@mail.com");
 
-  const [validateFirstName, setValidateFirstName] = useState();
-  const [validateLastName, setValidateLastName] = useState();
-  const [validateNickname, setValidateNickname] = useState();
-  const [validateDob, setValidateDob] = useState();
-  const [validateEmail, setValidateEmail] = useState();
-
   const options = ["Male", "Female", "Other"];
 
+  const [validateFirstName, setValidateFirstName] = useState(true);
+  const [validateLastName, setValidateLastName] = useState(true);
+  const [validateNickname, setValidateNickname] = useState(true);
+
   const validatedFirstNameHandler = () => {
-    setValidateFirstName(firstName.trim().length > 0 ? true : false);
+    setValidateFirstName(firstName.trim().length >= 3 ? true : false);
   };
 
   const validatedLastNameHandler = () => {
-    setValidateLastName(lastName.trim().length > 0 ? true : false);
+    setValidateLastName(lastName.trim().length >= 3 ? true : false);
   };
 
   const validateNicknameHandler = () => {
-    setValidateNickname(nickname.trim().length > 0 ? true : false);
+    setValidateNickname((nickname.trim().length >= 3 && nickname.trim().length <= 15) ? true : false);
   };
 
-  const validateDobHandler = () => {
-    setValidateDob(dob.match(dobExpression) ? true : false);
-  };
+  const editButtonHandler = () => {
+    document.getElementById("fname").disabled = false;
+    document.getElementById("lname").disabled = false;
+    document.getElementById("nname").disabled = false;
+    document.getElementById("edit").disabled = true;
+    document.getElementById("save").disabled = false;
+  }
 
-  const validateEmailHandler = () => {
-    setValidateEmail(email.match(emailExpression) ? true : false);
-  };
+  const saveChangesButtonHandler = () => {
+
+    if (validateFirstName === true && validateLastName === true && validateNickname === true) {
+      document.getElementById("fname").disabled = true;
+      document.getElementById("lname").disabled = true;
+      document.getElementById("nname").disabled = true;
+      document.getElementById("edit").disabled = false;
+      document.getElementById("save").disabled = true;
+    }
+
+  }
 
   return (
+
     <div className="container light-style">
       <h1 className="card-title">
         <center>Account Settings</center>
       </h1>
+      <div className="card">
 
-      <div className="card overflow-hidden">
         <div className="row no-gutters row-bordered row-border-light">
+
           <div className="col-md-3 pt-0">
             <div className="list-group list-group-flush account-settings-links ">
-              <Link
-                className="list-group-item list-group-item-action active"
-                data-toggle="list"
-                to="/profile"
-              >
-                Profile
-              </Link>
+              <div className="color">
+                <Link
+                  className="list-group-item active"
+                  data-toggle="list"
+                  to="/profile"
+                >
+                  Profile
+                </Link>
+              </div>
+
               <Link
                 className="list-group-item list-group-item-action"
                 data-toggle="list"
@@ -70,50 +81,78 @@ const Profile = () => {
               </Link>
             </div>
           </div>
+
           <div className="col-md-9">
             <div className="tab-content">
+
               <div className="tab-pane fade active show" id="profile">
                 <div className="card-body">
-                  <form className="row g-3 mt-3">
+                  <form className="row g-3">
+
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label className="form-label">First Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={firstName}
-                          onChange={(event) => {
-                            setFirstName(event.target.value);
-                          }}
-                        />
+                        <div
+                          className={` ${validateFirstName === false ? "invalid" : ""
+                            }`}
+                        >
+                          <label className="form-label">First Name</label>
+                          <input
+                            id="fname"
+                            type="text"
+                            className="form-control"
+                            value={firstName}
+                            onBlur={validatedFirstNameHandler}
+                            onChange={(event) => {
+                              setFirstName(event.target.value);
+                            }}
+                            disabled
+                          />
+                          {validateFirstName === false ? <p>Please enter your First Name</p> : ""}
+                        </div>
                       </div>
                     </div>
 
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label className="form-label">Last Name</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={lastName}
-                          onChange={(event) => {
-                            setLastName(event.target.value);
-                          }}
-                        />
+                        <div className={` ${validateLastName === false ? "invalid" : ""
+                          }`}
+                        >
+                          <label className="form-label">Last Name</label>
+                          <input
+                            id="lname"
+                            type="text"
+                            className="form-control"
+                            value={lastName}
+                            onBlur={validatedLastNameHandler}
+                            onChange={(event) => {
+                              setLastName(event.target.value);
+                            }}
+                            disabled
+                          />
+                          {validateLastName === false ? <p>Please enter your Last Name</p> : ""}
+                        </div>
                       </div>
                     </div>
 
                     <div className="col-md-6">
                       <div className="form-group">
-                        <label className="form-label">Nickname</label>
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={nickname}
-                          onChange={(event) => {
-                            setNickname(event.target.value);
-                          }}
-                        />
+                        <div className={` ${validateNickname === false ? "invalid" : ""
+                          }`}
+                        >
+                          <label className="form-label">Nickname</label>
+                          <input
+                            id="nname"
+                            type="text"
+                            className="form-control"
+                            value={nickname}
+                            onBlur={validateNicknameHandler}
+                            onChange={(event) => {
+                              setNickname(event.target.value);
+                            }}
+                            disabled
+                          />
+                          {validateNickname === false ? <p>Nickname must not be more than 15 characters</p> : ""}
+                        </div>
                       </div>
                     </div>
 
@@ -122,9 +161,7 @@ const Profile = () => {
                       <select
                         className="form-select"
                         value={gender}
-                        onChange={(target) => {
-                          setGender(target.value);
-                        }}
+                        disabled
                       >
                         <option> {options[0]} </option>
                         <option> {options[1]} </option>
@@ -139,9 +176,7 @@ const Profile = () => {
                           type="text"
                           className="form-control"
                           value={dob}
-                          onChange={(event) => {
-                            setDob(event.target.value);
-                          }}
+                          disabled
                         />
                       </div>
                     </div>
@@ -153,31 +188,37 @@ const Profile = () => {
                           type="email"
                           className="form-control"
                           value={email}
-                          onChange={(event) => {
-                            setEmail(event.target.value);
-                          }}
+                          disabled
                         />
                       </div>
                     </div>
+
                   </form>
                 </div>
 
                 <div className="text-center mt-3">
-                  <button type="button" className="button mb-4">
+                  <button type="button" id="edit" className="button1 mb-4"
+                    onClick={editButtonHandler} >
+                    Edit
+                  </button>
+                  <button type="button" id="save" className="button2 mb-4"
+                    onClick={saveChangesButtonHandler}>
                     Save changes
                   </button>
-                  &nbsp;
-                  <button type="button" className="button mb-4">
-                    Cancel
-                  </button>
                 </div>
+
               </div>
+
             </div>
           </div>
+
         </div>
+
       </div>
-    </div>
+
+    </div >
+
   );
-};
+}
 
 export default Profile;
