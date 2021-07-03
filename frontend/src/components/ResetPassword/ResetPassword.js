@@ -28,7 +28,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="container light-style">
+    <div className="container light-style mb-5">
       <div className="card-title">
         <Title name="Account Settings" />
       </div>
@@ -107,13 +107,9 @@ const ResetPassword = () => {
                   </div>
                 </div>
 
-                <div className="text-center mt-3">
+                <div className="text-center mt-3 mb-3">
                   <button type="button" className="button mb-4">
                     Save changes
-                  </button>
-                  &nbsp;
-                  <button type="button" className="button mb-4">
-                    Cancel
                   </button>
                 </div>
               </div>
