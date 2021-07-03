@@ -21,12 +21,12 @@ const ReportComment = (props) => {
         </div>
         <div className="row text-center">
           <div className="col">
-            <button className="btn mx-4" type="button">
+            <button className="btn delete mx-4" type="button">
               Delete
             </button>
           </div>
           <div className="col">
-            <button className="btn mx-4" type="button">
+            <button className="btn keep  mx-4" type="button">
               Keep
             </button>
           </div>

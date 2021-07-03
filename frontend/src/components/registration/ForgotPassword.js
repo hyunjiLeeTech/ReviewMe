@@ -20,20 +20,19 @@ const ForgotPassword = () => {
     event.preventDefault();
   };
   return (
-    <div className="card">
-      <div className="card-body">
-        <div className="text-center">
-          <div className="card-title">
-            <Title name="Forgot Password?" />
-          </div>
-          <h6 className="card-subtitle mx-2">
-            {" "}
-            Please provide the email you enter to login{" "}
-          </h6>
+    <div className="forgotpw mt-5">
+      <div className="text-center">
+        <div className="card-title ">
+          <Title name="Forgot Password?" />
         </div>
-
-        <form onSubmit={submitHandler}>
-          <div className="mb-4 mt-4">
+        <h6 className="card-subtitle mx-2">
+          {" "}
+          Please provide the email you enter to login{" "}
+        </h6>
+      </div>
+      <form onSubmit={submitHandler}>
+        <div className="d-flex justify-content-center">
+          <div className="col mb-4 mt-4">
             <div
               className={`control ${validatedEmail === false ? "invalid" : ""}`}
             >
@@ -55,16 +54,16 @@ const ForgotPassword = () => {
               )}
             </div>
           </div>
-          <div className="text-center mb-3">
-            <button type="submit" className="button">
-              Submit
-            </button>
-          </div>
-          <div className="text-center">
-            <Link to="/login">Back to login</Link>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className="text-center mb-3">
+          <button type="submit" className="btn forgotpw">
+            Submit
+          </button>
+        </div>
+        <div className="text-center mb-5">
+          <Link to="/login">Back to login</Link>
+        </div>
+      </form>
     </div>
   );
 };

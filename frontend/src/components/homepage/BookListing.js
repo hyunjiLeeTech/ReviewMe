@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import "./BookListing.css";
 
 const BookListing = (props) => {
-  console.log(props.bookId);
   const url = "/details/" + props.bookId;
   return (
     <div className="bookContainer">

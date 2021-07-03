@@ -29,11 +29,11 @@ const ResetPassword = () => {
 
   return (
     <div className="container light-style mb-5">
-      <div className="card-title">
+      <div className="card-title mb-5 mt-5">
         <Title name="Account Settings" />
       </div>
 
-      <div className="card overflow-hidden">
+      <div className="card reset-pw overflow-hidden">
         <div className="row no-gutters row-bordered row-border-light">
           <div className="col-md-3 pt-0">
             <div className="list-group list-group-flush account-settings-links ">
@@ -108,7 +108,7 @@ const ResetPassword = () => {
                 </div>
 
                 <div className="text-center mt-3 mb-3">
-                  <button type="button" className="button mb-4">
+                  <button type="button" className="btn saveChange mb-4">
                     Save changes
                   </button>
                 </div>

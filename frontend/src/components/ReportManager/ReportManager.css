@@ -16,3 +16,17 @@
   border-color: #6d597a;
   border-radius: 10px;
 }
+
+.btn.delete {
+  width: 160px;
+  height: 50px;
+  background-color: #6d597a;
+  color: white;
+}
+
+.btn.keep {
+  width: 160px;
+  height: 50px;
+  background-color: #5d597a;
+  color: white;
+}

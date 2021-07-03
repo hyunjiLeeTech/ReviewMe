@@ -1,3 +1,7 @@
+.stars {
+  margin-left: 80px;
+}
+
 @media screen and (min-width: 768px) {
   .movie_image {
     width: 50%;
@@ -23,6 +27,12 @@
   .movie-info.grid {
     display: grid;
     grid-template-columns: 200px 200px;
+  }
+  .stars {
+    margin-left: 0;
+  }
+  .book-title {
+    text-align: center;
   }
 }
 .bookLink:hover,

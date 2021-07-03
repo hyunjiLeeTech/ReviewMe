@@ -239,7 +239,7 @@ const BookDetails = () => {
                 onChange={handleCommentChange}
               ></textarea>
               <div className="commentBtn">
-                <input type="submit" value="submit" className="submitBtn" />
+                <input type="submit" value="Submit" className="btn submit" />
               </div>
             </form>
 

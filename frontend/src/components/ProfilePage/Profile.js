@@ -82,11 +82,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="container light-style">
-      <h1 className="card-title">
+    <div className="container light-style mb-5">
+      <h1 className="card-title mb-5 mt-5">
         <Title name="Account Settings" />
       </h1>
-      <div className="card">
+      <div className="card profile mt-5">
         <div className="row no-gutters row-bordered row-border-light">
           <div className="col-md-3 pt-0">
             <div className="list-group list-group-flush account-settings-links ">
@@ -110,7 +110,7 @@ const Profile = () => {
             </div>
           </div>
 
-          <div className="col-md-9">
+          <div className="col-md-9 pt-2">
             <div className="tab-content">
               <div className="tab-pane fade active show" id="profile">
                 <div className="card-body">
@@ -235,7 +235,7 @@ const Profile = () => {
                   <button
                     type="button"
                     id="edit"
-                    className="button1 mb-4"
+                    className="btn edit mb-4"
                     onClick={editButtonHandler}
                   >
                     Edit
@@ -243,7 +243,7 @@ const Profile = () => {
                   <button
                     type="button"
                     id="save"
-                    className="button2 mb-4"
+                    className="btn button2 mb-4"
                     onClick={saveChangesButtonHandler}
                   >
                     Save changes
@@ -251,7 +251,7 @@ const Profile = () => {
                   <button
                     type="button"
                     id="cancel"
-                    className="button3 mb-4"
+                    className="btn button3 mb-4"
                     onClick={cancelButtonHandler}
                   >
                     Cancel

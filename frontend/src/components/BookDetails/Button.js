@@ -15,7 +15,7 @@ const Button = (props) => {
 
   return (
     <button
-      className={isMargin === true ? "button buttonWithMargin" : "button"}
+      className={isMargin === true ? "btn buttonWithMargin" : "btn details"}
       onClick={isRedirect ? () => openInNewTab(link) : () => addData()}
     >
       {name}

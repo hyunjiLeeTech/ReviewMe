@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
 import SpeakerNotesOffOutlinedIcon from "@material-ui/icons/SpeakerNotesOffOutlined";
+import MessageIcon from "@material-ui/icons/Message";
 
 import ReportComment from "./ReportComment";
 import Title from "../style/Title";
@@ -47,6 +49,12 @@ const ReportManager = (props) => {
               className="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start"
               id="menu"
             >
+              <li className="nav-item mt-2">
+                <Link to="report-admin" className="nav-link align-middle px-0">
+                  <MessageIcon />
+                  <span className="ms-1 d-none d-sm-inline">All</span>
+                </Link>
+              </li>
               <li className="nav-item mt-2">
                 <a href="#spoiler" className="nav-link align-middle px-0">
                   <AnnouncementOutlinedIcon />

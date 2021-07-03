@@ -68,7 +68,7 @@ const Report = () => {
               ></textarea>
             </div>
             <div className="text-center">
-              <input type="submit" value="Submit" className="submitBtn" />
+              <input type="submit" value="Submit" className="btn report" />
             </div>
           </form>
         </div>

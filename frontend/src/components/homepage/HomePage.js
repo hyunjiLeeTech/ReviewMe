@@ -185,72 +185,129 @@ const HomePage = () => {
   };
   return (
     <>
-      <SliderImage bookList={bookList} />
-      <div className="grid container">
-        <div className="searchBar">
-          <form onSubmit={onSubmitHandler}>
-            <input
-              type="text"
-              name="bookName"
-              placeholder="search by book title"
-              value={bookName}
-              onChange={onChangeBookNameHandler}
-            />
-            <input
-              type="text"
-              name="author"
-              placeholder="search by author"
-              value={authorName}
-              onChange={onChangeAuthorNameHandler}
-            />
-            <input
-              type="text"
-              name="year"
-              placeholder="filter by year"
-              value={year}
-              onChange={onChangeYearHandler}
-            />
-            <div className="category-selector">
-              <div className="category-selector__control">
-                <select
-                  value={selectedCategory}
-                  onChange={filterCategoryHandler}
-                >
-                  <option selected disabled>
-                    Choose an option
-                  </option>
-                  <option value="action">Action</option>
-                  <option value="adventure">Adventure</option>
-                  <option value="comic_book">Comic Book</option>
-                  <option value="detective">Detective</option>
-                  <option value="mystery">Mystery</option>
-                  <option value="fantasy">Fantasy</option>
-                  <option value="horror">Horror</option>
-                  <option value="cooking">Cooking</option>
-                </select>
+      <div className="container">
+        <div className="my-5">
+          <div
+            className={`my-5 px-2 py-2 ${
+              searching ? "searchResult" : "searchBar"
+            }`}
+          >
+            <h5 className="mx-2 my-2">Search your Favorite Books</h5>
+            <form onSubmit={onSubmitHandler}>
+              <div className="row mt-2">
+                <div className="col">
+                  <input
+                    type="text"
+                    name="bookName"
+                    placeholder="Title"
+                    className="form-control"
+                    value={bookName}
+                    onChange={onChangeBookNameHandler}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="sorting-selector">
-              <div className="sorting-selector__control">
-                <select name="sorting">
-                  <option value="reviews_hi_low">Reviews: Hi to Low</option>
-                  <option value="reviews_low_hi">Reviews: Low to Hi</option>
-                  <option value="rating_hi_low">Rating: Hi to Low</option>
-                  <option value="rating_low_hi">Rating: Low to Hi</option>
-                </select>
+              <div className="row mt-2">
+                <div className="col">
+                  <input
+                    type="text"
+                    name="author"
+                    placeholder="Author"
+                    className="form-control"
+                    value={authorName}
+                    onChange={onChangeAuthorNameHandler}
+                  />
+                </div>
+                <div className="col">
+                  <input
+                    type="text"
+                    name="year"
+                    placeholder="Year"
+                    className="form-control"
+                    value={year}
+                    onChange={onChangeYearHandler}
+                  />
+                </div>
               </div>
-            </div>
-            <button type="submit">Search</button>
-            <button type="reset" onClick={onClearHandler}>
-              Clear
-            </button>
-          </form>
+              {searching && (
+                <div className="row mt-2">
+                  <div className="col">
+                    <div className="category-selector">
+                      <div className="category-selector__control">
+                        <select
+                          className="form-select"
+                          value={selectedCategory}
+                          onChange={filterCategoryHandler}
+                        >
+                          <option value disabled>
+                            Choose an option
+                          </option>
+                          <option value="action">Action</option>
+                          <option value="adventure">Adventure</option>
+                          <option value="comic_book">Comic Book</option>
+                          <option value="detective">Detective</option>
+                          <option value="mystery">Mystery</option>
+                          <option value="fantasy">Fantasy</option>
+                          <option value="horror">Horror</option>
+                          <option value="cooking">Cooking</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col">
+                    <div className="sorting-selector">
+                      <div className="sorting-selector__control">
+                        <select name="sorting" className="form-select">
+                          <option value="reviews_hi_low">
+                            Reviews: High to Low
+                          </option>
+                          <option value="reviews_low_hi">
+                            Reviews: Low to High
+                          </option>
+                          <option value="rating_hi_low">
+                            Rating: Hi to Low
+                          </option>
+                          <option value="rating_low_hi">
+                            Rating: Low to Hi
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div className="text-center mt-3 mb-3">
+                <div className="row">
+                  <div className="col">
+                    <button type="submit" className="btn search">
+                      Search
+                    </button>
+                  </div>
+                  <div className="col">
+                    <button
+                      type="reset"
+                      onClick={onClearHandler}
+                      className="btn reset"
+                    >
+                      Clear
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          {!searching && <div className="blur-banner"></div>}
         </div>
 
         <div>
           {!searching && (
-            <div className="booksSection">
-              <h4>Recommendation of the Week</h4>
+            <div className="mt-4">
+              <SliderImage className="mb-2" bookList={bookList} />
+            </div>
+          )}
+          {!searching && (
+            <div className="text-center mb-4">
+              <h4 className="mt-5">Recommendation of the Week</h4>
               <div className="books">
                 {bookList.map((book) => (
                   <BookListing
@@ -265,7 +322,7 @@ const HomePage = () => {
             </div>
           )}
           {searching && (
-            <div className="search_result">
+            <div className="mt-5 mb-5">
               {selectedBook.map((book, index) => (
                 <SearchResult
                   key={index}

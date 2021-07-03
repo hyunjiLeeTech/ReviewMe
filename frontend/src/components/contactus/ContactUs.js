@@ -27,7 +27,7 @@ export default function ContactUs() {
   }
 
   return (
-    <div className="card">
+    <div className="card contact mt-5">
       <div className="card-body">
         <div className="mb-4 text-center">
           <Title name="Contact Us" />
@@ -55,8 +55,8 @@ export default function ContactUs() {
           <div className="mb-4">
             <textarea className="form-control" name="message" rows="6" />
           </div>
-          <div className="d-flex justify-content-center">
-            <button className="btn" type="submit">
+          <div className="d-flex justify-content-center mb-5">
+            <button className="btn contact" type="submit">
               Send
             </button>
           </div>
