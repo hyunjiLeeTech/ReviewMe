@@ -12,6 +12,7 @@ import ContactUs from "./components/contactus/ContactUs";
 import Header from "./components/style/Header";
 import LogIn from "./components/registration/LogIn";
 import Footer from "./components/style/Footer";
+import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
@@ -19,6 +20,11 @@ import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
+import Profile from "./components/ProfilePage/Profile";
+import ResetPassword from "./components/ResetPassword/ResetPassword";
+import TermCondition from "./components/TermCondition/TermCondition";
+import NotFound from "./components/NotFoundPage/NotFound";
+import ReportManager from "./components/ReportManager/ReportManager";
 
 function App() {
   return (
@@ -38,6 +44,9 @@ function App() {
           </Route>
           <Route path="/contact-us">
             <ContactUs />
+          </Route>
+          <Route path="/about">
+            <AboutUs />
           </Route>
           <Route path="/login">
             <LogIn />
@@ -59,6 +68,21 @@ function App() {
           </Route>
           <Route exact path="/wish-list">
             <BookShelf title="Wish List" />
+          </Route>
+          <Route path="/profile">
+            <Profile />
+          </Route>
+          <Route path="/resetpassword">
+            <ResetPassword />
+          </Route>
+          <Route exact path="/report-admin">
+            <ReportManager />
+          </Route>
+          <Route path="/terms">
+            <TermCondition />
+          </Route>
+          <Route path="">
+            <NotFound />
           </Route>
         </Switch>
 

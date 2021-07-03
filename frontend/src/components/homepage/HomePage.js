@@ -133,9 +133,9 @@ const HomePage = () => {
     let filtered = [];
     if (
       selectedCategory &&
-      bookName !== "" &&
-      year !== "" &&
-      authorName !== ""
+      bookName === "" &&
+      year === "" &&
+      authorName === ""
     ) {
       console.log(selectedCategory);
       const filteredArray = bookList.filter((entry) => {

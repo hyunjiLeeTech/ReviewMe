@@ -8,7 +8,7 @@ const SearchResult = (props) => {
   console.log(props.image);
   const url = "/details/" + props.bookId;
   return (
-    <div className="card mb-3 d-flex">
+    <div className="card mb-3">
       <Link to={url} className="bookLink">
         <div className="row g-0">
           <div className="col-md-3">
