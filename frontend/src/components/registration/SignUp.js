@@ -84,7 +84,7 @@ const SignUp = () => {
   };
 
   const validatePasswordHandler = () => {
-    setValidPassword(providedPassword.trim().length > 8);
+    setValidPassword(providedPassword.trim().length >= 8);
   };
 
   const validateConfirmPasswordHandler = () => {
