@@ -27,6 +27,16 @@ const bookList = [
       "http://books.google.com/books/content?id=5KqxDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
   {
+    title: "You Suck at Cooking",
+    id: "4KqxDwAAQBAJ",
+    author: "Clarkson Potter, You Suck at Cooking",
+    date: 2018,
+    category: "Cooking",
+    rating: 4,
+    image:
+      "http://books.google.com/books/content?id=5KqxDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+  },
+  {
     title:
       "The Essential New York Times Cookbook: Classic Recipes for a New Century",
     id: "QWrVBAAAQBAJ",
@@ -108,11 +118,31 @@ const bookList = [
       "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
   },
   {
+    title: "Where Cooking Begins",
+    id: "A9hhDwAAQBHJ",
+    author: "Carla Lalli Music",
+    date: 2018,
+    category: "Action",
+    rating: 4,
+    image:
+      "http://books.google.com/books/content?id=A9hhDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+  },
+  {
     title: "The Science of Cooking",
     id: "az8pDwAAQBAJ",
     author: "Stuart Farrimond",
     date: 2017,
     category: "Cooking",
+    rating: 2.5,
+    image:
+      "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
+  },
+  {
+    title: "The Science of Cooking",
+    id: "ay8pDwAAQBAJ",
+    author: "Stuart Farrimond",
+    date: 2017,
+    category: "Action",
     rating: 2.5,
     image:
       "http://books.google.com/books/content?id=az8pDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api",
@@ -124,7 +154,8 @@ const HomePage = () => {
   const [year, setYear] = useState("");
   const [searching, setSearching] = useState(false);
   const [selectedBook, setSelectedBook] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("action");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedRating, setSelectedRating] = useState("");
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -138,22 +169,68 @@ const HomePage = () => {
       authorName === ""
     ) {
       const filteredArray = bookList.filter((entry) => {
-        return entry.category.toLowerCase() === selectedCategory;
+        return entry.category.toLowerCase() === selectedCategory.toLowerCase();
       });
-      setSelectedBook(filteredArray);
+      let newFiltered = [];
+      if (authorName !== "") {
+        newFiltered = filteredArray.filter((entry) => {
+          return entry.author.toLowerCase().search(authorName) !== -1;
+        });
+        setSelectedBook(newFiltered);
+      } else if (authorName !== "" && year !== "") {
+        filtered = newFiltered.filter((entry) => {
+          return entry.date.toString().search(year) !== -1;
+        });
+        setSelectedBook(filtered);
+      } else {
+        setSelectedBook(filteredArray);
+      }
     } else if (bookName !== "") {
+      let newFiltering = [];
       const value = bookName.toLowerCase();
       filtered = bookList.filter((entry) => {
         return entry.title.toLowerCase().search(value) !== -1;
       });
 
-      setSelectedBook(filtered);
+      if (authorName !== "") {
+        const author = authorName.toLowerCase();
+        newFiltering = filtered.filter((entry) => {
+          return entry.author.toLowerCase().search(author) !== -1;
+        });
+        setSelectedBook(newFiltering);
+      } else if (selectedCategory !== "") {
+        let filteredByCategory = filtered.filter((entry) => {
+          return entry.category.toLowerCase() === selectedCategory;
+        });
+        setSelectedBook(filteredByCategory);
+      } else if (selectedCategory !== "" && authorName !== "") {
+        const author = authorName.toLowerCase();
+        newFiltering = filtered.filter((entry) => {
+          return entry.author.toLowerCase().search(author) !== -1;
+        });
+        setSelectedBook(newFiltering);
+
+        let filteredByCategory = newFiltering.filter((entry) => {
+          return entry.category.toLowerCase().search(selectedCategory) !== -1;
+        });
+
+        setSelectedBook(filteredByCategory);
+      } else {
+        setSelectedBook(filtered);
+      }
     } else if (authorName !== "") {
       const temp = authorName.toLowerCase();
       filtered = bookList.filter((entry) => {
         return entry.author.toLowerCase().search(temp) !== -1;
       });
-      setSelectedBook(filtered);
+      if (year !== "") {
+        let newFilter = filtered.filter((entry) => {
+          return entry.date.toString().search(year) !== -1;
+        });
+        setSelectedBook(newFilter);
+      } else {
+        setSelectedBook(filtered);
+      }
     } else if (year !== "") {
       const tempYear = year;
       filtered = bookList.filter((entry) => {
@@ -161,24 +238,44 @@ const HomePage = () => {
       });
       setSelectedBook(filtered);
     }
+    if (selectedRating) {
+      if (selectedRating === "rating_hi_low") {
+        filtered = bookList.sort((a, b) => b.rating - a.rating);
+        setSelectedBook(filtered);
+        setSelectedRating("");
+      } else if (selectedRating === "rating_low_hi") {
+        filtered = bookList.sort((a, b) => a.rating - b.rating);
+        setSelectedBook(filtered);
+        setSelectedRating("");
+      }
+    }
   };
   const onChangeBookNameHandler = (name) => {
     setBookName(name.target.value);
   };
+
   const onChangeAuthorNameHandler = (author) => {
     setAuthorName(author.target.value);
   };
+
   const onChangeYearHandler = (year) => {
     setYear(year.target.value);
   };
+
   const filterCategoryHandler = (filtered) => {
     setSelectedCategory(filtered.target.value);
   };
+
+  const filterRatingHandler = (rating) => {
+    setSelectedRating(rating.target.value);
+  };
+
   const onClearHandler = () => {
     setBookName("");
     setAuthorName("");
     setYear("");
     setSelectedCategory("");
+    setSelectedRating("");
   };
   return (
     <>
@@ -234,10 +331,9 @@ const HomePage = () => {
                           className="form-select"
                           value={selectedCategory}
                           onChange={filterCategoryHandler}
+                          placeholder="Choose an option"
                         >
-                          <option value disabled>
-                            Choose an option
-                          </option>
+                          <option defaultValue>Category</option>
                           <option value="action">Action</option>
                           <option value="adventure">Adventure</option>
                           <option value="comic_book">Comic Book</option>
@@ -253,7 +349,13 @@ const HomePage = () => {
                   <div className="col">
                     <div className="sorting-selector">
                       <div className="sorting-selector__control">
-                        <select name="sorting" className="form-select">
+                        <select
+                          name="sorting"
+                          className="form-select"
+                          value={selectedRating}
+                          onChange={filterRatingHandler}
+                        >
+                          <option defaultValue>Review</option>
                           <option value="reviews_hi_low">
                             Reviews: High to Low
                           </option>
@@ -261,10 +363,10 @@ const HomePage = () => {
                             Reviews: Low to High
                           </option>
                           <option value="rating_hi_low">
-                            Rating: Hi to Low
+                            Rating: High to Low
                           </option>
                           <option value="rating_low_hi">
-                            Rating: Low to Hi
+                            Rating: Low to High
                           </option>
                         </select>
                       </div>

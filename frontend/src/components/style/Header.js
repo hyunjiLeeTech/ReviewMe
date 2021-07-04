@@ -84,7 +84,9 @@ const Header = (props) => {
                 }}
                 onClick={props.onLogout}
               >
-                Logout
+                <NavLink id="head-link" className="nav-link" to="/homepage">
+                  Logout
+                </NavLink>
               </li>
             )}
           </ul>

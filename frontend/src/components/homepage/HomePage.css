@@ -53,7 +53,70 @@
   box-shadow: 0 0 10px 10px #f8f9fa inset;
 }
 
-@media screen and (max-width: 534px) {
+@media (min-width: 250px) and (max-width: 319px) {
+  .searchBar {
+    width: 16rem;
+    margin: auto;
+    padding: 10px;
+  }
+  .blur-banner {
+    margin-left: 10px;
+    width: 250px;
+    height: 375px;
+  }
+
+  .searchResult {
+    width: 16rem;
+  }
+
+  .books {
+    margin-left: 50px;
+  }
+}
+
+@media (min-width: 320px) and (max-width: 374px) {
+  .searchBar {
+    width: 19rem;
+    margin: auto;
+    padding: 10px;
+  }
+  .blur-banner {
+    margin-left: 10px;
+    width: 300px;
+    height: 375px;
+  }
+
+  .searchResult {
+    width: 19rem;
+  }
+
+  .books {
+    margin-left: 80px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 410px) {
+  .searchBar {
+    width: 19rem;
+    margin: auto;
+    padding: 10px;
+  }
+  .blur-banner {
+    margin-left: 10px;
+    width: 300px;
+    height: 375px;
+  }
+
+  .searchResult {
+    width: 19rem;
+  }
+
+  .books {
+    margin-left: 100px;
+  }
+}
+
+@media (min-width: 411px) and (max-width: 534px) {
   .searchBar {
     width: 19rem;
     margin: auto;

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Rating } from "@material-ui/lab";
 
 import ReviewItem from "./ReviewItem";
@@ -167,12 +166,6 @@ const BookDetails = () => {
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
-  };
-
-  const openInNewTab = (url) => {
-    console.log(url);
-    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
-    if (newWindow) newWindow.opener = null;
   };
 
   return (

@@ -6,6 +6,9 @@
 }
 
 @media screen and (max-width: 768px) {
+  .search-result {
+    width: 85vw;
+  }
   .stars {
     margin-left: 0;
   }
@@ -21,4 +24,19 @@
 .bookLink {
   text-decoration: none;
   color: black;
+}
+
+@media screen and (max-width: 414px) {
+  .smallFont {
+    font-size: 15px;
+  }
+}
+@media screen and (max-width: 280px) {
+  .smallfont-desc {
+    font-size: 15px;
+  }
+
+  .smallFont {
+    font-size: 11.7px;
+  }
 }

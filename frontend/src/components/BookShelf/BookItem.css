@@ -21,3 +21,10 @@
   text-decoration: none;
   color: black;
 }
+
+@media screen and (max-width: 319px) {
+  .image {
+    width: 120px;
+    height: 190px;
+  }
+}
