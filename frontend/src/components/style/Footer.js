@@ -2,9 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 import "./Footer.css";
-const Footer = () => {
+const Footer = (props) => {
   return (
-    <footer className="footer mt-auto py-3 text-white">
+    <footer
+      style={{
+        backgroundColor: props.isAdmin ? "#355070" : "#b56576",
+      }}
+      className="footer mt-auto py-3 text-white"
+    >
       <div className="container">
         <div className="row">
           <div className="col-md-5">

@@ -4,6 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -27,14 +28,46 @@ import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const userLoggedIn = localStorage.getItem("isLoggedIn");
+
+    if (userLoggedIn === "1") {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const loginHandler = (email, password) => {
+    if (email === "admin@reviewme.com") {
+      localStorage.setItem("isLoggedIn", "1");
+      setIsLoggedIn(true);
+      setAdminLoggedIn(true);
+    } else {
+      localStorage.setItem("isLoggedIn", "1");
+      setIsLoggedIn(true);
+    }
+  };
+
+  const logoutHandler = () => {
+    localStorage.removeItem("isLoggedIn");
+    setIsLoggedIn(false);
+    setAdminLoggedIn(false);
+  };
   return (
     <Router>
       <div className="App">
-        <Header />
+        <Header
+          isAuth={isLoggedIn}
+          isAdmin={adminLoggedIn}
+          onLogout={logoutHandler}
+        />
 
         <Switch>
           <Route exact path="/">
             <Redirect to="/homepage" />
+            {adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/homepage">
             <HomePage />
@@ -49,7 +82,9 @@ function App() {
             <AboutUs />
           </Route>
           <Route path="/login">
-            <LogIn />
+            {!isLoggedIn && !adminLoggedIn && <LogIn onLogin={loginHandler} />}
+            {isLoggedIn && <Redirect to="/" />}
+            {adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/signup">
             <SignUp />
@@ -64,28 +99,25 @@ function App() {
             <BookDetails />
           </Route>
           <Route exact path="/library">
-            <BookShelf
-              title="Library"
-              subTitle="Keep the books you've already read!"
-            />
+            {isLoggedIn && <BookShelf title="Library" />}
+            {!isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
-            <BookShelf
-              title="Wish List"
-              subTitle="Store the books you want to read in the future!"
-            />
+            {isLoggedIn && <BookShelf title="Wish List" />}
+            {!isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/profile">
-            <Profile />
-          </Route>
-          <Route path="/profile">
-            <Profile />
+            {isLoggedIn && <Profile />}
+            {!isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/resetpassword">
-            <ResetPassword />
+            {isLoggedIn && <ResetPassword />}
+            {!isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route exact path="/report-admin">
-            <ReportManager />
+            {isLoggedIn && adminLoggedIn && <ReportManager />}
+            {isLoggedIn && !adminLoggedIn && <Redirect to="/" />}
+            {!isLoggedIn && !adminLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/terms">
             <TermCondition />
@@ -95,7 +127,7 @@ function App() {
           </Route>
         </Switch>
 
-        <Footer />
+        <Footer isAdmin={adminLoggedIn} />
       </div>
     </Router>
   );

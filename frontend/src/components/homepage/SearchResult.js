@@ -5,7 +5,6 @@ import { Rating } from "@material-ui/lab";
 import "./SearchResult.css";
 
 const SearchResult = (props) => {
-  console.log(props.image);
   const url = "/details/" + props.bookId;
   return (
     <div className="card mb-3 mx-3 px-3 py-3">

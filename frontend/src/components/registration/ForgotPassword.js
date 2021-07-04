@@ -30,6 +30,7 @@ const ForgotPassword = () => {
           Please provide the email you enter to login{" "}
         </h6>
       </div>
+
       <form onSubmit={submitHandler}>
         <div className="d-flex justify-content-center">
           <div className="col mb-4 mt-4">

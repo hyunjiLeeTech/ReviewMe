@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import Title from "../style/Title";
 
 import "./LogIn.css";
 
-const LogIn = () => {
+const LogIn = (props) => {
   const [providedEmail, setProvidedEmail] = useState("");
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();
@@ -28,6 +28,10 @@ const LogIn = () => {
   };
   const submitHandler = (event) => {
     event.preventDefault();
+    props.onLogin(providedEmail, providedPassword);
+    if (providedEmail === "admin@reviewme.com") {
+      return <Redirect to="/homepage" />;
+    }
   };
 
   return (

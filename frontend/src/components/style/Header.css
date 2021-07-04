@@ -13,3 +13,33 @@ nav {
   color: white;
   text-decoration: none;
 }
+.logoutButton {
+  margin-top: 8px;
+  text-decoration: none;
+  outline: none;
+  color: white;
+  background-color: #b56576;
+  border: none;
+}
+
+@media (min-width: 270px) and (max-width: 768px) {
+  .logoutButton {
+    margin-top: 8px;
+    text-decoration: none;
+    outline: none;
+    color: white;
+    background-color: #b56576;
+    border: none;
+  }
+}
+@media screen and (min-width: 769px) {
+  .logoutButton {
+    margin-top: 8px;
+    text-decoration: none;
+    margin-left: 7px;
+    outline: none;
+    color: white;
+    background-color: #b56576;
+    border: none;
+  }
+}
