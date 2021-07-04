@@ -24,7 +24,7 @@ const LogIn = () => {
   };
 
   const validatePasswordHandler = () => {
-    setValidPassword(providedPassword.trim().length > 8);
+    setValidPassword(providedPassword.trim().length >= 8);
   };
   const submitHandler = (event) => {
     event.preventDefault();
