@@ -395,7 +395,14 @@ const HomePage = () => {
               </div>
             </form>
           </div>
-          {!searching && <div className="blur-banner"></div>}
+          {!searching && (
+            <div
+              className="blur-banner"
+              style={{
+                backgroundImage: `url(${process.env.PUBLIC_URL}/images/book.jpg)`,
+              }}
+            ></div>
+          )}
         </div>
 
         <div>
