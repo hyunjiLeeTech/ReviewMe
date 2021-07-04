@@ -43,7 +43,7 @@ const Profile = () => {
 
   const validateNicknameHandler = () => {
     setValidateNickname(
-      nickname.trim().length >= 3 && nickname.trim().length <= 15 ? true : false
+      nickname.trim().length >= 3 && nickname.trim().length <= 10 ? true : false
     );
   };
 

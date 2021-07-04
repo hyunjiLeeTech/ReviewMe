@@ -137,11 +137,9 @@ const HomePage = () => {
       year === "" &&
       authorName === ""
     ) {
-      console.log(selectedCategory);
       const filteredArray = bookList.filter((entry) => {
         return entry.category.toLowerCase() === selectedCategory;
       });
-      console.log(filtered);
       setSelectedBook(filteredArray);
     } else if (bookName !== "") {
       const value = bookName.toLowerCase();
@@ -157,7 +155,6 @@ const HomePage = () => {
       });
       setSelectedBook(filtered);
     } else if (year !== "") {
-      console.log(year);
       const tempYear = year;
       filtered = bookList.filter((entry) => {
         return entry.date.toString().search(tempYear) !== -1;

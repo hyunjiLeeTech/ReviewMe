@@ -99,7 +99,10 @@ const SignUp = () => {
     setValidLastName(providedLastName.trim().length > 3);
   };
   const validateNickNameHandler = () => {
-    setValidNickName(providedNickName.trim().length > 3);
+    setValidNickName(
+      providedNickName.trim().length >= 3 &&
+        providedNickName.trim().length <= 10
+    );
   };
 
   const validateGenderHandler = () => {
