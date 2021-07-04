@@ -5,7 +5,7 @@ const BookItem = (props) => {
   const { image, title, author, bookId } = props;
   const linkUrl = "/details/" + bookId;
   return (
-    <div className="col-6 col-lg-3 bookItemContainer">
+    <div className="col-6 col-md-4 col-lg-3 bookItemContainer">
       <div className="text-center">
         <Link to={linkUrl}>
           <img className="image" src={image} alt={title} />

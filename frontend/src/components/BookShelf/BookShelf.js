@@ -92,6 +92,7 @@ const BookShelf = (props) => {
       <div className="row justify-content-first bookItemcontainer">
         {bookShelfList.map((data, index) => (
           <BookItem
+            key={index}
             image={data.image}
             title={data.title}
             author={data.author}

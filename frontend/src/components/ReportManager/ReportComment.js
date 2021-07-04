@@ -4,7 +4,7 @@ const ReportComment = (props) => {
   const { reporterName, reporterComment, reviewerName, reviewerComment } =
     props;
   return (
-    <div>
+    <div className="mb-2">
       <div className="comments-box p-3 mt-3">
         <div className="reporter-comment">
           <div className="d-flex justify-content-between align-items-center">
@@ -26,7 +26,7 @@ const ReportComment = (props) => {
             </button>
           </div>
           <div className="col">
-            <button className="btn keep  mx-4" type="button">
+            <button className="btn keep mx-4" type="button">
               Keep
             </button>
           </div>
