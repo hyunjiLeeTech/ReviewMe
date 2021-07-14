@@ -1,7 +1,6 @@
 require("dotenv").config();
 const Sequelize = require("sequelize");
-
-var sequelize = new Sequelize(
+const sequelize = new Sequelize(
   process.env.DB,
   process.env.DB_USER,
   process.env.DB_PWD,
@@ -12,19 +11,25 @@ var sequelize = new Sequelize(
     dialectOptions: {
       ssl: { rejectUnauthorized: false },
     },
-    query: { raw: true, nest: true },
+    query: { raw: true },
   }
 );
 
-module.exports.initialize = () => {
+const db = {};
+db.Sequelize = Sequelize;
+db.sequelize = sequelize;
+
+db.initialize = () => {
   return new Promise((resolve, reject) => {
     sequelize
       .authenticate()
       .then(() => {
-        resolve("Succesfully sync database");
+        resolve("Succesfully authenticate database");
       })
       .catch(() => {
-        console.log("Unable to sync database");
+        reject("Unable to authenticate the database");
       });
   });
 };
+
+module.exports = db;
