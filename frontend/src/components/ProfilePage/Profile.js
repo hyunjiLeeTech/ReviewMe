@@ -48,7 +48,7 @@ const Profile = () => {
     );
   };
 
-  const editButtonHandler = () => {
+  const onEditButtonHandler = () => {
     document.getElementById("fname").disabled = false;
     document.getElementById("lname").disabled = false;
     document.getElementById("nname").disabled = false;
@@ -58,11 +58,11 @@ const Profile = () => {
     document.getElementById("cancel").style.display = "inline";
   };
 
-  const deleteButtonHandler = () => {
+  const onDeleteButtonHandler = () => {
     const answer = window.confirm("Are you sure you want to delete your Account?")
   }
 
-  const saveChangesButtonHandler = () => {
+  const onSaveChangesButtonHandler = () => {
     if (
       validateFirstName === true &&
       validateLastName === true &&
@@ -78,7 +78,7 @@ const Profile = () => {
     }
   };
 
-  const cancelButtonHandler = () => {
+  const onCancelButtonHandler = () => {
     clearState();
     document.getElementById("fname").disabled = true;
     document.getElementById("lname").disabled = true;
@@ -241,7 +241,7 @@ const Profile = () => {
                     type="button"
                     id="edit"
                     className="btn edit mb-4"
-                    onClick={editButtonHandler}
+                    onClick={onEditButtonHandler}
                   >
                     Edit
                   </button>
@@ -249,7 +249,7 @@ const Profile = () => {
                     type="button"
                     id="delete"
                     className="btn delete mb-4"
-                    onClick={deleteButtonHandler}
+                    onClick={onDeleteButtonHandler}
                   >
                     Delete Account
                   </button>
@@ -257,7 +257,7 @@ const Profile = () => {
                     type="button"
                     id="save"
                     className="btn button2 mb-4"
-                    onClick={saveChangesButtonHandler}
+                    onClick={onSaveChangesButtonHandler}
                   >
                     Save changes
                   </button>
@@ -265,7 +265,7 @@ const Profile = () => {
                     type="button"
                     id="cancel"
                     className="btn button3 mb-4"
-                    onClick={cancelButtonHandler}
+                    onClick={onCancelButtonHandler}
                   >
                     Cancel
                   </button>
