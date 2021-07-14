@@ -6,6 +6,7 @@ import Title from "../style/Title";
 import "./Profile.css";
 
 const Profile = () => {
+
   const initialState = {
     firstName: "John",
     lastName: "Doe",
@@ -47,16 +48,21 @@ const Profile = () => {
     );
   };
 
-  const editButtonHandler = () => {
+  const onEditButtonHandler = () => {
     document.getElementById("fname").disabled = false;
     document.getElementById("lname").disabled = false;
     document.getElementById("nname").disabled = false;
     document.getElementById("edit").style.display = "none";
+    document.getElementById("delete").style.display = "none";
     document.getElementById("save").style.display = "inline";
     document.getElementById("cancel").style.display = "inline";
   };
 
-  const saveChangesButtonHandler = () => {
+  const onDeleteButtonHandler = () => {
+    const answer = window.confirm("Are you sure you want to delete your Account?")
+  }
+
+  const onSaveChangesButtonHandler = () => {
     if (
       validateFirstName === true &&
       validateLastName === true &&
@@ -66,17 +72,19 @@ const Profile = () => {
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
       document.getElementById("edit").style.display = "inline";
+      document.getElementById("delete").style.display = "inline";
       document.getElementById("save").style.display = "none";
       document.getElementById("cancel").style.display = "none";
     }
   };
 
-  const cancelButtonHandler = () => {
+  const onCancelButtonHandler = () => {
     clearState();
     document.getElementById("fname").disabled = true;
     document.getElementById("lname").disabled = true;
     document.getElementById("nname").disabled = true;
     document.getElementById("edit").style.display = "inline";
+    document.getElementById("delete").style.display = "inline";
     document.getElementById("save").style.display = "none";
     document.getElementById("cancel").style.display = "none";
   };
@@ -118,9 +126,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateFirstName === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateFirstName === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">First Name</label>
                           <input
@@ -145,9 +152,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateLastName === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateLastName === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">Last Name</label>
                           <input
@@ -172,9 +178,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateNickname === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateNickname === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">Nickname</label>
                           <input
@@ -236,15 +241,23 @@ const Profile = () => {
                     type="button"
                     id="edit"
                     className="btn edit mb-4"
-                    onClick={editButtonHandler}
+                    onClick={onEditButtonHandler}
                   >
                     Edit
                   </button>
                   <button
                     type="button"
+                    id="delete"
+                    className="btn delete mb-4"
+                    onClick={onDeleteButtonHandler}
+                  >
+                    Delete Account
+                  </button>
+                  <button
+                    type="button"
                     id="save"
                     className="btn button2 mb-4"
-                    onClick={saveChangesButtonHandler}
+                    onClick={onSaveChangesButtonHandler}
                   >
                     Save changes
                   </button>
@@ -252,10 +265,11 @@ const Profile = () => {
                     type="button"
                     id="cancel"
                     className="btn button3 mb-4"
-                    onClick={cancelButtonHandler}
+                    onClick={onCancelButtonHandler}
                   >
                     Cancel
                   </button>
+
                 </div>
               </div>
             </div>
