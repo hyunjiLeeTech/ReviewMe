@@ -3,7 +3,7 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-const db = require("./models/");
+const db = require("./models");
 const controllers = require("./controllers");
 
 app.use(express.json());
