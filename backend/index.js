@@ -1,11 +1,10 @@
 const express = require("express");
 const path = require("path");
+const app = express();
 const PORT = process.env.PORT || 3001;
 
-const dataModule = require("./modules/serverDataModule");
 const db = require("./models/");
-const reviewController = require("./controllers/review.controller");
-const app = express();
+const controllers = require("./controllers");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,7 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/reviews", (req, res) => {
-  reviewController
+  controllers.review
     .getAllReviews()
     .then((data) => {
       res.json({ reviews: data });
@@ -32,9 +31,13 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-db.initialize().then((res) => {
-  console.log(res);
-  app.listen(PORT, () => {
-    console.log(`Server listening on ${PORT}`);
+db.initialize()
+  .then((res) => {
+    console.log(res);
+    app.listen(PORT, () => {
+      console.log(`Server listening on ${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.log(err);
   });
-});

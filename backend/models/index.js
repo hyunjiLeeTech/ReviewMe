@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
   process.env.DB,
@@ -18,18 +19,15 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-// db.reviews = require("./review.model.js")(sequelize, Sequelize);
-// db.reviewController = require("../controllers/review.controller");
-
 db.initialize = () => {
   return new Promise((resolve, reject) => {
     sequelize
-      .sync()
+      .authenticate()
       .then(() => {
-        resolve("Succesfully sync database");
+        resolve("Succesfully authenticate database");
       })
       .catch(() => {
-        reject("Unable to sync the database");
+        reject("Unable to authenticate the database");
       });
   });
 };

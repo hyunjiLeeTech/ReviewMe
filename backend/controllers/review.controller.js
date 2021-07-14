@@ -6,7 +6,6 @@ module.exports.getAllReviews = () => {
     sequelize
       .query("SELECT * from review")
       .then((data) => {
-        console.log(data);
         resolve(data);
       })
       .catch((err) => {
