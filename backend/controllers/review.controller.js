@@ -3,8 +3,7 @@ const sequelize = db.sequelize;
 
 module.exports.getAllReviews = () => {
   return new Promise((resolve, reject) => {
-    console.log("get reviews starts");
-    db.sequelize
+    sequelize
       .query("SELECT * from review")
       .then((data) => {
         console.log(data);

@@ -19,7 +19,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // db.reviews = require("./review.model.js")(sequelize, Sequelize);
-db.reviewController = require("../controllers/review.controller");
+// db.reviewController = require("../controllers/review.controller");
 
 db.initialize = () => {
   return new Promise((resolve, reject) => {
@@ -30,19 +30,6 @@ db.initialize = () => {
       })
       .catch(() => {
         reject("Unable to sync the database");
-      });
-  });
-};
-
-db.getAllReviews = () => {
-  return new Promise((resolve, reject) => {
-    sequelize
-      .query("SELECT * from review")
-      .then((data) => {
-        resolve(data);
-      })
-      .catch((err) => {
-        reject(err);
       });
   });
 };

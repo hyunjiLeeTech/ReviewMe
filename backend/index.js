@@ -4,8 +4,7 @@ const PORT = process.env.PORT || 3001;
 
 const dataModule = require("./modules/serverDataModule");
 const db = require("./models/");
-const { resolve } = require("path");
-const { rejects } = require("assert");
+const reviewController = require("./controllers/review.controller");
 const app = express();
 
 app.use(express.json());
@@ -16,6 +15,17 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+app.get("/reviews", (req, res) => {
+  reviewController
+    .getAllReviews()
+    .then((data) => {
+      res.json({ reviews: data });
+    })
+    .catch((err) => {
+      res.json({ message: "error while getting reviews" });
+    });
+});
+
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
@@ -23,15 +33,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 db.initialize().then((res) => {
-  db.getAllReviews()
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-  // console.log(res);
-  // app.listen(PORT, () => {
-  //   console.log(`Server listening on ${PORT}`);
-  // });
+  console.log(res);
+  app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
+  });
 });
