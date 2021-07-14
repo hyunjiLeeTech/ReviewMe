@@ -26,6 +26,7 @@ import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
 import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
+import ResetLink from "./components/registration/ResetPassword";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -91,6 +92,9 @@ function App() {
           </Route>
           <Route path="/forgot-password">
             <ForgotPassword />
+          </Route>
+          <Route path="/reset-password">
+            <ResetLink />
           </Route>
           <Route path="/report">
             <Report />
