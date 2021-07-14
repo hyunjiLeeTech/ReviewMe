@@ -6,6 +6,7 @@ import Title from "../style/Title";
 import "./Profile.css";
 
 const Profile = () => {
+
   const initialState = {
     firstName: "John",
     lastName: "Doe",
@@ -52,9 +53,14 @@ const Profile = () => {
     document.getElementById("lname").disabled = false;
     document.getElementById("nname").disabled = false;
     document.getElementById("edit").style.display = "none";
+    document.getElementById("delete").style.display = "none";
     document.getElementById("save").style.display = "inline";
     document.getElementById("cancel").style.display = "inline";
   };
+
+  const deleteButtonHandler = () => {
+    const answer = window.confirm("Are you sure you want to delete your Account?")
+  }
 
   const saveChangesButtonHandler = () => {
     if (
@@ -66,6 +72,7 @@ const Profile = () => {
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
       document.getElementById("edit").style.display = "inline";
+      document.getElementById("delete").style.display = "inline";
       document.getElementById("save").style.display = "none";
       document.getElementById("cancel").style.display = "none";
     }
@@ -77,6 +84,7 @@ const Profile = () => {
     document.getElementById("lname").disabled = true;
     document.getElementById("nname").disabled = true;
     document.getElementById("edit").style.display = "inline";
+    document.getElementById("delete").style.display = "inline";
     document.getElementById("save").style.display = "none";
     document.getElementById("cancel").style.display = "none";
   };
@@ -118,9 +126,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateFirstName === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateFirstName === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">First Name</label>
                           <input
@@ -145,9 +152,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateLastName === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateLastName === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">Last Name</label>
                           <input
@@ -172,9 +178,8 @@ const Profile = () => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${
-                            validateNickname === false ? "invalid" : ""
-                          }`}
+                          className={` ${validateNickname === false ? "invalid" : ""
+                            }`}
                         >
                           <label className="form-label">Nickname</label>
                           <input
@@ -242,6 +247,14 @@ const Profile = () => {
                   </button>
                   <button
                     type="button"
+                    id="delete"
+                    className="btn delete mb-4"
+                    onClick={deleteButtonHandler}
+                  >
+                    Delete Account
+                  </button>
+                  <button
+                    type="button"
                     id="save"
                     className="btn button2 mb-4"
                     onClick={saveChangesButtonHandler}
@@ -256,6 +269,7 @@ const Profile = () => {
                   >
                     Cancel
                   </button>
+
                 </div>
               </div>
             </div>
