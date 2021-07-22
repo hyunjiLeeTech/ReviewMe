@@ -28,3 +28,9 @@ module.exports.getReviewsByBookId = (bookId) => {
       });
   });
 };
+
+module.exports.AddReview = (newReview) => {
+  sequelize.query(
+    `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
+  );
+};

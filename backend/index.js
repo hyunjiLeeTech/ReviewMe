@@ -38,6 +38,23 @@ app.get("/reviews/:bookId", (req, res) => {
       res.json({ errCode: 1, message: err });
     });
 });
+
+app.post("/reviews/add", (req, res) => {
+  const date = new Date();
+
+  console.log(req.body);
+  const newReview = {
+    date: `${
+      date.getFullYear() + 1
+    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    comment: req.body.comment,
+    rating: req.body.rating,
+    userId: req.body.userId,
+    bookId: req.body.bookId,
+  };
+
+  controllers.review.AddReview(newReview);
+});
 //#endregion
 
 if (process.env.NODE_ENV === "production") {

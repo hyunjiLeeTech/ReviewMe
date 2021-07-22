@@ -9,37 +9,6 @@ import Button from "./Button";
 import "./BookDetails.css";
 
 const BookDetails = () => {
-  const reviewArr = [
-    {
-      rating: 3,
-      nickname: "test nick1",
-      date: "2020-04-30",
-      review:
-        "this is first review this is very long long long long long long long long long long long long long long long long long long long sentence",
-    },
-
-    {
-      rating: 5,
-      nickname: "nick nick 2",
-      date: "2020-05-3",
-      review: "this is second review",
-    },
-
-    {
-      rating: 2,
-      nickname: "kelly smith",
-      date: "2020-06-10",
-      review: "this is thire review",
-    },
-
-    {
-      rating: 1.5,
-      nickname: "samuel han",
-      date: "2020-07-20",
-      review: "this is fourth review",
-    },
-  ];
-
   const bookInfo = {
     kind: "books#volume",
     id: "UwYJsklz7WkC",
@@ -167,10 +136,21 @@ const BookDetails = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const newReview = {
+      rating: rating,
+      comment: comment,
+      userId: 30,
+      bookId: "zYw3sYFtz9kC",
+    };
+    ReviewDataServices.addReview(newReview);
+    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) =>
+      setReviews(reviews)
+    );
   };
 
   const handleRatingChange = (event) => {
-    setRating(event.target.value);
+    console.log(event.target.value);
+    setRating(parseInt(event.target.value));
   };
 
   const handleCommentChange = (event) => {
