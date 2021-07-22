@@ -149,7 +149,6 @@ const BookDetails = () => {
   };
 
   const handleRatingChange = (event) => {
-    console.log(event.target.value);
     setRating(parseInt(event.target.value));
   };
 
