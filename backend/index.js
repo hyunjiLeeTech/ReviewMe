@@ -14,16 +14,30 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+//#region Reviews
 app.get("/reviews", (req, res) => {
   controllers.review
     .getAllReviews()
     .then((data) => {
-      res.json({ reviews: data });
+      res.json({ status: 1, reviews: data });
     })
     .catch((err) => {
-      res.json({ message: "error while getting reviews" });
+      res.json({ status: 0, message: "error while getting reviews" });
     });
 });
+
+app.get("/reviews/:bookId", (req, res) => {
+  const bookId = req.query.bookId;
+  controllers.review
+    .getReviewsByBookId(bookId)
+    .then((data) => {
+      res.json({ status: 1, reviews: data });
+    })
+    .catch((err) => {
+      res.json({ status: 0, message: "error" });
+    });
+});
+//#endregion
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
