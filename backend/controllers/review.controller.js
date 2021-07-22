@@ -18,7 +18,7 @@ module.exports.getReviewsByBookId = (bookId) => {
   return new Promise((resolve, reject) => {
     sequelize
       .query(
-        `SELECT * FROM review r INNER JOIN userdetails u ON r.userid=u.userid WHERE r.bookid='${bookId}'`
+        `SELECT * FROM review r INNER JOIN userdetails u ON r.userid=u.userid WHERE r.bookid='${bookId}' ORDER BY updatedate DESC`
       )
       .then((data) => {
         resolve(data);
