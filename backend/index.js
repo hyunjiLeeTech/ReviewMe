@@ -27,7 +27,8 @@ app.get("/reviews", (req, res) => {
 });
 
 app.get("/reviews/:bookId", (req, res) => {
-  const bookId = req.query.bookId;
+  const bookId = req.params.bookId;
+  console.log(bookId);
   controllers.review
     .getReviewsByBookId(bookId)
     .then((data) => {

@@ -15,10 +15,11 @@ module.exports.getAllReviews = () => {
 };
 
 module.exports.getReviewsByBookId = (bookId) => {
+  const sql = `SELECT * FROM review WHERE bookid='${bookId}'`;
+
   return new Promise((resolve, reject) => {
-    const id = bookId;
     sequelize
-      .query(`SELECT * FROM review WHERE bookid=${id}`)
+      .query(sql)
       .then((data) => {
         resolve(data);
       })
