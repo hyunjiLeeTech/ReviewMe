@@ -19,23 +19,23 @@ app.get("/reviews", (req, res) => {
   controllers.review
     .getAllReviews()
     .then((data) => {
-      res.json({ status: 1, reviews: data });
+      res.json({ errCode: 0, reviews: data });
     })
     .catch((err) => {
-      res.json({ status: 0, message: "error while getting reviews" });
+      res.json({ errCode: 1, message: "error while getting reviews" });
     });
 });
 
 app.get("/reviews/:bookId", (req, res) => {
   const bookId = req.params.bookId;
-  console.log(bookId);
+
   controllers.review
     .getReviewsByBookId(bookId)
     .then((data) => {
-      res.json({ status: 1, reviews: data });
+      res.json({ errCode: 0, reviews: data });
     })
     .catch((err) => {
-      res.json({ status: 0, message: "error" });
+      res.json({ errCode: 1, message: err });
     });
 });
 //#endregion

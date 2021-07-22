@@ -5,6 +5,14 @@ import "./ReviewItem.css";
 
 const ReviewItem = (props) => {
   const { rating, nickname, date, review, index } = props;
+  const loginUserId = 0;
+
+  const checkUserId = () => {
+    if (loginUserId === 999) {
+      return "Edit";
+    }
+  };
+
   return (
     <div className="reviewItemContainer" key={index}>
       <Rating name="hover-feedback" value={rating} disabled={true} />
@@ -17,7 +25,7 @@ const ReviewItem = (props) => {
         </div>
         <div className="col-lg-1 col-1">
           <Link to="/">
-            <p className="link">Edit</p>
+            <p className="link">{checkUserId()}</p>
           </Link>
         </div>
         <div className="col-lg-1 col-1">

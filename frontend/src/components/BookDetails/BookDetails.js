@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Rating } from "@material-ui/lab";
+
+import ReviewDataServices from "../../services/ReviewDataServices";
 
 import ReviewItem from "./ReviewItem";
 import Button from "./Button";
@@ -145,7 +147,14 @@ const BookDetails = () => {
 
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
+  const [reviews, setReviews] = useState([]);
   const categories = bookInfo.volumeInfo.categories;
+
+  useEffect(() => {
+    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) =>
+      setReviews(reviews)
+    );
+  }, []);
 
   const displayCategories = (categories) => {
     let categoryArr = categories[0];
@@ -237,13 +246,13 @@ const BookDetails = () => {
             </form>
 
             <div className="subContainer">
-              {reviewArr.map((data, index) => (
+              {reviews.map((data, index) => (
                 <ReviewItem
                   key={index}
                   rating={data.rating}
                   nickname={data.nickname}
-                  date={data.date}
-                  review={data.review}
+                  date={data.updatedate}
+                  review={data.comment}
                 />
               ))}
             </div>
