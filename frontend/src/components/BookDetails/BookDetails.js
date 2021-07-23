@@ -120,9 +120,9 @@ const BookDetails = () => {
   const categories = bookInfo.volumeInfo.categories;
 
   useEffect(() => {
-    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) =>
-      setReviews(reviews)
-    );
+    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
+      setReviews(reviews);
+    });
   }, []);
 
   const displayCategories = (categories) => {
@@ -228,6 +228,7 @@ const BookDetails = () => {
               {reviews.map((data, index) => (
                 <ReviewItem
                   key={index}
+                  id={data.reviewid}
                   rating={data.rating}
                   nickname={data.nickname}
                   date={data.updatedate}

@@ -42,7 +42,6 @@ app.get("/reviews/:bookId", (req, res) => {
 app.post("/reviews/add", (req, res) => {
   const date = new Date();
 
-  console.log(req.body);
   const newReview = {
     date: `${
       date.getFullYear() + 1
@@ -54,6 +53,18 @@ app.post("/reviews/add", (req, res) => {
   };
 
   controllers.review.AddReview(newReview);
+});
+
+app.put("/reviews/delete", (req, res) => {
+  const reviewId = req.body.reviewId;
+  controllers.review
+    .DeleteReview(reviewId)
+    .then((res) => {
+      res.json({ errCode: 0, message: "delete review success" });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "delete review fail" });
+    });
 });
 //#endregion
 

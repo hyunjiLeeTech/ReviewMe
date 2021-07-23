@@ -1,27 +1,31 @@
+import ReviewDataServices from "../../services/ReviewDataServices";
+
 import { Rating } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
 import "./ReviewItem.css";
 
 const ReviewItem = (props) => {
-  const { rating, nickname, date, review, index } = props;
+  const { id, rating, nickname, date, review, index } = props;
   const loginUserId = 0;
 
-  const checkUserId = (type) => {
-    if (loginUserId === 999) {
+  const onClickDelete = () => {
+    ReviewDataServices.deleteReview(id);
+  };
+
+  const checkUserId = () => {
+    if (loginUserId !== 999) {
       return (
-        <div>
+        <>
           <div className="col-lg-1 col-1">
-            <Link to="/">
-              <p className="link">Edit</p>
-            </Link>
+            <button className="link">Edit</button>
           </div>
           <div className="col-lg-1 col-1">
-            <Link to="/">
-              <p className="link">Delete</p>
-            </Link>
+            <button className="link" onClick={onClickDelete}>
+              Delete
+            </button>
           </div>
-        </div>
+        </>
       );
     } else {
       return (
