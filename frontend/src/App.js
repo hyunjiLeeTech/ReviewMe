@@ -28,15 +28,29 @@ import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 import ResetLink from "./components/registration/ResetPassword";
 
+import WishListDataServices from "./services/WishListDataServices";
+import LibraryDataServices from "./services/LibraryDataServices";
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  const [library, setLibrary] = useState([]);
+  const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isLoggedIn");
 
     if (userLoggedIn === "1") {
       setIsLoggedIn(true);
+    }
+
+    if (isLoggedIn) {
+      WishListDataServices.getWishListByUseId(30).then((wishlist) => {
+        setWishlist(wishlist);
+      });
+      LibraryDataServices.getLibraryByUseId(30).then((library) => {
+        setLibrary(library);
+      });
     }
   }, []);
 
@@ -103,11 +117,11 @@ function App() {
             <BookDetails />
           </Route>
           <Route exact path="/library">
-            {isLoggedIn && <BookShelf title="Library" />}
+            {isLoggedIn && <BookShelf title="Library" items={library} />}
             {!isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
-            {isLoggedIn && <BookShelf title="Wish List" />}
+            {isLoggedIn && <BookShelf title="Wish List" items={wishlist} />}
             {!isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/profile">

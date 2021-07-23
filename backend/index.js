@@ -5,6 +5,7 @@ const PORT = process.env.PORT || 3001;
 
 const db = require("./models");
 const controllers = require("./controllers");
+const controller = require("./controllers");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,6 +44,31 @@ app.get("/library/:userId", (req, res) => {
     .getAllLibraryByUserId(userId)
     .then((data) => {
       res.json({ errCode: 0, libraries: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+//#endregion
+
+//#region Wish List
+app.get("/wishlist", (req, res) => {
+  controllers.wishlist
+    .getAllWishList()
+    .then((data) => {
+      res.json({ errCode: 0, wishlist: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+
+app.get("/wishlist/:userId", (req, res) => {
+  const userId = req.params.userId;
+  controllers.wishlist
+    .getWishListByUserId(userId)
+    .then((data) => {
+      res.json({ errCode: 0, wishlist: data });
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting library" });
