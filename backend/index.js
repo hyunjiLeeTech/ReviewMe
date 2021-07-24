@@ -68,6 +68,56 @@ app.put("/reviews/delete", (req, res) => {
 });
 //#endregion
 
+//#region Library
+app.get("/library", (req, res) => {
+  controllers.library
+    .getAllLibraries()
+    .then((data) => {
+      res.json({ errCode: 0, libraries: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+
+app.get("/library/:userId", (req, res) => {
+  const userId = req.params.userId;
+  controllers.library
+    .getAllLibraryByUserId(userId)
+    .then((data) => {
+      res.json({ errCode: 0, libraries: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+//#endregion
+
+//#region Wish List
+app.get("/wishlist", (req, res) => {
+  controllers.wishlist
+    .getAllWishList()
+    .then((data) => {
+      res.json({ errCode: 0, wishlist: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+
+app.get("/wishlist/:userId", (req, res) => {
+  const userId = req.params.userId;
+  controllers.wishlist
+    .getWishListByUserId(userId)
+    .then((data) => {
+      res.json({ errCode: 0, wishlist: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting library" });
+    });
+});
+//#endregion
+
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
