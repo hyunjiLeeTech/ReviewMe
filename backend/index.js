@@ -14,16 +14,59 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+//#region Reviews
 app.get("/reviews", (req, res) => {
   controllers.review
     .getAllReviews()
     .then((data) => {
-      res.json({ reviews: data });
+      res.json({ errCode: 0, reviews: data });
     })
     .catch((err) => {
-      res.json({ message: "error while getting reviews" });
+      res.json({ errCode: 1, message: "error while getting reviews" });
     });
 });
+
+app.get("/reviews/:bookId", (req, res) => {
+  const bookId = req.params.bookId;
+
+  controllers.review
+    .getReviewsByBookId(bookId)
+    .then((data) => {
+      res.json({ errCode: 0, reviews: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
+
+app.post("/reviews/add", (req, res) => {
+  const date = new Date();
+
+  const newReview = {
+    date: `${
+      date.getFullYear() + 1
+    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    comment: req.body.comment,
+    rating: req.body.rating,
+    userId: req.body.userId,
+    bookId: req.body.bookId,
+  };
+
+  controllers.review.AddReview(newReview);
+});
+
+app.put("/reviews/delete", (req, res) => {
+  const reviewId = req.body.reviewId;
+  controllers.review
+    .DeleteReview(reviewId)
+    .then((res) => {
+      res.json({ errCode: 0, message: "delete review success" });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "delete review fail" });
+    });
+});
+//#endregion
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
