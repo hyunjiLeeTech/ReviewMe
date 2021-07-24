@@ -44,14 +44,12 @@ function App() {
       setIsLoggedIn(true);
     }
 
-    if (isLoggedIn) {
-      WishListDataServices.getWishListByUseId(30).then((wishlist) => {
-        setWishlist(wishlist);
-      });
-      LibraryDataServices.getLibraryByUseId(30).then((library) => {
-        setLibrary(library);
-      });
-    }
+    WishListDataServices.getWishListByUseId(30).then((wishlist) => {
+      setWishlist(wishlist);
+    });
+    LibraryDataServices.getLibraryByUseId(30).then((library) => {
+      setLibrary(library);
+    });
   }, []);
 
   const loginHandler = (email, password) => {
