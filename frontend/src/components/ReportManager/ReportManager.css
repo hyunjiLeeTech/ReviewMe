@@ -1,5 +1,5 @@
 #side-navigation {
-  background-color: #b56576;
+  margin-bottom: -4%;
 }
 
 .reporter-comment {
@@ -31,4 +31,16 @@
   height: 50px;
   background-color: #5d597a;
   color: white;
+}
+
+@media (min-width: 320px) and (max-width: 540px) {
+  #side-navigation {
+    margin-bottom: -19%;
+  }
+}
+
+@media (min-width: 735px) and (max-width: 1024px) {
+  #side-navigation {
+    margin-bottom: -10%;
+  }
 }
