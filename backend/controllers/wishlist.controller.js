@@ -32,7 +32,7 @@ module.exports.deleteWishListById = (id) => {
     sequelize
       .query(`DELETE * FROM wishlist WHERE wishlistid='${id}'`)
       .then(() => {
-        resolve("Delete success");
+        resolve("Delete wishlist item success");
       })
       .catch((err) => {
         reject(err);
