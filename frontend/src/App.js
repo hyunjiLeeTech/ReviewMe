@@ -36,6 +36,7 @@ function App() {
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   useEffect(() => {
     const userLoggedIn = localStorage.getItem("isLoggedIn");
@@ -68,6 +69,12 @@ function App() {
     setIsLoggedIn(false);
     setAdminLoggedIn(false);
   };
+
+  const editReviewHandler = (reviewsArr) => {
+    console.log(reviewsArr);
+    setReviews(reviewsArr);
+  };
+
   return (
     <Router>
       <div className="App">
@@ -112,7 +119,10 @@ function App() {
             <Report />
           </Route>
           <Route exact path="/details/:id">
-            <BookDetails />
+            <BookDetails
+              reviews={reviews}
+              editReviewHandler={editReviewHandler}
+            />
           </Route>
           <Route exact path="/library">
             {isLoggedIn && <BookShelf title="Library" items={library} />}

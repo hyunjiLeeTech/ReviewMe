@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer } from "react";
 import { Rating } from "@material-ui/lab";
 
 import ReviewDataServices from "../../services/ReviewDataServices";
@@ -9,7 +9,7 @@ import Button from "./Button";
 
 import "./BookDetails.css";
 
-const BookDetails = () => {
+const BookDetails = (props) => {
   const bookInfo = {
     kind: "books#volume",
     id: "UwYJsklz7WkC",
@@ -115,9 +115,11 @@ const BookDetails = () => {
     },
   };
 
+  const { reviews, editReviewHandler } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [reviews, setReviews] = useState([]);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  // const [reviews, setReviews] = useState([]);
   const categories = bookInfo.volumeInfo.categories;
 
   useEffect(() => {
@@ -125,10 +127,14 @@ const BookDetails = () => {
       for (let i = 0; i < reviews.length; i++) {
         reviews[i].isEdit = false;
       }
-      setReviews(reviews);
-      console.log(reviews);
+      editReviewHandler(reviews);
     });
   }, []);
+
+  const editReviewArrHandler = () => {
+    console.log("edit review arr handler");
+    editReviewHandler(reviews);
+  };
 
   const displayCategories = (categories) => {
     let categoryArr = categories[0];
@@ -149,7 +155,7 @@ const BookDetails = () => {
     };
     ReviewDataServices.addReview(newReview);
     ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
-      setReviews(reviews);
+      editReviewArrHandler(reviews);
     });
   };
 
@@ -159,6 +165,17 @@ const BookDetails = () => {
 
   const handleCommentChange = (event) => {
     setComment(event.target.value);
+  };
+
+  const onClickEdit = (id) => {
+    let reviewsArr = reviews;
+    reviewsArr[id].isEdit = !reviewsArr[id].isEdit;
+    console.log(id);
+    console.log("on click edit");
+    console.log(reviewsArr);
+    editReviewArrHandler(reviewsArr);
+    forceUpdate();
+    console.log(reviews);
   };
 
   return (
@@ -231,7 +248,6 @@ const BookDetails = () => {
 
             <div className="subContainer">
               {reviews.map((data, index) => {
-                console.log(data.isEdit);
                 if (data.isEdit) {
                   return (
                     <EditReviewItem
@@ -247,11 +263,13 @@ const BookDetails = () => {
                   return (
                     <ReviewItem
                       key={index}
+                      itemId={index}
                       id={data.reviewid}
                       rating={data.rating}
                       nickname={data.nickname}
                       date={data.updatedate}
                       review={data.comment}
+                      onClickEdit={onClickEdit}
                     />
                   );
                 }

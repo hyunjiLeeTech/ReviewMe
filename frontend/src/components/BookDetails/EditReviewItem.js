@@ -4,7 +4,7 @@ import { Rating } from "@material-ui/lab";
 const EditReviewItem = (props) => {
   const [rating, setRating] = useState(props.rating);
   const [comment, setComment] = useState("");
-  const { id, nickname, date, review, index } = props;
+  const { id, nickname, date, review, key } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
