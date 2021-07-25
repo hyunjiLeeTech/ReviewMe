@@ -91,6 +91,19 @@ app.get("/library/:userId", (req, res) => {
       res.json({ errCode: 1, message: "error while getting library" });
     });
 });
+
+app.delete("/library/delete", (req, res) => {
+  const id = req.body.libraryId;
+
+  controllers.library
+    .deleteLibraryItemById(id)
+    .then((res) => {
+      res.json({ errCode: 0, message: res });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
 //#endregion
 
 //#region Wish List
