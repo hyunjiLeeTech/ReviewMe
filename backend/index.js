@@ -116,6 +116,19 @@ app.get("/wishlist/:userId", (req, res) => {
       res.json({ errCode: 1, message: "error while getting library" });
     });
 });
+
+app.delete("/wishlist/delete", (req, res) => {
+  const id = req.body.wishlistId;
+
+  controllers.wishlist
+    .deleteWishListById(id)
+    .then((res) => {
+      res.json({ errCode: 0, message: res });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
 //#endregion
 
 if (process.env.NODE_ENV === "production") {
