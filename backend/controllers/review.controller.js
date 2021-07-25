@@ -29,13 +29,13 @@ module.exports.getReviewsByBookId = (bookId) => {
   });
 };
 
-module.exports.AddReview = (newReview) => {
+module.exports.addReview = (newReview) => {
   sequelize.query(
     `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
   );
 };
 
-module.exports.DeleteReview = (reviewId) => {
+module.exports.deleteReview = (reviewId) => {
   return new Promise((resolve, reject) => {
     sequelize
       .query(`UPDATE review SET isActive=false WHERE reviewid=${reviewId}`)
@@ -44,6 +44,21 @@ module.exports.DeleteReview = (reviewId) => {
       })
       .catch((err) => {
         reject({ errCode: 1, message: "delete fail" });
+      });
+  });
+};
+
+module.exports.editReview = (editReview) => {
+  return new Promise((resolve, reject) => {
+    sequelize
+      .query(
+        `UPDATE review SET comment='${editReview.comment}', rating=${editReview.rating}, updatedate= CAST('${editReview.date}' AS date) WHERE reviewid=${editReview.reviewId}`
+      )
+      .then(() => {
+        resolve({ errCode: 0, message: "edit success" });
+      })
+      .catch((err) => {
+        reject({ errCode: 1, message: "edit fail" });
       });
   });
 };

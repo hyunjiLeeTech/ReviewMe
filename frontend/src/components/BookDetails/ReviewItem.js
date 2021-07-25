@@ -13,12 +13,24 @@ const ReviewItem = (props) => {
     ReviewDataServices.deleteReview(id);
   };
 
+  const onClickEdit = () => {
+    const editReview = {
+      reviewId: id,
+      rating: 3,
+      comment: "this is editted",
+    };
+
+    ReviewDataServices.editReview(editReview);
+  };
+
   const checkUserId = () => {
     if (loginUserId !== 999) {
       return (
         <>
           <div className="col-lg-1 col-1">
-            <button className="link">Edit</button>
+            <button className="link" onClick={onClickEdit}>
+              Edit
+            </button>
           </div>
           <div className="col-lg-1 col-1">
             <button className="link" onClick={onClickDelete}>

@@ -121,6 +121,7 @@ const BookDetails = () => {
 
   useEffect(() => {
     ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
+      console.log(reviews);
       setReviews(reviews);
     });
   }, []);
@@ -143,9 +144,9 @@ const BookDetails = () => {
       bookId: "zYw3sYFtz9kC",
     };
     ReviewDataServices.addReview(newReview);
-    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) =>
-      setReviews(reviews)
-    );
+    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
+      setReviews(reviews);
+    });
   };
 
   const handleRatingChange = (event) => {
