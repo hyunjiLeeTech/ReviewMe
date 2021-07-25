@@ -28,6 +28,10 @@ const EditReviewItem = (props) => {
     setComment(event.target.value);
   };
 
+  const onClickCancel = () => {
+    onClickEdit(itemId);
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <Rating
@@ -45,8 +49,15 @@ const EditReviewItem = (props) => {
         value={comment}
         onChange={handleCommentChange}
       ></textarea>
-      <div className="commentBtn">
-        <input type="submit" value="Save Edit" className="btn submit" />
+      <div className="row justify-content-end">
+        <div className="col col-lg-8 commentBtn">
+          <input type="submit" value="Save Edit" className="btn submit" />
+        </div>
+        <div className="col col-lg commentBtn">
+          <button className="btn submit" onClick={onClickCancel}>
+            Cancel
+          </button>
+        </div>
       </div>
     </form>
   );

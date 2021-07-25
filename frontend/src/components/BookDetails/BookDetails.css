@@ -43,3 +43,14 @@ textarea {
   background-color: #6d597a;
   color: white;
 }
+
+@media only screen and (max-width: 576px) {
+  .btn.submit {
+    width: 35vw;
+    height: 6vh;
+    background-color: #6d597a;
+    color: white;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
