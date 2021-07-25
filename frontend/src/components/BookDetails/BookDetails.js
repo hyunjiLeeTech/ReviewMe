@@ -132,7 +132,6 @@ const BookDetails = (props) => {
   }, []);
 
   const editReviewArrHandler = () => {
-    console.log("edit review arr handler");
     editReviewHandler(reviews);
   };
 
@@ -170,12 +169,8 @@ const BookDetails = (props) => {
   const onClickEdit = (id) => {
     let reviewsArr = reviews;
     reviewsArr[id].isEdit = !reviewsArr[id].isEdit;
-    console.log(id);
-    console.log("on click edit");
-    console.log(reviewsArr);
     editReviewArrHandler(reviewsArr);
     forceUpdate();
-    console.log(reviews);
   };
 
   return (
@@ -252,11 +247,11 @@ const BookDetails = (props) => {
                   return (
                     <EditReviewItem
                       key={index}
-                      id={data.reviewid}
+                      reviewId={data.reviewid}
+                      itemId={index}
                       rating={data.rating}
-                      nickname={data.nickname}
-                      date={data.updatedate}
-                      review={data.comment}
+                      comment={data.comment}
+                      onClickEdit={onClickEdit}
                     />
                   );
                 } else {

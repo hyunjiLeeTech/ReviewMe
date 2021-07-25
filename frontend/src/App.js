@@ -71,7 +71,6 @@ function App() {
   };
 
   const editReviewHandler = (reviewsArr) => {
-    console.log(reviewsArr);
     setReviews(reviewsArr);
   };
 

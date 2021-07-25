@@ -1,23 +1,27 @@
 import { useState } from "react";
 import { Rating } from "@material-ui/lab";
 
+import ReviewDataServices from "../../services/ReviewDataServices";
+
 const EditReviewItem = (props) => {
   const [rating, setRating] = useState(props.rating);
-  const [comment, setComment] = useState("");
-  const { id, nickname, date, review, key } = props;
+  const [comment, setComment] = useState(props.comment);
+  const { reviewId, itemId, onClickEdit } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newReview = {
+    const editReview = {
       rating: rating,
       comment: comment,
-      userId: 30,
-      bookId: "zYw3sYFtz9kC",
+      reviewId: reviewId,
     };
+
+    ReviewDataServices.editReview(editReview);
+    onClickEdit(itemId);
   };
 
-  const handleRatingChange = (event) => {
-    setRating(parseInt(event.target.value));
+  const handleChangeRating = (value) => {
+    setRating(parseInt(value));
   };
 
   const handleCommentChange = (event) => {
@@ -27,20 +31,22 @@ const EditReviewItem = (props) => {
   return (
     <form onSubmit={handleSubmit}>
       <Rating
-        onClick={handleRatingChange}
-        name="rating"
+        name="hover-feedback"
         value={rating}
-        precision={0.5}
+        prevision={0.5}
+        onChange={(event, newValue) => {
+          handleChangeRating(newValue);
+        }}
       />
       <textarea
         placeholder="You have a comment ? *"
         className="textarea"
         name="comment"
-        value={review}
+        value={comment}
         onChange={handleCommentChange}
       ></textarea>
       <div className="commentBtn">
-        <input type="submit" value="Submit" className="btn submit" />
+        <input type="submit" value="Save Edit" className="btn submit" />
       </div>
     </form>
   );
