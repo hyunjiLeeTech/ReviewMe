@@ -4,6 +4,7 @@ import { Rating } from "@material-ui/lab";
 import ReviewDataServices from "../../services/ReviewDataServices";
 
 import ReviewItem from "./ReviewItem";
+import EditReviewItem from "./EditReviewItem";
 import Button from "./Button";
 
 import "./BookDetails.css";
@@ -121,8 +122,11 @@ const BookDetails = () => {
 
   useEffect(() => {
     ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
-      console.log(reviews);
+      for (let i = 0; i < reviews.length; i++) {
+        reviews[i].isEdit = false;
+      }
       setReviews(reviews);
+      console.log(reviews);
     });
   }, []);
 
@@ -226,16 +230,32 @@ const BookDetails = () => {
             </form>
 
             <div className="subContainer">
-              {reviews.map((data, index) => (
-                <ReviewItem
-                  key={index}
-                  id={data.reviewid}
-                  rating={data.rating}
-                  nickname={data.nickname}
-                  date={data.updatedate}
-                  review={data.comment}
-                />
-              ))}
+              {reviews.map((data, index) => {
+                console.log(data.isEdit);
+                if (data.isEdit) {
+                  return (
+                    <EditReviewItem
+                      key={index}
+                      id={data.reviewid}
+                      rating={data.rating}
+                      nickname={data.nickname}
+                      date={data.updatedate}
+                      review={data.comment}
+                    />
+                  );
+                } else {
+                  return (
+                    <ReviewItem
+                      key={index}
+                      id={data.reviewid}
+                      rating={data.rating}
+                      nickname={data.nickname}
+                      date={data.updatedate}
+                      review={data.comment}
+                    />
+                  );
+                }
+              })}
             </div>
           </div>
         </div>
