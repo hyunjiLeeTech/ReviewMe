@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3001;
 
 const db = require("./models");
 const controllers = require("./controllers");
+const controller = require("./controllers");
+const { userInfo } = require("os");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -43,13 +45,12 @@ app.post("/reviews/add", (req, res) => {
   const date = new Date();
 
   const newReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${date.getFullYear() + 1
+      }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
-    bookId: req.body.bookId,
+    bookId: req.body.bookId
   };
 
   controllers.review.AddReview(newReview);
@@ -101,7 +102,7 @@ app.get("/wishlist", (req, res) => {
       res.json({ errCode: 0, wishlist: data });
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting library" });
+      res.json({ errCode: 1, message: "error while getting wishlist" });
     });
 });
 
@@ -113,10 +114,58 @@ app.get("/wishlist/:userId", (req, res) => {
       res.json({ errCode: 0, wishlist: data });
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting library" });
+      res.json({ errCode: 1, message: "error while getting wishlist" });
     });
 });
 //#endregion
+
+//#region Profile
+app.get("/profile", (req, res) => {
+  controllers.profile
+    .getAllProfiles()
+    .then((data) => {
+      res.json({ errCode: 0, profile: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting profile" });
+    })
+});
+
+app.get("/profile/:userId", (req, res) => {
+  const userId = req.params.userId;
+  controllers.profile
+    .getProfileByUserId(userId)
+    .then((data) => {
+      res.json({ errCode: 0, profile: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting profile" });
+    })
+});
+
+app.put("/profile/edit/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const newData = {
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    nickname: req.body.nickname
+  }
+  controllers.profile.editProfile(newData, userId);
+});
+
+app.put("/profile/delete", (req, res) => {
+  const userId = req.body.userId;
+  controllers.profile
+    .deleteAccountProfile(userId)
+    .then((res) => {
+      res.json({ errCode: 0, message: "account deletion successful" });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "account deletion failed" });
+    });
+});
+//#endregion
+
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
