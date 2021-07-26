@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Rating } from "@material-ui/lab";
 
 import ReviewDataServices from "../../services/ReviewDataServices";
 
 import ReviewItem from "./ReviewItem";
 import Button from "./Button";
+import Pagination from "../style/Pagination";
 
 import "./BookDetails.css";
+
+let PageSize = 8;
 
 const BookDetails = () => {
   const bookInfo = {
@@ -117,6 +120,7 @@ const BookDetails = () => {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [reviews, setReviews] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const categories = bookInfo.volumeInfo.categories;
 
   useEffect(() => {
@@ -155,6 +159,12 @@ const BookDetails = () => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
+
+  const reviewData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return reviews.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, reviews]);
 
   return (
     <div className="container detailContainer">
@@ -225,7 +235,7 @@ const BookDetails = () => {
             </form>
 
             <div className="subContainer">
-              {reviews.map((data, index) => (
+              {reviewData.map((data, index) => (
                 <ReviewItem
                   key={index}
                   id={data.reviewid}
@@ -235,11 +245,19 @@ const BookDetails = () => {
                   review={data.comment}
                 />
               ))}
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage}
+                  totalCount={reviews.length}
+                  pageSize={PageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="row justify-content-center"></div>
     </div>
   );
 };
