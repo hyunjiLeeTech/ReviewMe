@@ -164,6 +164,19 @@ app.put("/profile/delete", (req, res) => {
       res.json({ errCode: 1, message: "account deletion failed" });
     });
 });
+
+app.delete("/wishlist/delete", (req, res) => {
+  const id = req.body.wishlistId;
+
+  controllers.wishlist
+    .deleteWishListById(id)
+    .then((res) => {
+      res.json({ errCode: 0, message: res });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
 //#endregion
 
 
