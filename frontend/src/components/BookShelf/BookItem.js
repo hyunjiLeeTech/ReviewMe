@@ -15,6 +15,7 @@ const BookItem = (props) => {
             <h4>{title}</h4>
             <p>{author}</p>
           </div>
+          <button className="deleteBtn">Delete</button>
         </Link>
       </div>
     </div>
