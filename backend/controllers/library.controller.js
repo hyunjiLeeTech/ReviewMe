@@ -26,3 +26,16 @@ module.exports.getAllLibraryByUserId = (userid) => {
       });
   });
 };
+
+module.exports.deleteLibraryItemById = (id) => {
+  return new Promise((resolve, reject) => {
+    sequelize
+      .query(`DELETE * FROM libraryitem WHERE libraryitemid='${id}'`)
+      .then(() => {
+        resolve("Delete library item success");
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
