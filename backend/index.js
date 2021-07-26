@@ -16,6 +16,26 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
 });
 
+app.get("/users", (req, res) => {
+  controllers.users.getUsers().then((data) => {
+    console.log(data.rows.userid);
+    res.json({ users: data });
+  });
+});
+
+app.post("/auth/login", (req, res) => {
+  controllers.users.login(req).then((data) => {
+    res.json({ users: data });
+    console.log(data.rows);
+  });
+});
+
+app.post("/auth/signup", (req, res) => {
+  controllers.users.signup(req).then((data) => {
+    res.json({ users: data });
+  });
+});
+
 //#region Reviews
 app.get("/reviews", (req, res) => {
   controllers.review
@@ -45,12 +65,13 @@ app.post("/reviews/add", (req, res) => {
   const date = new Date();
 
   const newReview = {
-    date: `${date.getFullYear() + 1
-      }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${
+      date.getFullYear() + 1
+    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
-    bookId: req.body.bookId
+    bookId: req.body.bookId,
   };
 
   controllers.review.AddReview(newReview);
@@ -141,7 +162,7 @@ app.get("/profile", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting profile" });
-    })
+    });
 });
 
 app.get("/profile/:userId", (req, res) => {
@@ -153,7 +174,7 @@ app.get("/profile/:userId", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting profile" });
-    })
+    });
 });
 
 app.put("/profile/edit/:userId", (req, res) => {
@@ -161,8 +182,8 @@ app.put("/profile/edit/:userId", (req, res) => {
   const newData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    nickname: req.body.nickname
-  }
+    nickname: req.body.nickname,
+  };
   controllers.profile.editProfile(newData, userId);
 });
 
@@ -191,7 +212,6 @@ app.delete("/wishlist/delete", (req, res) => {
     });
 });
 //#endregion
-
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {

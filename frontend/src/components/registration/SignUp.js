@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Title from "../style/Title";
 import "./SignUp.css";
@@ -26,6 +26,8 @@ const SignUp = () => {
   const [validatedNickName, setValidNickName] = useState();
   const [validatedGender, setValidGender] = useState();
   const [validatedDateOfBirth, setValidDateOfBirth] = useState();
+
+  const history = useHistory();
 
   const emailHandler = (event) => {
     setProvidedEmail(event.target.value);
@@ -112,8 +114,41 @@ const SignUp = () => {
     setValidDateOfBirth(providedDateOfBirth.match(dateRegex));
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/auth/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: providedFirstName,
+          lastName: providedLastName,
+          email: providedEmail,
+          password: providedPassword,
+          confirmPassword: providedConfirmPassword,
+          gender: providedGender,
+          nickName: providedNickName,
+          dob: providedDateOfBirth,
+        }),
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+    } catch (err) {
+      console.error(err.message);
+    }
+    setProvidedEmail("");
+    setProvidedPassword("");
+    setProvidedConfirmPassword("");
+    setProvidedFirstName("");
+    setProvidedLastName("");
+    setProvidedNickName("");
+    setProvidedGender("");
+    setProvidedDateOfBirth("");
+
+    history.replace("./login");
   };
 
   return (

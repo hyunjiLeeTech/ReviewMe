@@ -26,8 +26,33 @@ const LogIn = (props) => {
   const validatePasswordHandler = () => {
     setValidPassword(providedPassword.trim().length >= 8);
   };
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    try {
+      const response = await fetch("http://localhost:3001/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: providedEmail,
+          password: providedPassword,
+        }),
+      });
+
+      const responseData = await response.json();
+      const loadedData = [];
+      for (const key in responseData) {
+        loadedData.push({
+          id: key,
+          ...responseData[key],
+        });
+      }
+      console.log(loadedData);
+      console.log(loadedData.password);
+    } catch (err) {
+      console.error(err.message);
+    }
     props.onLogin(providedEmail, providedPassword);
     if (providedEmail === "admin@reviewme.com") {
       return <Redirect to="/homepage" />;
