@@ -26,3 +26,16 @@ module.exports.getWishListByUserId = (userid) => {
       });
   });
 };
+
+module.exports.deleteWishListById = (id) => {
+  return new Promise((resolve, reject) => {
+    sequelize
+      .query(`DELETE * FROM wishlist WHERE wishlistid='${id}'`)
+      .then(() => {
+        resolve("Delete wishlist item success");
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
