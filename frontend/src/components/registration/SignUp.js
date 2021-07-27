@@ -116,29 +116,25 @@ const SignUp = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3001/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: providedFirstName,
-          lastName: providedLastName,
-          email: providedEmail,
-          password: providedPassword,
-          confirmPassword: providedConfirmPassword,
-          gender: providedGender,
-          nickName: providedNickName,
-          dob: providedDateOfBirth,
-        }),
-      });
+    const response = await fetch("http://localhost:3001/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        firstName: providedFirstName,
+        lastName: providedLastName,
+        email: providedEmail,
+        password: providedPassword,
+        confirmPassword: providedConfirmPassword,
+        gender: providedGender,
+        nickName: providedNickName,
+        dob: providedDateOfBirth,
+      }),
+    });
 
-      const responseData = await response.json();
-      console.log(responseData);
-    } catch (err) {
-      console.error(err.message);
-    }
+    const responseData = await response.json();
+    console.log(responseData);
     setProvidedEmail("");
     setProvidedPassword("");
     setProvidedConfirmPassword("");

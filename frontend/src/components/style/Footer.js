@@ -1,10 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 
 import "./Footer.css";
+import AuthContext from "../context/auth-context";
 
 const Footer = (props) => {
+  const authCtx = useContext(AuthContext);
   useEffect(() => {
     var windowWidth = $(window).width();
     if (windowWidth < 768) {
@@ -17,7 +19,7 @@ const Footer = (props) => {
   return (
     <footer
       style={{
-        backgroundColor: props.isAdmin ? "#355070" : "#b56576",
+        backgroundColor: authCtx.adminLoggedIn ? "#355070" : "#b56576",
       }}
       className="footer mt-auto py-3 text-white"
     >

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
+import AuthContext from "../context/auth-context";
 
 import Title from "../style/Title";
 
 import "./LogIn.css";
 
 const LogIn = (props) => {
+  const authCtx = useContext(AuthContext);
   const [providedEmail, setProvidedEmail] = useState("");
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();
@@ -29,7 +31,7 @@ const LogIn = (props) => {
   const submitHandler = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      fetch("http://localhost:3001/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -38,24 +40,42 @@ const LogIn = (props) => {
           email: providedEmail,
           password: providedPassword,
         }),
-      });
-
-      const responseData = await response.json();
-      const loadedData = [];
-      for (const key in responseData) {
-        loadedData.push({
-          id: key,
-          ...responseData[key],
+      })
+        .then((res) => {
+          if (res.ok) {
+            return res.json();
+          } else {
+            return res.json().then((data) => {
+              let errorMessage = "Authentication failed";
+              throw new Error(errorMessage);
+            });
+          }
+        })
+        .then((data) => {
+          let pass = data.password;
+          let userType;
+          console.log(data);
+          console.log(pass);
+          console.log(data.users[0]);
+          data.users[0].map((dataDetails) => {
+            return (userType = dataDetails.usertypeid);
+          });
+          const expirationTime = new Date(
+            new Date().getTime() + 60 * 60 * 1000
+          );
+          console.log(expirationTime);
+          authCtx.login(pass, userType, expirationTime);
         });
-      }
-      console.log(loadedData);
-      console.log(loadedData.password);
+
+      // const loadedData = {};
+      // for (const key in responseData) {
+      //   loadedData.push({
+      //     id: key,
+      //     ...responseData[key],
+      //   });
+      // }
     } catch (err) {
-      console.error(err.message);
-    }
-    props.onLogin(providedEmail, providedPassword);
-    if (providedEmail === "admin@reviewme.com") {
-      return <Redirect to="/homepage" />;
+      alert(err.message);
     }
   };
 

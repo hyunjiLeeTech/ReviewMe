@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -27,23 +27,17 @@ import TermCondition from "./components/TermCondition/TermCondition";
 import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 import ResetLink from "./components/registration/ResetPassword";
+import AuthContext from "./components/context/auth-context";
 
 import WishListDataServices from "./services/WishListDataServices";
 import LibraryDataServices from "./services/LibraryDataServices";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  const authCtx = useContext(AuthContext);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
   useEffect(() => {
-    const userLoggedIn = localStorage.getItem("isLoggedIn");
-
-    if (userLoggedIn === "1") {
-      setIsLoggedIn(true);
-    }
-
     WishListDataServices.getWishListByUseId(30).then((wishlist) => {
       setWishlist(wishlist);
     });
@@ -51,38 +45,17 @@ function App() {
     LibraryDataServices.getLibraryByUseId(30).then((library) => {
       setLibrary(library);
     });
-
   }, []);
 
-  const loginHandler = (email, password) => {
-    if (email === "admin@reviewme.com") {
-      localStorage.setItem("isLoggedIn", "1");
-      setIsLoggedIn(true);
-      setAdminLoggedIn(true);
-    } else {
-      localStorage.setItem("isLoggedIn", "1");
-      setIsLoggedIn(true);
-    }
-  };
-
-  const logoutHandler = () => {
-    localStorage.removeItem("isLoggedIn");
-    setIsLoggedIn(false);
-    setAdminLoggedIn(false);
-  };
   return (
     <Router>
       <div className="App">
-        <Header
-          isAuth={isLoggedIn}
-          isAdmin={adminLoggedIn}
-          onLogout={logoutHandler}
-        />
+        <Header />
 
         <Switch>
           <Route exact path="/">
             <Redirect to="/homepage" />
-            {adminLoggedIn && <Redirect to="/report-admin" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/homepage">
             <HomePage />
@@ -97,9 +70,9 @@ function App() {
             <AboutUs />
           </Route>
           <Route path="/login">
-            {!isLoggedIn && !adminLoggedIn && <LogIn onLogin={loginHandler} />}
-            {isLoggedIn && <Redirect to="/" />}
-            {adminLoggedIn && <Redirect to="/report-admin" />}
+            {!authCtx.isLoggedIn && !authCtx.adminLoggedIn && <LogIn />}
+            {authCtx.isLoggedIn && <Redirect to="/" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/signup">
             <SignUp />
@@ -117,25 +90,33 @@ function App() {
             <BookDetails />
           </Route>
           <Route exact path="/library">
-            {isLoggedIn && <BookShelf title="Library" items={library} />}
-            {!isLoggedIn && <Redirect to="/login" />}
+            {authCtx.isLoggedIn && (
+              <BookShelf title="Library" items={library} />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
-            {isLoggedIn && <BookShelf title="Wish List" items={wishlist} />}
-            {!isLoggedIn && <Redirect to="/login" />}
+            {authCtx.isLoggedIn && (
+              <BookShelf title="Wish List" items={wishlist} />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/profile">
-            {isLoggedIn && <Profile />}
-            {!isLoggedIn && <Redirect to="/" />}
+            {authCtx.isLoggedIn && <Profile />}
+            {!authCtx.isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/resetpassword">
-            {isLoggedIn && <ResetPassword />}
-            {!isLoggedIn && <Redirect to="/" />}
+            {authCtx.isLoggedIn && <ResetPassword />}
+            {!authCtx.isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route exact path="/report-admin">
-            {isLoggedIn && adminLoggedIn && <ReportManager />}
-            {isLoggedIn && !adminLoggedIn && <Redirect to="/" />}
-            {!isLoggedIn && !adminLoggedIn && <Redirect to="/" />}
+            {authCtx.isLoggedIn && authCtx.adminLoggedIn && <ReportManager />}
+            {authCtx.isLoggedIn && !authCtx.adminLoggedIn && (
+              <Redirect to="/" />
+            )}
+            {!authCtx.isLoggedIn && !authCtx.adminLoggedIn && (
+              <Redirect to="/" />
+            )}
           </Route>
           <Route path="/terms">
             <TermCondition />
@@ -145,7 +126,7 @@ function App() {
           </Route>
         </Switch>
 
-        <Footer isAdmin={adminLoggedIn} />
+        <Footer />
       </div>
     </Router>
   );

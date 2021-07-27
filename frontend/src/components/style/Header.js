@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
+import AuthContext from "../context/auth-context";
 
 import "./Header.css";
 
 const Header = (props) => {
-  if (props.isAdmin) {
-  }
+  const authCtx = useContext(AuthContext);
   return (
     <nav
-      style={{ backgroundColor: props.isAdmin ? "#355070" : "#b56576" }}
+      style={{ backgroundColor: authCtx.adminLoggedIn ? "#355070" : "#b56576" }}
       className="navbar navbar-expand-lg navbar-dark "
     >
       <div className="container-fluid">
@@ -32,21 +32,21 @@ const Header = (props) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarBar">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {!props.isAdmin && (
+            {!authCtx.adminLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/wish-list">
                   Wish List
                 </NavLink>
               </li>
             )}
-            {!props.isAdmin && (
+            {!authCtx.adminLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/library">
                   Library
                 </NavLink>
               </li>
             )}
-            {props.isAdmin && props.isAuth && (
+            {authCtx.adminLoggedIn && authCtx.isLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/report-admin">
                   Reports
@@ -55,34 +55,36 @@ const Header = (props) => {
             )}
           </ul>
           <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
-            {!props.isAuth && (
+            {!authCtx.isLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/login">
                   Log In
                 </NavLink>
               </li>
             )}
-            {!props.isAuth && (
+            {!authCtx.isLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/signup">
                   Sign Up
                 </NavLink>
               </li>
             )}
-            {props.isAuth && (
+            {authCtx.isLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/profile">
                   Profile
                 </NavLink>
               </li>
             )}
-            {props.isAuth && (
+            {authCtx.isLoggedIn && (
               <li
                 className="nav-item logoutButton"
                 style={{
-                  backgroundColor: props.isAdmin ? "#355070" : "#b56576",
+                  backgroundColor: authCtx.adminLoggedIn
+                    ? "#355070"
+                    : "#b56576",
                 }}
-                onClick={props.onLogout}
+                onClick={authCtx.logout}
               >
                 <NavLink id="head-link" className="nav-link" to="/homepage">
                   Logout
