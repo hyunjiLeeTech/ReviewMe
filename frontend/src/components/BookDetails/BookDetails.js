@@ -1,14 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useReducer, useMemo } from "react";
 import { Rating } from "@material-ui/lab";
 
 import ReviewDataServices from "../../services/ReviewDataServices";
 
 import ReviewItem from "./ReviewItem";
+import EditReviewItem from "./EditReviewItem";
 import Button from "./Button";
+import Pagination from "../style/Pagination";
 
 import "./BookDetails.css";
 
-const BookDetails = () => {
+let PageSize = 8;
+
+const BookDetails = (props) => {
   const bookInfo = {
     kind: "books#volume",
     id: "UwYJsklz7WkC",
@@ -114,16 +118,31 @@ const BookDetails = () => {
     },
   };
 
+  const { reviews, editReviewHandler } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [reviews, setReviews] = useState([]);
+  // <<<<<<< HEAD
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [reviews, setReviews] = useState([]);
+  // =======
+  //   const [reviews, setReviews] = useState([]);
+
+  // >>>>>>> 5720d2c4de1b275498c88e0ddebe3de2ac5e6b77
   const categories = bookInfo.volumeInfo.categories;
 
   useEffect(() => {
     ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
-      setReviews(reviews);
+      for (let i = 0; i < reviews.length; i++) {
+        reviews[i].isEdit = false;
+      }
+      editReviewHandler(reviews);
     });
   }, []);
+
+  const editReviewArrHandler = () => {
+    editReviewHandler(reviews);
+  };
 
   const displayCategories = (categories) => {
     let categoryArr = categories[0];
@@ -143,9 +162,9 @@ const BookDetails = () => {
       bookId: "zYw3sYFtz9kC",
     };
     ReviewDataServices.addReview(newReview);
-    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) =>
-      setReviews(reviews)
-    );
+    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
+      editReviewArrHandler(reviews);
+    });
   };
 
   const handleRatingChange = (event) => {
@@ -155,6 +174,18 @@ const BookDetails = () => {
   const handleCommentChange = (event) => {
     setComment(event.target.value);
   };
+
+  const onClickEdit = (id) => {
+    let reviewsArr = reviews;
+    reviewsArr[id].isEdit = !reviewsArr[id].isEdit;
+    editReviewArrHandler(reviewsArr);
+    forceUpdate();
+  };
+  const reviewData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return reviews.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, reviews]);
 
   return (
     <div className="container detailContainer">
@@ -225,21 +256,46 @@ const BookDetails = () => {
             </form>
 
             <div className="subContainer">
-              {reviews.map((data, index) => (
-                <ReviewItem
-                  key={index}
-                  id={data.reviewid}
-                  rating={data.rating}
-                  nickname={data.nickname}
-                  date={data.updatedate}
-                  review={data.comment}
+              {reviewData.map((data, index) => {
+                if (data.isEdit) {
+                  return (
+                    <EditReviewItem
+                      key={index}
+                      reviewId={data.reviewid}
+                      itemId={index}
+                      rating={data.rating}
+                      comment={data.comment}
+                      onClickEdit={onClickEdit}
+                    />
+                  );
+                } else {
+                  return (
+                    <ReviewItem
+                      key={index}
+                      itemId={index}
+                      id={data.reviewid}
+                      rating={data.rating}
+                      nickname={data.nickname}
+                      date={data.updatedate}
+                      review={data.comment}
+                      onClickEdit={onClickEdit}
+                    />
+                  );
+                }
+              })}
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage}
+                  totalCount={reviews.length}
+                  pageSize={PageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
                 />
-              ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div className="row justify-content-center"></div>
     </div>
   );
 };

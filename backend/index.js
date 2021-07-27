@@ -127,13 +127,28 @@ app.post("/reviews/add", (req, res) => {
     bookId: req.body.bookId,
   };
 
-  controllers.review.AddReview(newReview);
+  controllers.review.addReview(newReview);
+});
+
+app.put("/reviews/edit", (req, res) => {
+  const date = new Date();
+
+  const editReview = {
+    date: `${
+      date.getFullYear() + 1
+    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    comment: req.body.comment,
+    rating: req.body.rating,
+    reviewId: req.body.reviewId,
+  };
+  console.log(editReview);
+  controllers.review.editReview(editReview);
 });
 
 app.put("/reviews/delete", (req, res) => {
   const reviewId = req.body.reviewId;
   controllers.review
-    .DeleteReview(reviewId)
+    .deleteReview(reviewId)
     .then((res) => {
       res.json({ errCode: 0, message: "delete review success" });
     })

@@ -28,4 +28,7 @@ export default {
       //   }
     });
   },
+  editReview(editReview) {
+    return axios.put(`/reviews/edit`, editReview).then((res) => {});
+  },
 };
