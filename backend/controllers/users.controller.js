@@ -15,7 +15,7 @@ const getUsers = () => {
   });
 };
 
-const login = async (req, res, next) => {
+const login = (req, res, next) => {
   return new Promise((resolve, reject) => {
     const { email, password } = req.body;
     sequelize

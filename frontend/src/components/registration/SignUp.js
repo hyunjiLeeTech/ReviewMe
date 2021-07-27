@@ -114,9 +114,9 @@ const SignUp = () => {
     setValidDateOfBirth(providedDateOfBirth.match(dateRegex));
   };
 
-  const submitHandler = async (event) => {
+  const submitHandler = (event) => {
     event.preventDefault();
-    const response = await fetch("http://localhost:3001/auth/signup", {
+    fetch("http://localhost:3001/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -132,9 +132,6 @@ const SignUp = () => {
         dob: providedDateOfBirth,
       }),
     });
-
-    const responseData = await response.json();
-    console.log(responseData);
     setProvidedEmail("");
     setProvidedPassword("");
     setProvidedConfirmPassword("");
@@ -144,7 +141,7 @@ const SignUp = () => {
     setProvidedGender("");
     setProvidedDateOfBirth("");
 
-    history.replace("./login");
+    history.replace("/login");
   };
 
   return (

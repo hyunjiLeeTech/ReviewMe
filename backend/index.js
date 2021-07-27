@@ -50,6 +50,7 @@ app.post("/auth/login", async (req, res) => {
 
 app.post("/auth/signup", async (req, res) => {
   let gender_type;
+  let validPass = false;
   const {
     nickName,
     email,
@@ -67,6 +68,10 @@ app.post("/auth/signup", async (req, res) => {
   } else if (gender === "Prefer not to say") {
     gender_type = 3;
   }
+  if (password == password2) {
+    validPass = true;
+  }
+  console.log(validPass);
   try {
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
