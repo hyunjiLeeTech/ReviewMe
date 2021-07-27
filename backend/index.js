@@ -1,19 +1,92 @@
 const express = require("express");
 const path = require("path");
 const app = express();
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 const PORT = process.env.PORT || 3001;
 
 const db = require("./models");
+const sequelize = db.sequelize;
 const controllers = require("./controllers");
-const controller = require("./controllers");
 const { userInfo } = require("os");
 
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, "../frontend/build")));
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to bezkoder application." });
+});
+
+app.get("/users", (req, res) => {
+  controllers.users.getUsers().then((data) => {
+    console.log(data.rows.userid);
+    res.json({ users: data });
+  });
+});
+
+app.post("/auth/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    controllers.users.login(req).then(async (data) => {
+      let user_id;
+      data[0].map((dataDetails) => {
+        user_id = dataDetails.userid;
+      });
+      console.log(user_id);
+      let password1;
+      data[0].map((dataDetails) => {
+        password1 = dataDetails.password;
+      });
+      const validPassword = await bcrypt.compare(password, password1);
+      console.log(validPassword);
+      res.json({ users: data, password: validPassword });
+    });
+  } catch (err) {
+    console.error(err.message);
+  }
+});
+
+app.post("/auth/signup", async (req, res) => {
+  let gender_type;
+  const {
+    nickName,
+    email,
+    password,
+    password2,
+    firstName,
+    lastName,
+    gender,
+    dob,
+  } = req.body;
+  if (gender === "Male") {
+    gender_type = 1;
+  } else if (gender === "Female") {
+    gender_type = 2;
+  } else if (gender === "Prefer not to say") {
+    gender_type = 3;
+  }
+  try {
+    const saltRound = 10;
+    const salt = await bcrypt.genSalt(saltRound);
+
+    const bcryptPassword = await bcrypt.hash(password, salt);
+    const newUser = await sequelize.query(
+      `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', 2, true) returning *`
+    );
+    sequelize.query(
+      `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
+         '${firstName}', '${lastName}', '${nickName}','${dob}','${gender_type}', (select max(userid) from usr))`
+    );
+    let user_id;
+    newUser[0].map((dataDetails) => {
+      user_id = dataDetails.userid;
+    });
+    console.log(user_id);
+  } catch (err) {
+    console.error(err.message);
+  }
 });
 
 //#region Reviews
@@ -45,12 +118,13 @@ app.post("/reviews/add", (req, res) => {
   const date = new Date();
 
   const newReview = {
-    date: `${date.getFullYear() + 1
-      }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${
+      date.getFullYear() + 1
+    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
-    bookId: req.body.bookId
+    bookId: req.body.bookId,
   };
 
   controllers.review.addReview(newReview);
@@ -156,7 +230,7 @@ app.get("/profile", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting profile" });
-    })
+    });
 });
 
 app.get("/profile/:userId", (req, res) => {
@@ -168,7 +242,7 @@ app.get("/profile/:userId", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting profile" });
-    })
+    });
 });
 
 app.put("/profile/edit/:userId", (req, res) => {
@@ -176,8 +250,8 @@ app.put("/profile/edit/:userId", (req, res) => {
   const newData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
-    nickname: req.body.nickname
-  }
+    nickname: req.body.nickname,
+  };
   controllers.profile.editProfile(newData, userId);
 });
 
@@ -206,7 +280,6 @@ app.delete("/wishlist/delete", (req, res) => {
     });
 });
 //#endregion
-
 
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
