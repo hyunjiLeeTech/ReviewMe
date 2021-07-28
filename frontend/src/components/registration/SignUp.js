@@ -133,17 +133,17 @@ const SignUp = () => {
       }),
     }).then(async (res) => {
       alert(await res.json());
-      setProvidedEmail("");
-      setProvidedPassword("");
-      setProvidedConfirmPassword("");
-      setProvidedFirstName("");
-      setProvidedLastName("");
-      setProvidedNickName("");
-      setProvidedGender("");
-      setProvidedDateOfBirth("");
-
-      history.replace("/login");
     });
+    setProvidedEmail("");
+    setProvidedPassword("");
+    setProvidedConfirmPassword("");
+    setProvidedFirstName("");
+    setProvidedLastName("");
+    setProvidedNickName("");
+    setProvidedGender("");
+    setProvidedDateOfBirth("");
+
+    history.replace("/login");
   };
 
   return (

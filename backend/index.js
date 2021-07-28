@@ -60,6 +60,7 @@ app.post("/auth/signup", async (req, res) => {
   //     res.status(401).json();
   //   });
   try {
+    let gender_type;
     const {
       nickName,
       email,
@@ -71,11 +72,11 @@ app.post("/auth/signup", async (req, res) => {
       dob,
     } = req.body;
     if (gender === "Male") {
-      gender = 1;
+      gender_type = 1;
     } else if (gender === "Female") {
-      gender = 2;
+      gender_type = 2;
     } else if (gender === "Prefer not to say") {
-      gender = 3;
+      gender_type = 3;
     }
 
     const user = await sequelize.query(
@@ -97,7 +98,7 @@ app.post("/auth/signup", async (req, res) => {
       );
       sequelize.query(
         `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
-         '${firstName}', '${lastName}', '${nickName}','${dob}','${gender}', (select max(userid) from usr))`
+         '${firstName}', '${lastName}', '${nickName}','${dob}','${gender_type}', (select max(userid) from usr))`
       );
       res.json("User successfully created");
     }
