@@ -40,10 +40,16 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken);
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
 
-  const userIsLoggedIn = !!token;
+  let userIsLoggedIn;
+  if (!token) {
+    userIsLoggedIn = false;
+  }
+  if (token) {
+    userIsLoggedIn = true;
+  }
 
   const logoutHandler = useCallback(() => {
-    setToken(null);
+    setToken(false);
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("userType");

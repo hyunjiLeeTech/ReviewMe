@@ -64,7 +64,11 @@ const LogIn = (props) => {
             new Date().getTime() + 60 * 60 * 1000
           );
           console.log(expirationTime);
-          authCtx.login(pass, userType, expirationTime);
+          if (pass === true) {
+            authCtx.login(pass, userType, expirationTime);
+          } else {
+            alert("Login failed");
+          }
         });
 
       // const loadedData = {};
