@@ -21,7 +21,12 @@ const login = (req) => {
     sequelize
       .query(`SELECT * from usr where email='${email}'`)
       .then((data) => {
-        resolve(data);
+        console.log(data);
+        if (data[0] == "") {
+          resolve("Please enter correct information");
+        } else {
+          resolve(data);
+        }
       })
       .catch((err) => {
         reject(err);

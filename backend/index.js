@@ -30,18 +30,22 @@ app.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     controllers.users.login(req).then(async (data) => {
-      let user_id;
-      data[0].map((dataDetails) => {
-        user_id = dataDetails.userid;
-      });
-      console.log(user_id);
-      let password1;
-      data[0].map((dataDetails) => {
-        password1 = dataDetails.password;
-      });
-      const validPassword = await bcrypt.compare(password, password1);
-      console.log(validPassword);
-      res.json({ users: data, password: validPassword });
+      if (typeof data === "string") {
+        res.json(data);
+      } else {
+        let user_id;
+        data[0].map((dataDetails) => {
+          user_id = dataDetails.userid;
+        });
+        console.log(user_id);
+        let password1;
+        data[0].map((dataDetails) => {
+          password1 = dataDetails.password;
+        });
+        const validPassword = await bcrypt.compare(password, password1);
+        console.log(validPassword);
+        res.json({ users: data, password: validPassword });
+      }
     });
   } catch (err) {
     console.error(err.message);

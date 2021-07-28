@@ -52,22 +52,32 @@ const LogIn = (props) => {
           }
         })
         .then((data) => {
-          let pass = data.password;
-          let userType;
-          console.log(data);
-          console.log(pass);
-          console.log(data.users[0]);
-          data.users[0].map((dataDetails) => {
-            return (userType = dataDetails.usertypeid);
-          });
-          const expirationTime = new Date(
-            new Date().getTime() + 60 * 60 * 1000
-          );
-          console.log(expirationTime);
-          if (pass === true) {
-            authCtx.login(pass, userType, expirationTime);
+          if (typeof data === "string") {
+            alert(data);
           } else {
-            alert("Login failed");
+            let pass = data.password;
+            let active;
+            let userType;
+            console.log(data);
+            console.log(pass);
+
+            console.log(data.users[0]);
+            data.users[0].map((dataDetails) => {
+              return (userType = dataDetails.usertypeid);
+            });
+            data.users[0].map((dataDetail) => {
+              return (active = dataDetail.isactive);
+            });
+            console.log(active);
+            const expirationTime = new Date(
+              new Date().getTime() + 60 * 60 * 1000
+            );
+            console.log(expirationTime);
+            if (pass === true && active === true) {
+              authCtx.login(pass, userType, expirationTime);
+            } else {
+              alert("Login failed");
+            }
           }
         });
 
