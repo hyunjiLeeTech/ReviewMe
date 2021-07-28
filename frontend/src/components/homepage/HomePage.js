@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
 import SearchResult from "./SearchResult";
+import Pagination from "../style/Pagination";
 
 import "./HomePage.css";
+
+let PageSize = 8;
 
 const bookList = [
   {
@@ -156,6 +159,7 @@ const HomePage = () => {
   const [selectedBook, setSelectedBook] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
@@ -277,6 +281,13 @@ const HomePage = () => {
     setSelectedCategory("");
     setSelectedRating("");
   };
+
+  const bookData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return selectedBook.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, selectedBook]);
+
   return (
     <>
       <div className="container">
@@ -429,7 +440,7 @@ const HomePage = () => {
           )}
           {searching && (
             <div className="mt-5 mb-5">
-              {selectedBook.map((book, index) => (
+              {bookData.map((book, index) => (
                 <SearchResult
                   key={index}
                   image={book.image}
@@ -441,6 +452,15 @@ const HomePage = () => {
                   bookId={book.id}
                 />
               ))}
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage}
+                  totalCount={bookList.length}
+                  pageSize={PageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
+              </div>
             </div>
           )}
         </div>
