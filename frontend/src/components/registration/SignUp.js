@@ -131,6 +131,8 @@ const SignUp = () => {
         nickName: providedNickName,
         dob: providedDateOfBirth,
       }),
+    }).then(async (res) => {
+      alert(await res.json());
     });
     setProvidedEmail("");
     setProvidedPassword("");

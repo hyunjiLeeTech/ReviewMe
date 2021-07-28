@@ -15,7 +15,7 @@ const getUsers = () => {
   });
 };
 
-const login = (req, res, next) => {
+const login = (req) => {
   return new Promise((resolve, reject) => {
     const { email, password } = req.body;
     sequelize
@@ -29,5 +29,8 @@ const login = (req, res, next) => {
   });
 };
 
+const signup = (info) => {};
+
 exports.getUsers = getUsers;
 exports.login = login;
+exports.signup = signup;
