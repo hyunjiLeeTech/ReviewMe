@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Link, Redirect } from "react-router-dom";
 import AuthContext from "../context/auth-context";
+import Modal from "../style/Modal";
 
 import Title from "../style/Title";
 
@@ -12,6 +13,7 @@ const LogIn = (props) => {
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();
   const [validatedPassword, setValidPassword] = useState();
+  const [dataInfo, setDataInfo] = useState("");
 
   const emailHandler = (event) => {
     setProvidedEmail(event.target.value);
@@ -53,7 +55,12 @@ const LogIn = (props) => {
         })
         .then((data) => {
           if (typeof data === "string") {
-            alert(data);
+            setDataInfo(data);
+            console.log(dataInfo);
+            authCtx.showModal();
+            // if (!authCtx.popupIsShown) {
+            //   setDataInfo();
+            // }
           } else {
             let pass = data.password;
             let active;
@@ -76,7 +83,11 @@ const LogIn = (props) => {
             if (pass === true && active === true) {
               authCtx.login(pass, userType, expirationTime);
             } else {
-              alert("Login failed");
+              setDataInfo("Login failed");
+              authCtx.showModal();
+              // if (!authCtx.popupIsShown) {
+              //   setDataInfo();
+              // }
             }
           }
         });
@@ -180,6 +191,9 @@ const LogIn = (props) => {
           </button>
         </div>
       </form>
+      {authCtx.popupIsShown && (
+        <Modal onClose={authCtx.closeModal}>{dataInfo}</Modal>
+      )}
     </div>
   );
 };

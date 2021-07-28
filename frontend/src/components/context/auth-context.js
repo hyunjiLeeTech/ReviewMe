@@ -39,6 +39,15 @@ export const AuthContextProvider = (props) => {
   }
   const [token, setToken] = useState(initialToken);
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
+  const [popupIsShown, setpopupIsShown] = useState(false);
+
+  const showModalHandler = () => {
+    setpopupIsShown(true);
+  };
+
+  const closeModalHandler = () => {
+    setpopupIsShown(false);
+  };
 
   let userIsLoggedIn;
   if (!token) {
@@ -87,6 +96,9 @@ export const AuthContextProvider = (props) => {
     login: loginHandler,
     logout: logoutHandler,
     adminLoggedIn,
+    popupIsShown,
+    showModal: showModalHandler,
+    closeModal: closeModalHandler,
   };
 
   return (
