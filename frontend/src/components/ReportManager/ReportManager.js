@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
 import SpeakerNotesOffOutlinedIcon from "@material-ui/icons/SpeakerNotesOffOutlined";
@@ -6,10 +6,13 @@ import MessageIcon from "@material-ui/icons/Message";
 
 import ReportComment from "./ReportComment";
 import Title from "../style/Title";
+import Pagination from "../style/Pagination";
 
 import "./ReportManager.css";
 
-const ReportManager = (props) => {
+let PageSize = 8;
+
+const ReportManager = () => {
   const commentList = [
     {
       reporterName: "Jhon Doe",
@@ -36,7 +39,88 @@ const ReportManager = (props) => {
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
       type: "spoiler",
     },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "spoiler",
+    },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "spoiler",
+    },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "spoiler",
+    },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "hate speech",
+    },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "spoiler",
+    },
+    {
+      reporterName: "Jhon Doe2",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "spoiler",
+    },
+    {
+      reporterName: "Jhon Doe23",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "hate speech",
+    },
+    {
+      reporterName: "Jhon Doe21",
+      reporterComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      reviewerName: "Jane Doe3",
+      reviewerComment:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolormagna aliqua. Ut enim ad minim veniam, quis nostruexercitation ullamco laboris nisi ut aliquip ex eacommodo consequat. Duis aute irure dolor inreprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatatnon proident, sunt in culpa qui officia deserunt mollitsanim id est laborum.",
+      type: "hate speech",
+    },
   ];
+
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const commentData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * PageSize;
+    const lastPageIndex = firstPageIndex + PageSize;
+    return commentList.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, commentList]);
+
   return (
     <div className="container-fluid">
       <div className="row flex-nowrap">
@@ -78,7 +162,7 @@ const ReportManager = (props) => {
           <div className="row d-flex justify-content-center">
             <div className="col-md-8">
               <div id="spoiler" className="cards">
-                {commentList
+                {commentData
                   .filter((item) => {
                     return item.type === "spoiler";
                   })
@@ -93,7 +177,7 @@ const ReportManager = (props) => {
                   ))}
               </div>
               <div id="hateSpeech" className="cards">
-                {commentList
+                {commentData
                   .filter((item) => {
                     return item.type === "hate speech";
                   })
@@ -106,6 +190,15 @@ const ReportManager = (props) => {
                       reviewerComment={data.reporterComment}
                     />
                   ))}
+              </div>
+              <div className="d-flex justify-content-center">
+                <Pagination
+                  className="pagination-bar"
+                  currentPage={currentPage}
+                  totalCount={commentList.length}
+                  pageSize={PageSize}
+                  onPageChange={(page) => setCurrentPage(page)}
+                />
               </div>
             </div>
           </div>
