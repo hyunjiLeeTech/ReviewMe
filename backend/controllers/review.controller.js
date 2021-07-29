@@ -30,9 +30,17 @@ module.exports.getReviewsByBookId = (bookId) => {
 };
 
 module.exports.addReview = (newReview) => {
-  sequelize.query(
-    `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
-  );
+  return new Promise((resolve, reject) => {
+    try {
+      sequelize.query(
+        `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
+      );
+
+      resolve({ errCode: 0, message: "add review success" });
+    } catch {
+      reject({ errCode: 1, message: "error while add review success" });
+    }
+  });
 };
 
 module.exports.deleteReview = (reviewId) => {
