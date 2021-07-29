@@ -59,7 +59,7 @@ const Profile = () => {
   };
 
   const onDeleteButtonHandler = () => {
-    const answer = window.confirm("Are you sure you want to delete your Account?")
+    window.confirm("Are you sure you want to delete your Account?")
   }
 
   const onSaveChangesButtonHandler = () => {
@@ -138,6 +138,7 @@ const Profile = () => {
                             value={firstName}
                             onBlur={validatedFirstNameHandler}
                             onChange={onChange}
+                            required
                             disabled
                           />
                           {validateFirstName === false ? (
@@ -164,6 +165,7 @@ const Profile = () => {
                             value={lastName}
                             onBlur={validatedLastNameHandler}
                             onChange={onChange}
+                            required
                             disabled
                           />
                           {validateLastName === false ? (
@@ -190,6 +192,7 @@ const Profile = () => {
                             value={nickname}
                             onBlur={validateNicknameHandler}
                             onChange={onChange}
+                            required
                             disabled
                           />
                           {validateNickname === false ? (
