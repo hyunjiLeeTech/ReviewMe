@@ -24,7 +24,7 @@ const Modal = (props) => {
         portalElement
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay>{props.children}</ModalOverlay>,
+        <ModalOverlay children={props.info} />,
         portalElement
       )}
     </Fragment>

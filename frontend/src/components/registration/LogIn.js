@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import AuthContext from "../context/auth-context";
 import Modal from "../style/Modal";
 
@@ -9,6 +10,7 @@ import "./LogIn.css";
 
 const LogIn = (props) => {
   const authCtx = useContext(AuthContext);
+
   const [providedEmail, setProvidedEmail] = useState("");
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();
@@ -192,7 +194,7 @@ const LogIn = (props) => {
         </div>
       </form>
       {authCtx.popupIsShown && (
-        <Modal onClose={authCtx.closeModal}>{dataInfo}</Modal>
+        <Modal onClose={authCtx.closeModal} info={dataInfo} />
       )}
     </div>
   );

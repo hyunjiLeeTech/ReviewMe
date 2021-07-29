@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import Title from "../style/Title";
+import AuthContext from "../context/auth-context";
+import Modal from "../style/Modal";
 import "./SignUp.css";
 
 const dateRegex = RegExp(
@@ -9,6 +11,8 @@ const dateRegex = RegExp(
 );
 
 const SignUp = () => {
+  const authCtx = useContext(AuthContext);
+
   const [providedEmail, setProvidedEmail] = useState("");
   const [providedPassword, setProvidedPassword] = useState("");
   const [providedConfirmPassword, setProvidedConfirmPassword] = useState("");
@@ -26,9 +30,9 @@ const SignUp = () => {
   const [validatedNickName, setValidNickName] = useState();
   const [validatedGender, setValidGender] = useState();
   const [validatedDateOfBirth, setValidDateOfBirth] = useState();
+  const [dataInformation, setDataInformation] = useState("");
 
   const history = useHistory();
-
   const emailHandler = (event) => {
     setProvidedEmail(event.target.value);
   };
@@ -131,9 +135,23 @@ const SignUp = () => {
         nickName: providedNickName,
         dob: providedDateOfBirth,
       }),
-    }).then(async (res) => {
-      alert(await res.json());
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        } else {
+          return res.json().then((data) => {
+            let errorMessage = "Authentication failed";
+            throw new Error(errorMessage);
+          });
+        }
+      })
+      .then(async (data) => {
+        console.log(data);
+        setDataInformation(await data);
+        console.log(dataInformation);
+        authCtx.showModal();
+      });
     setProvidedEmail("");
     setProvidedPassword("");
     setProvidedConfirmPassword("");
@@ -142,8 +160,9 @@ const SignUp = () => {
     setProvidedNickName("");
     setProvidedGender("");
     setProvidedDateOfBirth("");
-
-    history.replace("/login");
+    // if (!authCtx.popupIsShown) {
+    //   setDataInfo();
+    // }
   };
 
   return (
@@ -157,6 +176,9 @@ const SignUp = () => {
           </Link>
         </p>
       </div>
+      {authCtx.popupIsShown && (
+        <Modal onClose={authCtx.closeModal} info={dataInformation} />
+      )}
       <form className="row g-3 mt-3" onSubmit={submitHandler}>
         <div className="col-md-6 ">
           <div
