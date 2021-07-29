@@ -1,4 +1,6 @@
+
 import React, { useState, useEffect, useContext } from "react";
+
 import { Link, useHistory } from "react-router-dom";
 
 import Title from "../style/Title";
@@ -118,7 +120,7 @@ const SignUp = () => {
     setValidDateOfBirth(providedDateOfBirth.match(dateRegex));
   };
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     fetch("http://localhost:3001/auth/signup", {
       method: "POST",
@@ -160,9 +162,6 @@ const SignUp = () => {
     setProvidedNickName("");
     setProvidedGender("");
     setProvidedDateOfBirth("");
-    // if (!authCtx.popupIsShown) {
-    //   setDataInfo();
-    // }
   };
 
   return (

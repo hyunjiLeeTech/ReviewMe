@@ -10,7 +10,6 @@ import "./LogIn.css";
 
 const LogIn = (props) => {
   const authCtx = useContext(AuthContext);
-
   const [providedEmail, setProvidedEmail] = useState("");
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();

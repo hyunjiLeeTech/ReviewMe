@@ -46,6 +46,7 @@ app.post("/auth/login", async (req, res) => {
         console.log(validPassword);
         res.json({ users: data, password: validPassword });
       }
+
     });
   } catch (err) {
     console.error(err.message);
@@ -102,6 +103,7 @@ app.post("/auth/signup", async (req, res) => {
       );
       res.json("User successfully created");
     }
+
   } catch (err) {
     console.error(err.message);
   }

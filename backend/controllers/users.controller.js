@@ -15,6 +15,7 @@ const getUsers = () => {
   });
 };
 
+
 const login = (req) => {
   return new Promise((resolve, reject) => {
     const { email, password } = req.body;
@@ -27,6 +28,7 @@ const login = (req) => {
         } else {
           resolve(data);
         }
+
       })
       .catch((err) => {
         reject(err);
@@ -34,8 +36,10 @@ const login = (req) => {
   });
 };
 
+
 const signup = (info) => {};
 
 exports.getUsers = getUsers;
 exports.login = login;
 exports.signup = signup;
+
