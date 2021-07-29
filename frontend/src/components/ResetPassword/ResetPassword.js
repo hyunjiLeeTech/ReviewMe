@@ -45,9 +45,6 @@ const ResetPassword = () => {
     ) {
       window.confirm("Password changed succesfully!")
     }
-    else {
-
-    }
   };
 
   return (
@@ -81,6 +78,7 @@ const ResetPassword = () => {
               <div className="tab-pane fade active show" id="resetpassword">
                 <div className="card-body">
                   <div className="card-body pb-2">
+
                     <form onSubmit={onSaveChangesButtonHandler}>
 
                       <div className="form-group">
@@ -151,17 +149,18 @@ const ResetPassword = () => {
                         </div>
                       </div>
 
-                    </form>
-                  </div>
-                </div>
+                      <div className="text-center mt-3 mb-3">
+                        <button
+                          type="submit"
+                          className="btn saveChange mb-4"
+                        >
+                          Save changes
+                        </button>
+                      </div>
 
-                <div className="text-center mt-3 mb-3">
-                  <button
-                    type="submit"
-                    className="btn saveChange mb-4"
-                  >
-                    Save changes
-                  </button>
+                    </form>
+
+                  </div>
                 </div>
               </div>
             </div>
