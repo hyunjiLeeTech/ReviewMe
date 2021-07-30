@@ -33,6 +33,7 @@ const LogIn = (props) => {
   };
   const submitHandler = async (event) => {
     event.preventDefault();
+
     try {
       fetch("http://localhost:3001/auth/login", {
         method: "POST",
@@ -47,11 +48,6 @@ const LogIn = (props) => {
         .then((res) => {
           if (res.ok) {
             return res.json();
-          } else {
-            return res.json().then((data) => {
-              let errorMessage = "Authentication failed";
-              throw new Error(errorMessage);
-            });
           }
         })
         .then((data) => {
@@ -86,6 +82,7 @@ const LogIn = (props) => {
               new Date().getTime() + 60 * 60 * 1000
             );
             console.log(expirationTime);
+            console.log(userType);
             if (pass === true && active === true) {
               authCtx.login(
                 pass,
