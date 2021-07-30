@@ -17,6 +17,7 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
+import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
 import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import HomePage from "./components/homepage/HomePage";
@@ -97,10 +98,7 @@ function App() {
             <Report />
           </Route>
           <Route exact path="/details/:id">
-            <BookDetails
-              reviews={reviews}
-              editReviewHandler={editReviewHandler}
-            />
+            <BookDetailsPage></BookDetailsPage>
           </Route>
           <Route exact path="/library">
             {authCtx.isLoggedIn && (
