@@ -281,6 +281,57 @@ app.delete("/wishlist/delete", (req, res) => {
 });
 //#endregion
 
+//#region Books
+app.get("/homepage", (req, res) => {
+  controllers.books
+    .getAllBooks()
+    .then((data) => {
+      res.json({ errCode: 0, books: data });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting books" });
+    });
+});
+
+app.get("/details/:id", (req, res) => {
+  const id = req.params.id;
+  controllers.books
+    .getBooksByID(id)
+    .then((data) => {
+      res.json({ errCode: 0, books: data });
+      console.log(data);
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "error while getting books details" });
+    });
+});
+
+app.get("/search"),
+  (req, res) => {
+    const title = req.params.title;
+    const author = req.params.author;
+    if (title) {
+      controllers.books
+        .getBooksByTitle(title)
+        .then((data) => {
+          res.json({ errCode: 0, books: data });
+        })
+        .catch((err) => {
+          res.json({ errCode: 1, message: "error while getting books titles" });
+        });
+    } else if (title && author) {
+      controllers.books
+        .getBooksByAuthor(title, author)
+        .then((data) => {
+          res.json({ errCode: 0, books: data });
+        })
+        .catch((err) => {
+          res.json({ errCode: 1, message: "error while getting books author" });
+        });
+    }
+  };
+
+//#endregion
 if (process.env.NODE_ENV === "production") {
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
