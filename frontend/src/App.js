@@ -40,13 +40,17 @@ function App() {
   const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    WishListDataServices.getWishListByUseId(30).then((wishlist) => {
-      setWishlist(wishlist);
-    });
+    WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
+      (wishlist) => {
+        setWishlist(wishlist);
+      }
+    );
 
-    LibraryDataServices.getLibraryByUseId(30).then((library) => {
-      setLibrary(library);
-    });
+    LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
+      (library) => {
+        setLibrary(library);
+      }
+    );
   }, []);
   let userType = authCtx.userTypes;
   let detailsInfo = authCtx.detailsInfo;
@@ -98,6 +102,8 @@ function App() {
             <BookDetailsPage
               userType={authCtx.userTypes}
               userId={authCtx.userIdInfo}
+              wishlist={wishlist}
+              library={library}
             ></BookDetailsPage>
           </Route>
           <Route exact path="/library">

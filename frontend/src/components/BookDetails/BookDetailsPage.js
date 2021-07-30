@@ -7,7 +7,7 @@ import ReviewDataServices from "../../services/ReviewDataServices";
 import BookDetails from "./BookDetails";
 
 const BookDetailsPage = (props) => {
-  const { userType, userId } = props;
+  const { userType, userId, library, wishlist } = props;
   const { id } = useParams();
   const [book, setBook] = useState();
   const [reviews, setReviews] = useState([]);
@@ -42,6 +42,8 @@ const BookDetailsPage = (props) => {
         <p>Loading</p>
       ) : (
         <BookDetails
+          wishlist={wishlist}
+          library={library}
           userType={userType}
           userId={userId}
           bookInfo={book}

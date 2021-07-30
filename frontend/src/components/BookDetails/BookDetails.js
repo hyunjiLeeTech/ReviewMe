@@ -19,6 +19,8 @@ const BookDetails = (props) => {
     reviews,
     setReviewsHandler,
     refreshReviews,
+    wishlist,
+    library,
   } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -26,10 +28,36 @@ const BookDetails = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const categories = bookInfo.volumeInfo.categories;
 
+  const getAuthor = () => {
+    const authors = bookInfo.volumeInfo.authors;
+    let authorsArr = "";
+
+    if (typeof authors !== "undefined") {
+      authorsArr = authors[0];
+
+      for (let i = 1; i < authors.length; i++) {
+        authorsArr += `, ${authors[i]}`;
+      }
+    }
+
+    return authorsArr;
+  };
+
+  const addBookShelfInfo = {
+    userId: userId,
+    bookTitle: bookInfo.volumeInfo.title,
+    bookcover: bookInfo.volumeInfo.imageLinks.thumbnail,
+    bookId: bookInfo.id,
+    author: getAuthor(),
+  };
+
   const displayCategories = (categories) => {
-    let categoryArr = categories[0];
-    for (let i = 1; i < categories.length; i++) {
-      categoryArr += ", " + categories[i];
+    let categoryArr = "";
+    if (categories.length > 0) {
+      categoryArr = categories[0];
+      for (let i = 1; i < categories.length; i++) {
+        categoryArr += ", " + categories[i];
+      }
     }
 
     return categoryArr;
@@ -77,7 +105,7 @@ const BookDetails = (props) => {
       <div className="row justify-content-center">
         <div className="col-lg-5 col-6">
           <h1>{bookInfo.volumeInfo.title}</h1>
-          <p className="bookInfo">Author: {bookInfo.volumeInfo.authors}</p>
+          <p className="bookInfo">Author: {getAuthor()}</p>
           <p className="bookInfo">
             Published date: {bookInfo.volumeInfo.publishedDate}
           </p>
@@ -97,12 +125,23 @@ const BookDetails = (props) => {
           />
         </div>
       </div>
-      //{" "}
       <div className="row justify-content-center">
         <div className="col-lg-9 col-11 ">
           <div className="buttonContainer">
-            <Button name="Wish List" isMargin={true} isRedirect={false} />
-            <Button name="Library" isMargin={true} isRedirect={false} />
+            <Button
+              addBookShelfInfo={addBookShelfInfo}
+              bookshelf={wishlist}
+              name="Wish List"
+              isMargin={true}
+              isRedirect={false}
+            />
+            <Button
+              addBookShelfInfo={addBookShelfInfo}
+              name="Library"
+              bookshelf={library}
+              isMargin={true}
+              isRedirect={false}
+            />
             <Button
               name="Rent / Borrow"
               isMargin={true}
