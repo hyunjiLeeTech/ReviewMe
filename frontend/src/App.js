@@ -65,7 +65,9 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Redirect to="/homepage" />
-            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
+            {authCtx.adminLoggedIn && authCtx.isLoggedIn && (
+              <Redirect to="/report-admin" />
+            )}
           </Route>
           <Route path="/homepage">
             <HomePage />
