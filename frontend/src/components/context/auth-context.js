@@ -40,6 +40,9 @@ export const AuthContextProvider = (props) => {
   const [token, setToken] = useState(initialToken);
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
   const [popupIsShown, setpopupIsShown] = useState(false);
+  const [userTypes, setUserTypes] = useState("");
+  const [userID, setUserID] = useState("");
+  const [detailsInfo, setDetailsInfo] = useState("");
 
   const showModalHandler = () => {
     setpopupIsShown(true);
@@ -70,8 +73,11 @@ export const AuthContextProvider = (props) => {
     }
   }, []);
 
-  const loginHandler = (token, userType, expirationTime) => {
+  const loginHandler = (token, userType, userId, info, expirationTime) => {
     setToken(token);
+    setUserTypes(userType);
+    setDetailsInfo(info);
+    setUserID(userId);
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
     localStorage.setItem("userType", userType);
@@ -81,6 +87,7 @@ export const AuthContextProvider = (props) => {
     } else if (userType === 1) {
       setAdminLoggedIn(true);
     }
+
     const remainingTime = calculateRemainingTime(expirationTime);
 
     logoutTimer = setTimeout(logoutHandler, remainingTime);
@@ -98,6 +105,9 @@ export const AuthContextProvider = (props) => {
     logout: logoutHandler,
     adminLoggedIn,
     popupIsShown,
+    userID,
+    userTypes,
+    detailsInfo,
     showModal: showModalHandler,
     closeModal: closeModalHandler,
   };

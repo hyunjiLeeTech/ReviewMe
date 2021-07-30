@@ -63,12 +63,16 @@ const LogIn = (props) => {
             //   setDataInfo();
             // }
           } else {
+            console.log(data.details);
             let pass = data.password;
+            let userId;
             let active;
             let userType;
-            console.log(data);
-            console.log(pass);
-
+            const detailsInfo = data.details;
+            data.users[0].map((dataDetails) => {
+              return (userId = dataDetails.userid);
+            });
+            console.log(userId);
             console.log(data.users[0]);
             data.users[0].map((dataDetails) => {
               return (userType = dataDetails.usertypeid);
@@ -82,7 +86,13 @@ const LogIn = (props) => {
             );
             console.log(expirationTime);
             if (pass === true && active === true) {
-              authCtx.login(pass, userType, expirationTime);
+              authCtx.login(
+                pass,
+                userType,
+                userId,
+                detailsInfo,
+                expirationTime
+              );
             } else {
               setDataInfo("Login failed");
               authCtx.showModal();

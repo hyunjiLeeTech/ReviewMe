@@ -42,11 +42,17 @@ app.post("/auth/login", async (req, res) => {
         data[0].map((dataDetails) => {
           password1 = dataDetails.password;
         });
+        const userDetailInfo = await sequelize.query(
+          `SELECT * from userdetails where userid='${user_id}'`
+        );
         const validPassword = await bcrypt.compare(password, password1);
         console.log(validPassword);
-        res.json({ users: data, password: validPassword });
+        res.json({
+          users: data,
+          password: validPassword,
+          details: userDetailInfo,
+        });
       }
-
     });
   } catch (err) {
     console.error(err.message);
@@ -103,7 +109,6 @@ app.post("/auth/signup", async (req, res) => {
       );
       res.json("User successfully created");
     }
-
   } catch (err) {
     console.error(err.message);
   }
