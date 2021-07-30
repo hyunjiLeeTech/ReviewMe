@@ -1,6 +1,8 @@
 import React, { useState, useContext } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
+
 import AuthContext from "../context/auth-context";
+import Modal from "../style/Modal";
 
 import Title from "../style/Title";
 
@@ -12,6 +14,7 @@ const LogIn = (props) => {
   const [providedPassword, setProvidedPassword] = useState("");
   const [validatedEmail, setValidEmail] = useState();
   const [validatedPassword, setValidPassword] = useState();
+  const [dataInfo, setDataInfo] = useState("");
 
   const emailHandler = (event) => {
     setProvidedEmail(event.target.value);
@@ -30,6 +33,7 @@ const LogIn = (props) => {
   };
   const submitHandler = async (event) => {
     event.preventDefault();
+
     try {
       fetch("http://localhost:3001/auth/login", {
         method: "POST",
@@ -44,27 +48,57 @@ const LogIn = (props) => {
         .then((res) => {
           if (res.ok) {
             return res.json();
-          } else {
-            return res.json().then((data) => {
-              let errorMessage = "Authentication failed";
-              throw new Error(errorMessage);
-            });
           }
         })
         .then((data) => {
-          let pass = data.password;
-          let userType;
-          console.log(data);
-          console.log(pass);
-          console.log(data.users[0]);
-          data.users[0].map((dataDetails) => {
-            return (userType = dataDetails.usertypeid);
-          });
-          const expirationTime = new Date(
-            new Date().getTime() + 60 * 60 * 1000
-          );
-          console.log(expirationTime);
-          authCtx.login(pass, userType, expirationTime);
+          if (typeof data === "string") {
+            setDataInfo(data);
+            console.log(dataInfo);
+            authCtx.showModal();
+            // if (!authCtx.popupIsShown) {
+            //   setDataInfo();
+            // }
+          } else {
+            console.log(data.details);
+            let pass = data.password;
+            let userId;
+            let active;
+            let userType;
+            const detailsInfo = data.details;
+            console.log(detailsInfo);
+            data.users[0].map((dataDetails) => {
+              return (userId = dataDetails.userid);
+            });
+            console.log(userId);
+            console.log(data.users[0]);
+            data.users[0].map((dataDetails) => {
+              return (userType = dataDetails.usertypeid);
+            });
+            data.users[0].map((dataDetail) => {
+              return (active = dataDetail.isactive);
+            });
+            console.log(active);
+            const expirationTime = new Date(
+              new Date().getTime() + 60 * 60 * 1000
+            );
+            console.log(expirationTime);
+            console.log(userType);
+            if (pass === true && active === true) {
+              authCtx.login(
+                pass,
+                userType,
+                userId,
+                detailsInfo,
+                expirationTime
+              );
+            } else {
+              setDataInfo("Login failed");
+              authCtx.showModal();
+              // if (!authCtx.popupIsShown) {
+              //   setDataInfo();
+              // }
+            }
+          }
         });
 
       // const loadedData = {};
@@ -166,6 +200,9 @@ const LogIn = (props) => {
           </button>
         </div>
       </form>
+      {authCtx.popupIsShown && (
+        <Modal onClose={authCtx.closeModal} info={dataInfo} />
+      )}
     </div>
   );
 };

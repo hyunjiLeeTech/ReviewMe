@@ -15,13 +15,18 @@ const getUsers = () => {
   });
 };
 
-const login = async (req, res, next) => {
+const login = (req) => {
   return new Promise((resolve, reject) => {
     const { email, password } = req.body;
     sequelize
       .query(`SELECT * from usr where email='${email}'`)
       .then((data) => {
-        resolve(data);
+        console.log(data);
+        if (data[0] == "") {
+          resolve("Please enter correct information");
+        } else {
+          resolve(data);
+        }
       })
       .catch((err) => {
         reject(err);
@@ -29,5 +34,27 @@ const login = async (req, res, next) => {
   });
 };
 
+const userDetails = (req) => {
+  return new Promise((resolve, reject) => {
+    const { email, password } = req.body;
+    sequelize
+      .query(`SELECT * from usr where email='${email}'`)
+      .then((data) => {
+        console.log(data);
+        if (data[0] == "") {
+          resolve("Please enter correct information");
+        } else {
+          resolve(data);
+        }
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+const signup = (info) => {};
+
 exports.getUsers = getUsers;
+exports.userDetails = userDetails;
 exports.login = login;
+exports.signup = signup;

@@ -30,18 +30,29 @@ app.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     controllers.users.login(req).then(async (data) => {
-      let user_id;
-      data[0].map((dataDetails) => {
-        user_id = dataDetails.userid;
-      });
-      console.log(user_id);
-      let password1;
-      data[0].map((dataDetails) => {
-        password1 = dataDetails.password;
-      });
-      const validPassword = await bcrypt.compare(password, password1);
-      console.log(validPassword);
-      res.json({ users: data, password: validPassword });
+      if (typeof data === "string") {
+        res.json(data);
+      } else {
+        let user_id;
+        data[0].map((dataDetails) => {
+          user_id = dataDetails.userid;
+        });
+        console.log(user_id);
+        let password1;
+        data[0].map((dataDetails) => {
+          password1 = dataDetails.password;
+        });
+        const userDetailInfo = await sequelize.query(
+          `SELECT * from userdetails where userid='${user_id}'`
+        );
+        const validPassword = await bcrypt.compare(password, password1);
+        console.log(validPassword);
+        res.json({
+          users: data,
+          password: validPassword,
+          details: userDetailInfo,
+        });
+      }
     });
   } catch (err) {
     console.error(err.message);
@@ -49,41 +60,55 @@ app.post("/auth/login", async (req, res) => {
 });
 
 app.post("/auth/signup", async (req, res) => {
-  let gender_type;
-  const {
-    nickName,
-    email,
-    password,
-    password2,
-    firstName,
-    lastName,
-    gender,
-    dob,
-  } = req.body;
-  if (gender === "Male") {
-    gender_type = 1;
-  } else if (gender === "Female") {
-    gender_type = 2;
-  } else if (gender === "Prefer not to say") {
-    gender_type = 3;
-  }
+  // controllers.users
+  //   .login(req)
+  //   .then((data) => {})
+  //   .catch((err) => {
+  //     res.status(401).json();
+  //   });
   try {
-    const saltRound = 10;
-    const salt = await bcrypt.genSalt(saltRound);
+    let gender_type;
+    const {
+      nickName,
+      email,
+      password,
+      password2,
+      firstName,
+      lastName,
+      gender,
+      dob,
+    } = req.body;
+    if (gender === "Male") {
+      gender_type = 1;
+    } else if (gender === "Female") {
+      gender_type = 2;
+    } else if (gender === "Prefer not to say") {
+      gender_type = 3;
+    }
 
-    const bcryptPassword = await bcrypt.hash(password, salt);
-    const newUser = await sequelize.query(
-      `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', 2, true) returning *`
+    const user = await sequelize.query(
+      `select userid from usr where email='${email}'`
     );
-    sequelize.query(
-      `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
+    console.log(user);
+    const userNickname = await sequelize.query(
+      `select nickname from userdetails where nickname='${nickName}'`
+    );
+    if (user[0] != "" || userNickname[0] != "") {
+      res.json("User already exist");
+    } else {
+      const saltRound = 10;
+      const salt = await bcrypt.genSalt(saltRound);
+
+      const bcryptPassword = await bcrypt.hash(password, salt);
+      const newUser = await sequelize.query(
+        `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', 2, true) returning *`
+      );
+      sequelize.query(
+        `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
          '${firstName}', '${lastName}', '${nickName}','${dob}','${gender_type}', (select max(userid) from usr))`
-    );
-    let user_id;
-    newUser[0].map((dataDetails) => {
-      user_id = dataDetails.userid;
-    });
-    console.log(user_id);
+      );
+      res.json("User successfully created");
+    }
   } catch (err) {
     console.error(err.message);
   }

@@ -47,7 +47,12 @@ function App() {
       setLibrary(library);
     });
   }, []);
+  let userType = authCtx.userTypes;
+  let detailsInfo = authCtx.detailsInfo;
 
+  console.log(authCtx.userTypes);
+  console.log(detailsInfo);
+  console.log(authCtx.userIdInfo);
   const editReviewHandler = (reviewsArr) => {
     setReviews(reviewsArr);
   };
