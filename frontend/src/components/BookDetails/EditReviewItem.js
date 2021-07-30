@@ -6,7 +6,7 @@ import ReviewDataServices from "../../services/ReviewDataServices";
 const EditReviewItem = (props) => {
   const [rating, setRating] = useState(props.rating);
   const [comment, setComment] = useState(props.comment);
-  const { reviewId, itemId, onClickEdit } = props;
+  const { reviewId, itemId, onClickEdit, refreshReviews } = props;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,7 +16,12 @@ const EditReviewItem = (props) => {
       reviewId: reviewId,
     };
 
-    ReviewDataServices.editReview(editReview);
+    ReviewDataServices.editReview(editReview).then((result) => {
+      if (result) {
+        refreshReviews();
+      }
+    });
+
     onClickEdit(itemId);
   };
 

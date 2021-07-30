@@ -29,6 +29,12 @@ export default {
     });
   },
   editReview(editReview) {
-    return axios.put(`/reviews/edit`, editReview).then((res) => {});
+    return axios.put(`/reviews/edit`, editReview).then((res) => {
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   },
 };
