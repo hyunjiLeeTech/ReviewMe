@@ -141,8 +141,15 @@ app.put("/reviews/edit", (req, res) => {
     rating: req.body.rating,
     reviewId: req.body.reviewId,
   };
-  console.log(editReview);
-  controllers.review.editReview(editReview);
+
+  controllers.review
+    .editReview(editReview)
+    .then((res) => {
+      res.json(res);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 app.put("/reviews/delete", (req, res) => {
