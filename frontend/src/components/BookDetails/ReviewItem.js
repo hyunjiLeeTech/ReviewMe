@@ -6,31 +6,29 @@ import { Link } from "react-router-dom";
 import "./ReviewItem.css";
 
 const ReviewItem = (props) => {
-  const { id, rating, nickname, date, review, index, itemId, onClickEdit } =
-    props;
-  const loginUserId = 0;
+  const {
+    loginUserId,
+    reviewUserId,
+    id,
+    rating,
+    nickname,
+    date,
+    review,
+    index,
+    itemId,
+    onClickEdit,
+  } = props;
 
   const onClickDelete = () => {
     ReviewDataServices.deleteReview(id);
   };
 
-  // const onClickEdit = () => {
-  //   const editReview = {
-  //     reviewId: id,
-  //     rating: 3,
-  //     comment: "this is editted",
-  //   };
-
-  //   ReviewDataServices.editReview(editReview);
-  // };
-
   const onClickEditReview = () => {
-    console.log("clicked: " + itemId);
     onClickEdit(itemId);
   };
 
   const checkUserId = () => {
-    if (loginUserId !== 999) {
+    if (loginUserId === reviewUserId) {
       return (
         <>
           <div className="col-lg-1 col-1">

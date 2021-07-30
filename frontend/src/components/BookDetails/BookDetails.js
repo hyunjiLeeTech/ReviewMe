@@ -160,6 +160,8 @@ const BookDetails = (props) => {
                     <ReviewItem
                       key={index}
                       itemId={index}
+                      loginUserId={userId}
+                      reviewUserId={data.userid}
                       id={data.reviewid}
                       rating={data.rating}
                       nickname={data.nickname}
