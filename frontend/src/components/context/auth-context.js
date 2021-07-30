@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 let logoutTimer;
 
@@ -43,6 +43,7 @@ export const AuthContextProvider = (props) => {
   const [userTypes, setUserTypes] = useState("");
   const [userID, setUserID] = useState("");
   const [detailsInfo, setDetailsInfo] = useState("");
+  const [userIdInfo, setUserIdInfo] = useState("");
 
   const showModalHandler = () => {
     setpopupIsShown(true);
@@ -66,6 +67,8 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("userType");
+    localStorage.removeItem("admin");
+    localStorage.removeItem("user");
     setAdminLoggedIn(false);
 
     if (logoutTimer) {
@@ -81,23 +84,36 @@ export const AuthContextProvider = (props) => {
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
     localStorage.setItem("userType", userType);
-
-    if (userType === 2) {
-      setAdminLoggedIn(false);
-    } else if (userType === 1) {
-      setAdminLoggedIn(true);
-    }
-
+    localStorage.setItem("user", userId);
     const remainingTime = calculateRemainingTime(expirationTime);
 
     logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
+  console.log(userTypes);
+  useEffect(() => {
+    const admin = !!localStorage.getItem("admin");
+    setAdminLoggedIn(admin);
+  }, [adminLoggedIn]);
+
+  useEffect(() => {
+    const userIdentification = Number(localStorage.getItem("user"));
+    setUserIdInfo(userIdentification);
+  }, [userIdInfo]);
+  useMemo(() => {
+    if (userTypes === 2) {
+      localStorage.setItem("admin", "false");
+      setAdminLoggedIn(!!localStorage.getItem("admin"));
+    } else if (userTypes === 1) {
+      localStorage.setItem("admin", "true");
+      setAdminLoggedIn(!!localStorage.getItem("admin"));
+    }
+  }, [userTypes]);
 
   useEffect(() => {
     if (tokenData) {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
     }
-  }, [tokenData, logoutHandler]);
+  }, [tokenData, logoutHandler, userTypes]);
   const contextValue = {
     token,
     isLoggedIn: userIsLoggedIn,
@@ -106,6 +122,7 @@ export const AuthContextProvider = (props) => {
     adminLoggedIn,
     popupIsShown,
     userID,
+    userIdInfo,
     userTypes,
     detailsInfo,
     showModal: showModalHandler,

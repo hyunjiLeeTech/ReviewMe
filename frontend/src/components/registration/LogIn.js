@@ -69,6 +69,7 @@ const LogIn = (props) => {
             let active;
             let userType;
             const detailsInfo = data.details;
+            console.log(detailsInfo);
             data.users[0].map((dataDetails) => {
               return (userId = dataDetails.userid);
             });

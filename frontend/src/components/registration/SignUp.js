@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Title from "../style/Title";
 import AuthContext from "../context/auth-context";
@@ -33,7 +33,7 @@ const SignUp = () => {
   const [validatedDateOfBirth, setValidDateOfBirth] = useState();
   const [dataInformation, setDataInformation] = useState("");
 
-  const history = useHistory();
+  // const history = useHistory();
   const emailHandler = (event) => {
     setProvidedEmail(event.target.value);
   };
