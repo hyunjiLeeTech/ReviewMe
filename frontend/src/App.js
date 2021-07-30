@@ -50,7 +50,7 @@ function App() {
   let userType = authCtx.userTypes;
   let detailsInfo = authCtx.detailsInfo;
 
-  console.log(userType);
+  console.log(authCtx.userTypes);
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
   const editReviewHandler = (reviewsArr) => {

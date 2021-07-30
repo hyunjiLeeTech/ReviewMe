@@ -90,6 +90,12 @@ export const AuthContextProvider = (props) => {
     logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
   console.log(userTypes);
+
+  useEffect(() => {
+    const type = !!localStorage.getItem("userType");
+    setUserTypes(type);
+  }, [userTypes]);
+
   useEffect(() => {
     const admin = !!localStorage.getItem("admin");
     setAdminLoggedIn(admin);
