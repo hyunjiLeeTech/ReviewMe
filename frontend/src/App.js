@@ -37,7 +37,7 @@ function App() {
   const authCtx = useContext(AuthContext);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
     WishListDataServices.getWishListByUseId(30).then((wishlist) => {
@@ -54,9 +54,6 @@ function App() {
   console.log(authCtx.userTypes);
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
-  const editReviewHandler = (reviewsArr) => {
-    setReviews(reviewsArr);
-  };
 
   return (
     <Router>
@@ -98,7 +95,10 @@ function App() {
             <Report />
           </Route>
           <Route exact path="/details/:id">
-            <BookDetailsPage></BookDetailsPage>
+            <BookDetailsPage
+              userType={authCtx.userTypes}
+              userId={authCtx.userIdInfo}
+            ></BookDetailsPage>
           </Route>
           <Route exact path="/library">
             {authCtx.isLoggedIn && (

@@ -12,7 +12,14 @@ import "./BookDetails.css";
 const PageSize = 8;
 
 const BookDetails = (props) => {
-  const { bookInfo, reviews, setReviewsHandler, refreshReviews } = props;
+  const {
+    userType,
+    userId,
+    bookInfo,
+    reviews,
+    setReviewsHandler,
+    refreshReviews,
+  } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
@@ -30,14 +37,18 @@ const BookDetails = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newReview = {
-      rating: rating,
-      comment: comment,
-      userId: 30,
-      bookId: "zYw3sYFtz9kC",
-    };
-    ReviewDataServices.addReview(newReview);
-    refreshReviews();
+    if (userType !== 2) {
+      alert("Please log in first");
+    } else {
+      const newReview = {
+        rating: rating,
+        comment: comment,
+        userId: userId,
+        bookId: "zYw3sYFtz9kC",
+      };
+      ReviewDataServices.addReview(newReview);
+      refreshReviews();
+    }
   };
 
   const handleRatingChange = (event) => {
