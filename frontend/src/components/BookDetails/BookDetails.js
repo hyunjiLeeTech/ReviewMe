@@ -121,28 +121,19 @@ const BookDetails = (props) => {
   const { reviews, editReviewHandler } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  // <<<<<<< HEAD
+  const [bookId, setBookId] = useState("zYw3sYFtz9kC");
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
   const [currentPage, setCurrentPage] = useState(1);
-  // const [reviews, setReviews] = useState([]);
-  // =======
-  //   const [reviews, setReviews] = useState([]);
-
-  // >>>>>>> 5720d2c4de1b275498c88e0ddebe3de2ac5e6b77
   const categories = bookInfo.volumeInfo.categories;
 
   useEffect(() => {
-    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
+    ReviewDataServices.getReviewsByBookId(bookId).then((reviews) => {
       for (let i = 0; i < reviews.length; i++) {
         reviews[i].isEdit = false;
       }
       editReviewHandler(reviews);
     });
   }, []);
-
-  const editReviewArrHandler = () => {
-    editReviewHandler(reviews);
-  };
 
   const displayCategories = (categories) => {
     let categoryArr = categories[0];
@@ -162,9 +153,18 @@ const BookDetails = (props) => {
       bookId: "zYw3sYFtz9kC",
     };
     ReviewDataServices.addReview(newReview);
-    ReviewDataServices.getReviewsByBookId("zYw3sYFtz9kC").then((reviews) => {
-      editReviewArrHandler(reviews);
+    refreshReviews();
+  };
+
+  const refreshReviews = () => {
+    getBooks(bookId);
+  };
+
+  const getBooks = (bookId) => {
+    ReviewDataServices.getReviewsByBookId(bookId).then((reviews) => {
+      editReviewHandler(reviews);
     });
+    forceUpdate();
   };
 
   const handleRatingChange = (event) => {
@@ -178,7 +178,7 @@ const BookDetails = (props) => {
   const onClickEdit = (id) => {
     let reviewsArr = reviews;
     reviewsArr[id].isEdit = !reviewsArr[id].isEdit;
-    editReviewArrHandler(reviewsArr);
+    editReviewHandler(reviewsArr);
     forceUpdate();
   };
   const reviewData = useMemo(() => {
@@ -266,6 +266,7 @@ const BookDetails = (props) => {
                       rating={data.rating}
                       comment={data.comment}
                       onClickEdit={onClickEdit}
+                      refreshReviews={refreshReviews}
                     />
                   );
                 } else {

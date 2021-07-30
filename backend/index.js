@@ -144,11 +144,13 @@ app.put("/reviews/edit", (req, res) => {
 
   controllers.review
     .editReview(editReview)
-    .then((res) => {
-      res.json(res);
+    .then((result) => {
+      console.log(result);
+      res.json({ errCode: 0, message: "Edit review success" });
     })
     .catch((err) => {
-      res.json(err);
+      console.log(err);
+      res.json({ errCode: 1, message: "Edit review fail" });
     });
 });
 
