@@ -91,8 +91,11 @@ const LogIn = (props) => {
                 detailsInfo,
                 expirationTime
               );
+            } else if (pass === true && active === false) {
+              setDataInfo("Login failed. User is inactive");
+              authCtx.showModal();
             } else {
-              setDataInfo("Login failed");
+              setDataInfo("Login failed. email/password is incorrect");
               authCtx.showModal();
               // if (!authCtx.popupIsShown) {
               //   setDataInfo();

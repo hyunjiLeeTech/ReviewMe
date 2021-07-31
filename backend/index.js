@@ -29,7 +29,7 @@ app.get("/users", (req, res) => {
 app.post("/auth/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    controllers.users.login(req).then(async (data) => {
+    controllers.users.login(email).then(async (data) => {
       if (typeof data === "string") {
         res.json(data);
       } else {

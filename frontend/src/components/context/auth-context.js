@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 let logoutTimer;
 
@@ -41,7 +41,6 @@ export const AuthContextProvider = (props) => {
   const [adminLoggedIn, setAdminLoggedIn] = useState(false);
   const [popupIsShown, setpopupIsShown] = useState(false);
   const [userTypes, setUserTypes] = useState("");
-  const [userID, setUserID] = useState("");
   const [detailsInfo, setDetailsInfo] = useState("");
   const [userIdInfo, setUserIdInfo] = useState("");
 
@@ -70,6 +69,9 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("admin");
     localStorage.removeItem("user");
     setAdminLoggedIn(false);
+    setUserIdInfo("");
+    setUserTypes("");
+    setDetailsInfo("");
 
     if (logoutTimer) {
       clearTimeout(logoutTimer);
@@ -102,7 +104,7 @@ export const AuthContextProvider = (props) => {
       localStorage.setItem("admin", "true");
       setAdminLoggedIn(true);
     }
-    setUserID(Number(localStorage.getItem("user")));
+    setUserIdInfo(Number(localStorage.getItem("user")));
     setToken(!!localStorage.getItem("token"));
     setUserTypes(Number(localStorage.getItem("userType")));
     setDetailsInfo(info);
@@ -133,7 +135,6 @@ export const AuthContextProvider = (props) => {
     logout: logoutHandler,
     adminLoggedIn,
     popupIsShown,
-    userID,
     userIdInfo,
     userTypes,
     detailsInfo,
