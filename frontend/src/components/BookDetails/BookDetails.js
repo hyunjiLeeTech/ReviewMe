@@ -93,6 +93,8 @@ const BookDetails = (props) => {
           bookId: bookInfo.id,
         };
         ReviewDataServices.addReview(newReview).then((isAdded) => {
+          setRating(0);
+          setComment("");
           refreshReviews();
         });
       }
