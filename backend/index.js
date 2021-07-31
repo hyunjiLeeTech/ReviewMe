@@ -164,7 +164,6 @@ app.post("/reviews/add", (req, res) => {
   controllers.review
     .addReview(newReview)
     .then((result) => {
-      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -196,11 +195,9 @@ app.put("/reviews/edit", (req, res) => {
   controllers.review
     .editReview(editReview)
     .then((result) => {
-      console.log(result);
       res.json({ errCode: 0, message: "Edit review success" });
     })
     .catch((err) => {
-      console.log(err);
       res.json({ errCode: 1, message: "Edit review fail" });
     });
 });
@@ -251,8 +248,6 @@ app.post("/library/add", (req, res) => {
     author: req.body.author,
   };
 
-  console.log(newItem);
-
   controllers.library
     .AddLibraryItem(newItem)
     .then((result) => {
@@ -263,11 +258,14 @@ app.post("/library/add", (req, res) => {
     });
 });
 
+app.delete("/library/delete", (req, res) => {
+  res.json({ errcode: 1, message: "No items selected" });
+});
+
 app.delete("/library/delete/:id", (req, res) => {
   const id = req.params.id;
   const idArr = id.split(",");
 
-  console.log(idArr);
   let condition = `WHERE libraryitemid IN (${idArr[0]}`;
   for (let i = 1; i < idArr.length; i++) {
     condition += `,${idArr[i]}`;
@@ -317,8 +315,6 @@ app.post("/wishlist/add", (req, res) => {
     author: req.body.author,
   };
 
-  console.log(newItem);
-
   controllers.wishlist
     .AddWishlist(newItem)
     .then((result) => {
@@ -329,11 +325,14 @@ app.post("/wishlist/add", (req, res) => {
     });
 });
 
+app.delete("/wishlist/delete", (req, res) => {
+  res.json({ errcode: 1, message: "No items selected" });
+});
+
 app.delete("/wishlist/delete/:id", (req, res) => {
   const id = req.params.id;
   const idArr = id.split(",");
 
-  console.log(idArr);
   let condition = `WHERE wishlistid IN (${idArr[0]}`;
   for (let i = 1; i < idArr.length; i++) {
     condition += `,${idArr[i]}`;
