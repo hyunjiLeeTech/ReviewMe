@@ -27,6 +27,7 @@ const ReviewItem = (props) => {
   const togglePopup = async () => {
     setIsPopupOpen(!isPopupOpen);
   };
+
   const onClickDelete = () => {
     ReviewDataServices.deleteReview(id).then((isDeleted) => {
       if (isDeleted) {

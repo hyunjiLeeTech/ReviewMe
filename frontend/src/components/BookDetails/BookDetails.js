@@ -6,6 +6,7 @@ import ReviewDataServices from "../../services/ReviewDataServices";
 import Button from "./Button";
 import ReviewItem from "./ReviewItem";
 import EditReviewItem from "./EditReviewItem";
+import Popup from "../style/Popup";
 import Pagination from "../style/Pagination";
 import "./BookDetails.css";
 
@@ -26,9 +27,17 @@ const BookDetails = (props) => {
   } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupTitle, setPopupTitle] = useState("");
+  const [popupContent, setPopupContent] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
   const categories = bookInfo.volumeInfo.categories;
+
+  const togglePopup = async () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
 
   const getAuthor = () => {
     const authors = bookInfo.volumeInfo.authors;
@@ -68,10 +77,14 @@ const BookDetails = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (userType !== 2) {
-      alert("Please log in first");
+      setPopupTitle("Log In Validation");
+      setPopupContent("Please log in before you add review");
+      togglePopup();
     } else {
       if (comment === "" || rating === 0) {
-        alert("Please select rating and write comment");
+        setPopupTitle("Add Review Validation");
+        setPopupContent("Please select rating and write comment");
+        togglePopup();
       } else {
         const newReview = {
           rating: rating,
@@ -142,6 +155,9 @@ const BookDetails = (props) => {
               name="Wish List"
               isMargin={true}
               isRedirect={false}
+              setPopupContent={setPopupContent}
+              setPopupTitle={setPopupTitle}
+              togglePopup={togglePopup}
             />
             <Button
               addBookShelfInfo={addBookShelfInfo}
@@ -150,6 +166,9 @@ const BookDetails = (props) => {
               bookshelf={library}
               isMargin={true}
               isRedirect={false}
+              setPopupContent={setPopupContent}
+              setPopupTitle={setPopupTitle}
+              togglePopup={togglePopup}
             />
             <Button
               name="Rent / Borrow"
@@ -234,6 +253,19 @@ const BookDetails = (props) => {
           </div>
         </div>
       </div>
+      {isPopupOpen && (
+        <Popup
+          content={
+            <>
+              <h2>{popupTitle}</h2>
+              <p className="popup-content">{popupContent}</p>
+              <button className="btnPopup" onClick={() => togglePopup()}>
+                Close
+              </button>
+            </>
+          }
+        />
+      )}
     </div>
   );
 };

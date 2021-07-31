@@ -12,52 +12,66 @@ const Button = (props) => {
     isMargin,
     isRedirect,
     link,
+    setPopupContent,
+    setPopupTitle,
+    togglePopup,
   } = props;
 
   const openInNewTab = (url) => {
-    console.log(url);
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
     if (newWindow) newWindow.opener = null;
   };
 
   const addData = () => {
     const bookId = addBookShelfInfo.bookId;
-    console.log(bookId);
-    if (name === "Library") {
-      console.log(bookshelf);
-      let isExist = checkExist(bookId);
+    if (addBookShelfInfo.userId !== 0) {
+      if (name === "Library") {
+        let isExist = checkExist(bookId);
 
-      if (isExist) {
-        alert("This book is already on the library");
-      } else {
-        LibraryDataServices.addLibraryItem(addBookShelfInfo).then((isAdded) => {
-          if (isAdded) {
-            getBookshelf();
-            alert("successfully add book on the library");
-          }
-        });
+        if (isExist) {
+          setPopupTitle("Add Library");
+          setPopupContent("This book is already on the library");
+          togglePopup();
+        } else {
+          LibraryDataServices.addLibraryItem(addBookShelfInfo).then(
+            (isAdded) => {
+              if (isAdded) {
+                getBookshelf();
+                setPopupTitle("Add Library");
+                setPopupContent("Successfully add book on the library");
+                togglePopup();
+              }
+            }
+          );
+        }
       }
-    }
 
-    if (name === "Wish List") {
-      console.log(bookshelf);
-      let isExist = checkExist(bookId);
+      if (name === "Wish List") {
+        let isExist = checkExist(bookId);
 
-      if (isExist) {
-        alert("This book is already on the wish list");
-      } else {
-        WishListDataServices.addWishlist(addBookShelfInfo).then((isAdded) => {
-          if (isAdded) {
-            getBookshelf();
-            alert("Successfully add book on the wish list");
-          }
-        });
+        if (isExist) {
+          setPopupTitle("Add Wish list");
+          setPopupContent("This book is already on the wish list");
+          togglePopup();
+        } else {
+          WishListDataServices.addWishlist(addBookShelfInfo).then((isAdded) => {
+            if (isAdded) {
+              getBookshelf();
+              setPopupTitle("Add Wish list");
+              setPopupContent("Successfully add book on the wish list");
+              togglePopup();
+            }
+          });
+        }
       }
+    } else {
+      setPopupTitle("Log In Validation");
+      setPopupContent("Please log in before you add book on the library");
+      togglePopup();
     }
   };
 
   const checkExist = (bookId) => {
-    console.log(bookshelf);
     for (let i = 0; i < bookshelf.length; i++) {
       if (bookshelf[i].bookid === bookId) {
         return true;
