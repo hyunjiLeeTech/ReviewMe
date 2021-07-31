@@ -10,3 +10,11 @@
 .subTitle {
   text-align: center;
 }
+
+.btnManage {
+  width: 10px;
+  height: 10px;
+  border: none;
+  background-color: #f8f9fa;
+  margin-bottom: 1vh;
+}

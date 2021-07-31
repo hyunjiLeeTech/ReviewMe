@@ -1,4 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
+import { BsGearFill } from "react-icons/bs";
+
 import Title from "../style/Title";
 import BookItem from "./BookItem";
 import Pagination from "../style/Pagination";
@@ -37,6 +39,17 @@ const BookShelf = (props) => {
     <div className="container bookShelfContainer">
       <Title name={title} />
       <h5 className="subTitle">{subTitle}</h5>
+      <div className="row justify-content-end">
+        <button className="col-2 col-lg-1" className="btnManage">
+          <BsGearFill
+            size={50}
+            onClick={() => {
+              alert("click");
+            }}
+          />
+        </button>
+        <div className="col-2 col-lg-1"></div>
+      </div>
       <div className="row justify-content-first bookItemcontainer">
         {displayBookShelf()}
         <div className="d-flex justify-content-center">
