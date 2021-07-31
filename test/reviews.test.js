@@ -41,7 +41,7 @@ test("Test get reviews by book id controller with wrong book ID", () => {
 });
 
 test("Test add review controller", () => {
-  ReviewsController.addReview({
+  return ReviewsController.addReview({
     date: "1111-11-11",
     comment: "test add review",
     rating: 0,
@@ -49,10 +49,10 @@ test("Test add review controller", () => {
     bookId: "",
   })
     .then((res) => {
-      return expect(res.errCode).toBe(0);
+      expect(res.errCode).toBe(0);
     })
     .catch((res) => {
-      return expect(res.errCode).toBe(0);
+      expect(res.errCode).toBe(0);
     });
 });
 
@@ -102,31 +102,102 @@ test("Test add review controller without rating", () => {
 });
 
 test("Test add review controller without userid", () => {
-  ReviewsController.addReview({
+  return ReviewsController.addReview({
     date: "1111-11-11",
     comment: "test add review",
     rating: 0,
     bookId: "",
   })
     .then((res) => {
-      return expect(res.errCode).toBe(1);
+      expect(res.errCode).toBe(1);
     })
     .catch((res) => {
-      return expect(res.errCode).toBe(1);
+      expect(res.errCode).toBe(1);
     });
 });
 
 test("Test add review controller without bookId", () => {
-  ReviewsController.addReview({
+  return ReviewsController.addReview({
     date: "1111-11-11",
     comment: "test add review",
     rating: 0,
     userId: 1,
   })
     .then((res) => {
-      return expect(res.errCode).toBe(1);
+      expect(res.errCode).toBe(1);
     })
     .catch((res) => {
-      return expect(res.errCode).toBe(1);
+      expect(res.errCode).toBe(1);
+    });
+});
+
+test("Test edit review controller", () => {
+  return ReviewsController.editReview({
+    date: "1111-11-11",
+    comment: "test edit review",
+    rating: 1,
+    reviewId: 501,
+  })
+    .then((res) => {
+      expect(res.errCode).toBe(0);
+    })
+    .catch((res) => {
+      expect(res.errCode).toBe(0);
+    });
+});
+
+test("Test edit review controller without date", () => {
+  return ReviewsController.editReview({
+    comment: "test edit review",
+    rating: 1,
+    reviewId: 501,
+  })
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((res) => {
+      expect(res.errCode).toBe(1);
+    });
+});
+
+test("Test edit review controller without comment", () => {
+  return ReviewsController.editReview({
+    date: "1111-11-11",
+    rating: 1,
+    reviewId: 501,
+  })
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((res) => {
+      expect(res.errCode).toBe(1);
+    });
+});
+
+test("Test edit review controller without rating", () => {
+  return ReviewsController.editReview({
+    date: "1111-11-11",
+    comment: "test edit review",
+    reviewId: 501,
+  })
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((res) => {
+      expect(res.errCode).toBe(1);
+    });
+});
+
+test("Test edit review controller wishoust reviewId", () => {
+  return ReviewsController.editReview({
+    date: "1111-11-11",
+    comment: "test edit review",
+    rating: 1,
+  })
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((res) => {
+      expect(res.errCode).toBe(1);
     });
 });

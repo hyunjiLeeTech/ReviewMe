@@ -30,7 +30,7 @@ module.exports.getReviewsByBookId = (bookId) => {
 };
 
 module.exports.addReview = (newReview) => {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     if (
       typeof newReview.date === "undefined" ||
       typeof newReview.comment === "undefined" ||
@@ -40,7 +40,7 @@ module.exports.addReview = (newReview) => {
     ) {
       reject({ errCode: 1, message: "Add review fail" });
     } else {
-      const [results, metadata] = sequelize.query(
+      const [results, metadata] = await sequelize.query(
         `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
       );
 
@@ -69,14 +69,26 @@ module.exports.deleteReview = (reviewId) => {
 
 module.exports.editReview = (editReview) => {
   return new Promise(async (resolve, reject) => {
-    const results = await sequelize.query(
-      `UPDATE review SET comment='${editReview.comment}', rating=${editReview.rating}, updatedate= CAST('${editReview.date}' AS date) WHERE reviewid=${editReview.reviewId}`
-    );
-
-    if (results[1].rowCount === 1) {
-      resolve({ errCode: 0, message: "edit review success" });
+    if (
+      typeof editReview.date === "undefined" ||
+      typeof editReview.comment === "undefined" ||
+      typeof editReview.rating === "undefined" ||
+      typeof editReview.reviewId === "undefined"
+    ) {
+      reject({
+        errCode: 1,
+        message: "Edit review fail - at least one field missing",
+      });
     } else {
-      reject({ errCode: 1, message: "edit review fail" });
+      const results = await sequelize.query(
+        `UPDATE review SET comment='${editReview.comment}', rating=${editReview.rating}, updatedate= CAST('${editReview.date}' AS date) WHERE reviewid=${editReview.reviewId}`
+      );
+
+      if (results[1].rowCount === 1) {
+        resolve({ errCode: 0, message: "edit review success" });
+      } else {
+        reject({ errCode: 1, message: "edit review fail" });
+      }
     }
   });
 };
