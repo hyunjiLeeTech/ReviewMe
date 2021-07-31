@@ -30,7 +30,17 @@
   overflow: auto;
 }
 
-@media screen and (min-device-width: 767.9px) {
+@media screen and (min-device-width: 1024px) {
+  .btnPopup {
+    width: 160px;
+  }
+
+  .box {
+    width: 30%;
+  }
+}
+
+@media screen and (min-device-width: 767.9px) and (max-device-width: 1024px) {
   .btnPopup {
     width: 30%;
   }
@@ -46,6 +56,6 @@
   }
 
   .box {
-    width: 90%;
+    width: 80%;
   }
 }
