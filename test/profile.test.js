@@ -23,7 +23,7 @@ test('validateName() - Validate Firstname/Lastname', () => {
     expect(result).toBe(true);
 
     //empty string
-    result = validateName(' ');
+    result = validateName('');
     expect(result).toBe(false);
 
     //invalid name
@@ -45,7 +45,8 @@ const meetPasswordLength = (value, minLength, maxLength) => {
 const MIN_LENGTH = 8;
 const MAX_LENGTH = 25;
 const validateConfirmPassword = (password, confirmPassword) => {
-    if (meetPasswordLength(password, MIN_LENGTH, MAX_LENGTH) === true) {
+    if (meetPasswordLength(password, MIN_LENGTH, MAX_LENGTH) === true
+        && meetPasswordLength(confirmPassword, MIN_LENGTH, MAX_LENGTH) === true) {
         const validConfirmPassword = (password === confirmPassword) ? true : false;
         return validConfirmPassword;
     }
