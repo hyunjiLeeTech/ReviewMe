@@ -27,16 +27,24 @@ module.exports.getProfileByUserId = (userid) => {
     });
 };
 
-module.exports.editProfile = (newData, userid) => {
-    sequelize.query(
-        `UPDATE userdetails SET firstname='${newData.firstname}',lastname='${newData.lastname}',nickname='${newData.nickname}' WHERE userid='${userid}' `
-    );
-}
-
-module.exports.deleteAccountProfile = (userid) => {
+module.exports.editProfile = (newData) => {
     return new Promise((resolve, reject) => {
         sequelize
-            .query(`UPDATE usr SET isactive=false WHERE userid='${userid}'`)
+            .query(
+                `UPDATE userdetails SET firstname='${newData.firstname}',lastname='${newData.lastname}',nickname='${newData.nickname}' WHERE userid='${newData.userId}' `
+            ).then(() => {
+                resolve({ errCode: 0, message: "Profile edit successful" });
+            })
+            .catch((err) => {
+                reject({ errCode: 0, message: "Profile edit failed" });
+            })
+    });
+}
+
+module.exports.deleteAccountProfile = (userId) => {
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(`UPDATE usr SET isactive=false WHERE userid='${userId}'`)
             .then((data) => {
                 resolve(data);
             })

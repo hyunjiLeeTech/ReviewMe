@@ -118,9 +118,8 @@ app.post("/reviews/add", (req, res) => {
   const date = new Date();
 
   const newReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${date.getFullYear() + 1
+      }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
@@ -134,9 +133,8 @@ app.put("/reviews/edit", (req, res) => {
   const date = new Date();
 
   const editReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${date.getFullYear() + 1
+      }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
     comment: req.body.comment,
     rating: req.body.rating,
     reviewId: req.body.reviewId,
@@ -219,6 +217,19 @@ app.get("/wishlist/:userId", (req, res) => {
       res.json({ errCode: 1, message: "error while getting wishlist" });
     });
 });
+
+app.delete("/wishlist/delete", (req, res) => {
+  const id = req.body.wishlistId;
+
+  controllers.wishlist
+    .deleteWishListById(id)
+    .then((res) => {
+      res.json({ errCode: 0, message: res });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
 //#endregion
 
 //#region Profile
@@ -245,14 +256,14 @@ app.get("/profile/:userId", (req, res) => {
     });
 });
 
-app.put("/profile/edit/:userId", (req, res) => {
-  const userId = req.params.userId;
+app.put("/profile/edit", (req, res) => {
   const newData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     nickname: req.body.nickname,
   };
-  controllers.profile.editProfile(newData, userId);
+  console.log(newData);
+  controllers.profile.editProfile(newData);
 });
 
 app.put("/profile/delete", (req, res) => {
@@ -264,19 +275,6 @@ app.put("/profile/delete", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "account deletion failed" });
-    });
-});
-
-app.delete("/wishlist/delete", (req, res) => {
-  const id = req.body.wishlistId;
-
-  controllers.wishlist
-    .deleteWishListById(id)
-    .then((res) => {
-      res.json({ errCode: 0, message: res });
-    })
-    .catch((err) => {
-      res.json({ errCode: 1, message: err });
     });
 });
 //#endregion
