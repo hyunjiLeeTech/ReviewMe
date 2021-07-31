@@ -141,11 +141,20 @@ app.get("/reviews/:bookId", (req, res) => {
 
 app.post("/reviews/add", (req, res) => {
   const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDay();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
 
   const newReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${year}-${month}-${day}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
@@ -165,11 +174,20 @@ app.post("/reviews/add", (req, res) => {
 
 app.put("/reviews/edit", (req, res) => {
   const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDay();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
 
   const editReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${year}-${month}-${day}`,
     comment: req.body.comment,
     rating: req.body.rating,
     reviewId: req.body.reviewId,

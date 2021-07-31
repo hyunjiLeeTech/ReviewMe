@@ -30,8 +30,9 @@ module.exports.getReviewsByBookId = (bookId) => {
 };
 
 module.exports.addReview = (newReview) => {
-  return new Promise(async (resolve, reject) => {
-    const [results, metadata] = await sequelize.query(
+  console.log(newReview);
+  return new Promise((resolve, reject) => {
+    const [results, metadata] = sequelize.query(
       `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
     );
 
