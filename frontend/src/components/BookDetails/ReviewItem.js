@@ -22,9 +22,7 @@ const ReviewItem = (props) => {
 
   const onClickDelete = () => {
     ReviewDataServices.deleteReview(id).then((isDeleted) => {
-      console.log(isDeleted);
       if (isDeleted) {
-        console.log("refresh");
         refreshReviews();
       }
     });
