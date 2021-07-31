@@ -13,7 +13,7 @@ const ManageBookItem = (props) => {
   } = props;
 
   return (
-    <button
+    <div
       className={
         !isSelected
           ? "col-6 col-md-4 col-lg-3 bookItemContainer"
@@ -23,14 +23,14 @@ const ManageBookItem = (props) => {
         getManageBookShelf(type, itemIndex);
       }}
     >
-      <div className="text-center">
+      <div className="text-center manageBookItem">
         <img className="image" src={image} alt={title} />
         <div className="bookInfoContainer">
           <h4>{title}</h4>
           <p>{author}</p>
         </div>
       </div>
-    </button>
+    </div>
   );
 };
 
