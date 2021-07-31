@@ -6,10 +6,10 @@ module.exports.getAllReviews = () => {
     sequelize
       .query("SELECT * FROM review INNER JOIN usr ON review.userid=usr.userid")
       .then((data) => {
-        resolve(data);
+        resolve({ errCode: 0, reviews: data });
       })
       .catch((err) => {
-        reject(err);
+        reject({ errCode: 1, message: "faile to get all reviews" });
       });
   });
 };
@@ -21,25 +21,34 @@ module.exports.getReviewsByBookId = (bookId) => {
         `SELECT * FROM review r INNER JOIN userdetails u ON r.userid=u.userid WHERE r.bookid='${bookId}' AND isActive=true ORDER BY updatedate DESC`
       )
       .then((data) => {
-        resolve(data);
+        resolve({ errCode: 0, reviews: data });
       })
       .catch((err) => {
-        reject(err);
+        reject({ errCode: 1, message: "fail to get reviews by user it" });
       });
   });
 };
 
 module.exports.addReview = (newReview) => {
-  console.log(newReview);
   return new Promise((resolve, reject) => {
-    const [results, metadata] = sequelize.query(
-      `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
-    );
-
-    if (metadata === 1) {
-      resolve({ errCode: 0, message: "Add review success" });
-    } else {
+    if (
+      typeof newReview.date === "undefined" ||
+      typeof newReview.comment === "undefined" ||
+      typeof newReview.rating === "undefined" ||
+      typeof newReview.userId === "undefined" ||
+      typeof newReview.bookId === "undefined"
+    ) {
       reject({ errCode: 1, message: "Add review fail" });
+    } else {
+      const [results, metadata] = sequelize.query(
+        `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
+      );
+
+      if (metadata === 1) {
+        resolve({ errCode: 0, message: "Add review success" });
+      } else {
+        reject({ errCode: 1, message: "Add review fail" });
+      }
     }
   });
 };

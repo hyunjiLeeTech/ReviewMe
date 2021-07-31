@@ -119,10 +119,10 @@ app.get("/reviews", (req, res) => {
   controllers.review
     .getAllReviews()
     .then((data) => {
-      res.json({ errCode: 0, reviews: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting reviews" });
+      res.json(err);
     });
 });
 
@@ -132,10 +132,10 @@ app.get("/reviews/:bookId", (req, res) => {
   controllers.review
     .getReviewsByBookId(bookId)
     .then((data) => {
-      res.json({ errCode: 0, reviews: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: err });
+      res.json(err);
     });
 });
 
