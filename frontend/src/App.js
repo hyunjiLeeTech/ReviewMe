@@ -37,20 +37,12 @@ function App() {
   const authCtx = useContext(AuthContext);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
-      (wishlist) => {
-        setWishlist(wishlist);
-      }
-    );
-
-    LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
-      (library) => {
-        setLibrary(library);
-      }
-    );
+    if (authCtx.userTypes === 2) {
+      getWishlist();
+      getLibrary();
+    }
   }, []);
   let userType = authCtx.userTypes;
   let detailsInfo = authCtx.detailsInfo;
@@ -58,6 +50,22 @@ function App() {
   console.log(authCtx.userTypes);
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
+
+  const getWishlist = () => {
+    WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
+      (wishlist) => {
+        setWishlist(wishlist);
+      }
+    );
+  };
+
+  const getLibrary = () => {
+    LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
+      (library) => {
+        setLibrary(library);
+      }
+    );
+  };
 
   return (
     <Router>
@@ -100,6 +108,8 @@ function App() {
           </Route>
           <Route exact path="/details/:id">
             <BookDetailsPage
+              getWishlist={getWishlist}
+              getLibrary={getLibrary}
               userType={authCtx.userTypes}
               userId={authCtx.userIdInfo}
               wishlist={wishlist}

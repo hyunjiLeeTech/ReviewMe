@@ -216,6 +216,27 @@ app.get("/library/:userId", (req, res) => {
     });
 });
 
+app.post("/library/add", (req, res) => {
+  const newItem = {
+    userId: req.body.userId,
+    bookTitle: req.body.bookTitle,
+    bookcover: req.body.bookcover,
+    bookId: req.body.bookId,
+    author: req.body.author,
+  };
+
+  console.log(newItem);
+
+  controllers.library
+    .AddLibraryItem(newItem)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 app.delete("/library/delete", (req, res) => {
   const id = req.body.libraryId;
 

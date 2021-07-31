@@ -39,3 +39,17 @@ module.exports.deleteLibraryItemById = (id) => {
       });
   });
 };
+
+module.exports.AddLibraryItem = async (newItem) => {
+  return new Promise(async (resolve, reject) => {
+    const [libraryItem, metadata] = await sequelize.query(
+      `INSERT INTO libraryitem(userid, booktitle, bookcover, bookid, author)  VALUES(${newItem.userId}, '${newItem.bookTitle}', '${newItem.bookcover}', '${newItem.bookId}', '${newItem.author}')`
+    );
+
+    if (metadata === 1) {
+      resolve({ errCode: 0, message: "Add Library item success" });
+    } else {
+      reject({ errCode: 1, message: "Add Library item fail" });
+    }
+  });
+};

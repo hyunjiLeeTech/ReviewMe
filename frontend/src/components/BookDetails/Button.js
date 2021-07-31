@@ -1,8 +1,17 @@
+import LibraryDataServices from "../../services/LibraryDataServices";
+
 import "./Button.css";
 
 const Button = (props) => {
-  const { bookshelf, addBookShelfInfo, name, isMargin, isRedirect, link } =
-    props;
+  const {
+    bookshelf,
+    getBookshelf,
+    addBookShelfInfo,
+    name,
+    isMargin,
+    isRedirect,
+    link,
+  } = props;
 
   const openInNewTab = (url) => {
     console.log(url);
@@ -19,6 +28,12 @@ const Button = (props) => {
       if (isExist) {
         alert("This book is already on the library");
       } else {
+        LibraryDataServices.addLibraryItem(addBookShelfInfo).then((isAdded) => {
+          if (isAdded) {
+            getBookshelf();
+            alert("successfully add book on the library");
+          }
+        });
       }
     }
 

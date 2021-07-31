@@ -13,6 +13,8 @@ const PageSize = 8;
 
 const BookDetails = (props) => {
   const {
+    getWishlist,
+    getLibrary,
     userType,
     userId,
     bookInfo,
@@ -130,6 +132,7 @@ const BookDetails = (props) => {
           <div className="buttonContainer">
             <Button
               addBookShelfInfo={addBookShelfInfo}
+              getBookshelf={getWishlist}
               bookshelf={wishlist}
               name="Wish List"
               isMargin={true}
@@ -137,6 +140,7 @@ const BookDetails = (props) => {
             />
             <Button
               addBookShelfInfo={addBookShelfInfo}
+              getBookshelf={getLibrary}
               name="Library"
               bookshelf={library}
               isMargin={true}

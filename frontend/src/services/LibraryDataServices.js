@@ -12,4 +12,14 @@ export default {
       }
     });
   },
+
+  addLibraryItem(newBookItem) {
+    return axios.post(`/library/add`, newBookItem).then((res) => {
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  },
 };
