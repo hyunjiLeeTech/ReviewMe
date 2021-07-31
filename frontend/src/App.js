@@ -42,6 +42,7 @@ function App() {
     if (authCtx.userTypes === 2) {
       getWishlist();
       getLibrary();
+      console.log(wishlist);
     }
   }, []);
   let userType = authCtx.userTypes;
@@ -52,19 +53,24 @@ function App() {
   console.log(authCtx.userIdInfo);
 
   const getWishlist = () => {
-    WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
-      (wishlist) => {
-        setWishlist(wishlist);
-      }
-    );
+    if (authCtx.userTypes === 2) {
+      WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
+        (wishlist) => {
+          console.log(wishlist);
+          setWishlist(wishlist);
+        }
+      );
+    }
   };
 
   const getLibrary = () => {
-    LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
-      (library) => {
-        setLibrary(library);
-      }
-    );
+    if (authCtx.userTypes === 2) {
+      LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
+        (library) => {
+          setLibrary(library);
+        }
+      );
+    }
   };
 
   return (
@@ -118,13 +124,21 @@ function App() {
           </Route>
           <Route exact path="/library">
             {authCtx.isLoggedIn && (
-              <BookShelf title="Library" items={library} />
+              <BookShelf
+                title="Library"
+                items={library}
+                getBookshelf={getLibrary}
+              />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
             {authCtx.isLoggedIn && (
-              <BookShelf title="Wish List" items={wishlist} />
+              <BookShelf
+                title="Wish List"
+                items={wishlist}
+                getBookshelf={getWishlist}
+              />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>

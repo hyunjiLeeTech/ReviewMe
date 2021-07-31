@@ -17,7 +17,7 @@ const BookDetailsPage = (props) => {
   useEffect(() => {
     BooksDataService.getBooksByID(id).then((book) => {
       setBook(book);
-      console.log(book);
+
       refreshReviews();
     });
   }, []);

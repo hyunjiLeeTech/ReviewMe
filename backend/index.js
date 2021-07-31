@@ -152,7 +152,14 @@ app.post("/reviews/add", (req, res) => {
     bookId: req.body.bookId,
   };
 
-  controllers.review.addReview(newReview);
+  controllers.review
+    .addReview(newReview)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 app.put("/reviews/edit", (req, res) => {
@@ -225,8 +232,6 @@ app.post("/library/add", (req, res) => {
     author: req.body.author,
   };
 
-  console.log(newItem);
-
   controllers.library
     .AddLibraryItem(newItem)
     .then((result) => {
@@ -274,6 +279,28 @@ app.get("/wishlist/:userId", (req, res) => {
       res.json({ errCode: 1, message: "error while getting wishlist" });
     });
 });
+
+app.post("/wishlist/add", (req, res) => {
+  const newItem = {
+    userId: req.body.userId,
+    bookTitle: req.body.bookTitle,
+    bookcover: req.body.bookcover,
+    bookId: req.body.bookId,
+    author: req.body.author,
+  };
+
+  console.log(newItem);
+
+  controllers.wishlist
+    .AddWishlist(newItem)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 //#endregion
 
 //#region Profile

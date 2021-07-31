@@ -74,10 +74,11 @@ const BookDetails = (props) => {
         rating: rating,
         comment: comment,
         userId: userId,
-        bookId: "zYw3sYFtz9kC",
+        bookId: bookInfo.id,
       };
-      ReviewDataServices.addReview(newReview);
-      refreshReviews();
+      ReviewDataServices.addReview(newReview).then((isAdded) => {
+        refreshReviews();
+      });
     }
   };
 

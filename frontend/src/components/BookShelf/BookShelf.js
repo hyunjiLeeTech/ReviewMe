@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Title from "../style/Title";
 import BookItem from "./BookItem";
 import Pagination from "../style/Pagination";
@@ -8,8 +8,12 @@ import "./BookShelf.css";
 let PageSize = 12;
 
 const BookShelf = (props) => {
-  const { title, subTitle, items } = props;
+  const { getBookshelf, title, subTitle, items } = props;
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    getBookshelf();
+  }, []);
 
   const bookData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;

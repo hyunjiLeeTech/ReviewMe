@@ -1,4 +1,5 @@
 import LibraryDataServices from "../../services/LibraryDataServices";
+import WishListDataServices from "../../services/WishListDataServices";
 
 import "./Button.css";
 
@@ -23,6 +24,7 @@ const Button = (props) => {
     const bookId = addBookShelfInfo.bookId;
     console.log(bookId);
     if (name === "Library") {
+      console.log(bookshelf);
       let isExist = checkExist(bookId);
 
       if (isExist) {
@@ -38,16 +40,24 @@ const Button = (props) => {
     }
 
     if (name === "Wish List") {
+      console.log(bookshelf);
       let isExist = checkExist(bookId);
 
       if (isExist) {
         alert("This book is already on the wish list");
       } else {
+        WishListDataServices.addWishlist(addBookShelfInfo).then((isAdded) => {
+          if (isAdded) {
+            getBookshelf();
+            alert("Successfully add book on the wish list");
+          }
+        });
       }
     }
   };
 
   const checkExist = (bookId) => {
+    console.log(bookshelf);
     for (let i = 0; i < bookshelf.length; i++) {
       if (bookshelf[i].bookid === bookId) {
         return true;
