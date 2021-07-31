@@ -70,15 +70,19 @@ const BookDetails = (props) => {
     if (userType !== 2) {
       alert("Please log in first");
     } else {
-      const newReview = {
-        rating: rating,
-        comment: comment,
-        userId: userId,
-        bookId: bookInfo.id,
-      };
-      ReviewDataServices.addReview(newReview).then((isAdded) => {
-        refreshReviews();
-      });
+      if (comment === "" || rating === 0) {
+        alert("Please select rating and write comment");
+      } else {
+        const newReview = {
+          rating: rating,
+          comment: comment,
+          userId: userId,
+          bookId: bookInfo.id,
+        };
+        ReviewDataServices.addReview(newReview).then((isAdded) => {
+          refreshReviews();
+        });
+      }
     }
   };
 
