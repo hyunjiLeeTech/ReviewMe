@@ -30,8 +30,22 @@
   overflow: auto;
 }
 
-@media screen and (max-device-width: 1024px) {
+@media screen and (min-device-width: 767.9px) {
+  .btnPopup {
+    width: 30%;
+  }
+
   .box {
-    font-size: 60px;
+    width: 60%;
+  }
+}
+
+@media screen and (max-device-width: 767.9px) {
+  .btnPopup {
+    width: 50%;
+  }
+
+  .box {
+    width: 90%;
   }
 }
