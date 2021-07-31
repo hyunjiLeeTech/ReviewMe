@@ -1,17 +1,16 @@
 import { useState, useEffect, useMemo } from "react";
-import { BsGearFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { RiDeleteBin5Fill } from "react-icons/ri";
 
 import Title from "../style/Title";
-import BookItem from "./BookItem";
+import ManageBookItem from "./ManageBookItem";
 import Pagination from "../style/Pagination";
 
 import "./BookShelf.css";
 
 let PageSize = 12;
 
-const BookShelf = (props) => {
-  const { getBookshelf, title, subTitle, items } = props;
+const ManageBookShelf = (props) => {
+  const { manageBooks, getBookshelf, title, subTitle, items } = props;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -26,12 +25,13 @@ const BookShelf = (props) => {
 
   const displayBookShelf = () => {
     return bookData.map((data, index) => (
-      <BookItem
+      <ManageBookItem
         key={index}
         image={data.bookcover}
         title={data.booktitle}
         author={data.author}
         bookId={data.bookid}
+        isSelected={data.isSelected}
       />
     ));
   };
@@ -40,16 +40,16 @@ const BookShelf = (props) => {
     <div className="container bookShelfContainer">
       <Title name={title} />
       <h5 className="subTitle">{subTitle}</h5>
-      <div>
-        <Link
-          className="row justify-content-end"
-          to={title === "Library" ? "/library/manage" : "/wishlist/manage"}
-        >
-          <button className="col-2 col-lg-1" className="btnManage">
-            <BsGearFill size={50} />
-          </button>
-          <div className="col-2 col-lg-1"></div>
-        </Link>
+      <div className="row justify-content-end">
+        <button className="col-2 col-lg-1" className="btnManage">
+          <RiDeleteBin5Fill
+            size={50}
+            onClick={() => {
+              alert("click");
+            }}
+          />
+        </button>
+        <div className="col-2 col-lg-1"></div>
       </div>
       <div className="row justify-content-first bookItemcontainer">
         {displayBookShelf()}
@@ -67,4 +67,4 @@ const BookShelf = (props) => {
   );
 };
 
-export default BookShelf;
+export default ManageBookShelf;

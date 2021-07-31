@@ -18,7 +18,6 @@ import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
 import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
-import BookDetails from "./components/BookDetails/BookDetails";
 import BookShelf from "./components/BookShelf/BookShelf";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
@@ -29,6 +28,7 @@ import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 import ResetLink from "./components/registration/ResetPassword";
 import AuthContext from "./components/context/auth-context";
+import ManageBookShelf from "./components/BookShelf/ManageBookShelf";
 
 import WishListDataServices from "./services/WishListDataServices";
 import LibraryDataServices from "./services/LibraryDataServices";
@@ -57,16 +57,43 @@ function App() {
       WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
         (wishlist) => {
           console.log(wishlist);
+          for (let i = 0; i < wishlist.length; i++) {
+            wishlist[i].isSelected = false;
+          }
+          console.log(wishlist);
           setWishlist(wishlist);
         }
       );
     }
   };
 
+  const getManageBooksShelf = (type, index) => {
+    if (type === "Library") {
+      let libraryItems = library;
+      libraryItems[index].isSelected = !libraryItems[index].isSelected;
+      setLibrary(libraryItems);
+    } else if (type === "Wishlist") {
+      let wishlistItems = library;
+      wishlistItems[index].isSelected = !wishlistItems[index].isSelected;
+      setLibrary(wishlistItems);
+    }
+    // if (authCtx.userTypes === 2) {
+    //   WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
+    //     (wishlist) => {
+    //       console.log(wishlist);
+    //       setWishlist(wishlist);
+    //     }
+    //   );
+    // }
+  };
+
   const getLibrary = () => {
     if (authCtx.userTypes === 2) {
       LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
         (library) => {
+          for (let i = 0; i < library.length; i++) {
+            library[i].isSelected = false;
+          }
           setLibrary(library);
         }
       );
@@ -132,10 +159,30 @@ function App() {
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
+          <Route exact path="/library/manage">
+            {authCtx.isLoggedIn && (
+              <ManageBookShelf
+                title="Manage Library"
+                items={library}
+                getBookshelf={getLibrary}
+              />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
+          </Route>
           <Route exact path="/wish-list">
             {authCtx.isLoggedIn && (
               <BookShelf
                 title="Wish List"
+                items={wishlist}
+                getBookshelf={getWishlist}
+              />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/wishlist/manage">
+            {authCtx.isLoggedIn && (
+              <ManageBookShelf
+                title="Manage Wish List"
                 items={wishlist}
                 getBookshelf={getWishlist}
               />
