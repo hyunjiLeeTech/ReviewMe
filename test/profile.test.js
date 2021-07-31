@@ -44,6 +44,8 @@ const meetPasswordLength = (value, minLength, maxLength) => {
 
 const MIN_LENGTH = 8;
 const MAX_LENGTH = 25;
+
+//function to check for password length as well as comparing them
 const validateConfirmPassword = (password, confirmPassword) => {
     if (meetPasswordLength(password, MIN_LENGTH, MAX_LENGTH) === true
         && meetPasswordLength(confirmPassword, MIN_LENGTH, MAX_LENGTH) === true) {
