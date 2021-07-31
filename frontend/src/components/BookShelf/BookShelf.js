@@ -11,10 +11,11 @@ import "./BookShelf.css";
 let PageSize = 12;
 
 const BookShelf = (props) => {
-  const { getBookshelf, title, subTitle, items } = props;
+  const { resetManageBoookItem, getBookshelf, title, subTitle, items } = props;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    resetManageBoookItem();
     getBookshelf();
   }, []);
 

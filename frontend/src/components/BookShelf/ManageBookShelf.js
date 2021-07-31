@@ -10,7 +10,14 @@ import "./BookShelf.css";
 let PageSize = 12;
 
 const ManageBookShelf = (props) => {
-  const { manageBooks, getBookshelf, title, subTitle, items } = props;
+  const {
+    getManageBookShelf,
+    manageBooks,
+    getBookshelf,
+    title,
+    subTitle,
+    items,
+  } = props;
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -26,7 +33,10 @@ const ManageBookShelf = (props) => {
   const displayBookShelf = () => {
     return bookData.map((data, index) => (
       <ManageBookItem
+        getManageBookShelf={getManageBookShelf}
+        type={title === "Manage Library" ? 1 : 2}
         key={index}
+        itemIndex={index}
         image={data.bookcover}
         title={data.booktitle}
         author={data.author}

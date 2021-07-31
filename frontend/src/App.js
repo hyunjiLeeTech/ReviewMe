@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -37,12 +37,13 @@ function App() {
   const authCtx = useContext(AuthContext);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
+  const [manageBookItem, setManageBookItem] = useState([]);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
     if (authCtx.userTypes === 2) {
       getWishlist();
       getLibrary();
-      console.log(wishlist);
     }
   }, []);
   let userType = authCtx.userTypes;
@@ -52,39 +53,76 @@ function App() {
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
 
+  const resetManageBoookItem = () => {
+    setManageBookItem([]);
+  };
+
+  const addManageBookItem = (bookshlefId) => {
+    let selectBookItems = manageBookItem;
+    selectBookItems.push(bookshlefId);
+    setManageBookItem(selectBookItems);
+  };
+
+  const eraseManageBookItem = (bookshelfId) => {
+    let erasedBookItems = manageBookItem.filter(
+      (bookItem) => bookItem !== bookshelfId
+    );
+    setManageBookItem(erasedBookItems);
+  };
+
+  const manageBookItemArr = (type, bookshelfItems) => {
+    let bookItemIds = [];
+    for (let i = 0; i < bookshelfItems.length; i++) {
+      if (bookshelfItems[i].isSelected) {
+        console.log("hi");
+        if (type === 1) {
+          bookItemIds.push(bookshelfItems[i].libraryitemid);
+        } else {
+          bookItemIds.push(bookshelfItems[i].wishlistid);
+        }
+      }
+    }
+    setManageBookItem(bookItemIds);
+    console.log(bookItemIds);
+  };
+
   const getWishlist = () => {
     if (authCtx.userTypes === 2) {
       WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
         (wishlist) => {
-          console.log(wishlist);
           for (let i = 0; i < wishlist.length; i++) {
             wishlist[i].isSelected = false;
           }
-          console.log(wishlist);
           setWishlist(wishlist);
         }
       );
     }
   };
 
-  const getManageBooksShelf = (type, index) => {
-    if (type === "Library") {
+  const getManageBookShelf = (type, index) => {
+    if (type === 1) {
       let libraryItems = library;
       libraryItems[index].isSelected = !libraryItems[index].isSelected;
       setLibrary(libraryItems);
-    } else if (type === "Wishlist") {
-      let wishlistItems = library;
+      // if (libraryItems[index].isSelected) {
+      //   addManageBookItem(library[index].libraryitemid);
+      // } else {
+      //   eraseManageBookItem(library[index].libraryitemid);
+      // }
+      manageBookItemArr(type, library);
+    } else if (type === 2) {
+      let wishlistItems = wishlist;
       wishlistItems[index].isSelected = !wishlistItems[index].isSelected;
-      setLibrary(wishlistItems);
+      setWishlist(wishlistItems);
+      if (wishlistItems[index].isSelected) {
+        addManageBookItem(wishlist[index].wishlistid);
+      } else {
+        eraseManageBookItem(wishlist[index].wishlistid);
+      }
+      console.log(manageBookItem);
     }
-    // if (authCtx.userTypes === 2) {
-    //   WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
-    //     (wishlist) => {
-    //       console.log(wishlist);
-    //       setWishlist(wishlist);
-    //     }
-    //   );
-    // }
+
+    forceUpdate();
   };
 
   const getLibrary = () => {
@@ -155,6 +193,7 @@ function App() {
                 title="Library"
                 items={library}
                 getBookshelf={getLibrary}
+                resetManageBoookItem={resetManageBoookItem}
               />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
@@ -165,6 +204,7 @@ function App() {
                 title="Manage Library"
                 items={library}
                 getBookshelf={getLibrary}
+                getManageBookShelf={getManageBookShelf}
               />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
@@ -175,6 +215,7 @@ function App() {
                 title="Wish List"
                 items={wishlist}
                 getBookshelf={getWishlist}
+                resetManageBoookItem={resetManageBoookItem}
               />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
@@ -185,6 +226,7 @@ function App() {
                 title="Manage Wish List"
                 items={wishlist}
                 getBookshelf={getWishlist}
+                getManageBookShelf={getManageBookShelf}
               />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}

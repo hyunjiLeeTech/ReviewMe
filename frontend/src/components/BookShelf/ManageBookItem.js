@@ -1,8 +1,17 @@
 import "./ManageBookItem.css";
 
 const ManageBookItem = (props) => {
-  const { image, title, author, bookId, isSelected } = props;
-  console.log(isSelected);
+  const {
+    getManageBookShelf,
+    type,
+    itemIndex,
+    image,
+    title,
+    author,
+    bookId,
+    isSelected,
+  } = props;
+
   return (
     <button
       className={
@@ -11,7 +20,7 @@ const ManageBookItem = (props) => {
           : "col-6 col-md-4 col-lg-3 selectbookItemContainer"
       }
       onClick={() => {
-        alert(bookId);
+        getManageBookShelf(type, itemIndex);
       }}
     >
       <div className="text-center">
