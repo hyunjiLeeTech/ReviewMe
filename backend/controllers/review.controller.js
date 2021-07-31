@@ -55,14 +55,21 @@ module.exports.addReview = (newReview) => {
 
 module.exports.deleteReview = (reviewId) => {
   return new Promise(async (resolve, reject) => {
-    const results = await sequelize.query(
-      `UPDATE review SET isActive=false WHERE reviewid=${reviewId}`
-    );
-
-    if (results[1].rowCount === 1) {
-      resolve({ errCode: 0, message: "Delete review success" });
+    if (typeof reviewId === "undefined") {
+      resolve({
+        errCode: 1,
+        message: "Delete review failed - at least one field is missing",
+      });
     } else {
-      reject({ errCode: 1, message: "Delete review fail" });
+      const results = await sequelize.query(
+        `UPDATE review SET isActive=false WHERE reviewid=${reviewId}`
+      );
+
+      if (results[1].rowCount === 1) {
+        resolve({ errCode: 0, message: "Delete review success" });
+      } else {
+        reject({ errCode: 1, message: "Delete review fail" });
+      }
     }
   });
 };

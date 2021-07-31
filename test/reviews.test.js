@@ -188,7 +188,7 @@ test("Test edit review controller without rating", () => {
     });
 });
 
-test("Test edit review controller wishoust reviewId", () => {
+test("Test edit review controller without reviewId", () => {
   return ReviewsController.editReview({
     date: "1111-11-11",
     comment: "test edit review",
@@ -199,5 +199,35 @@ test("Test edit review controller wishoust reviewId", () => {
     })
     .catch((res) => {
       expect(res.errCode).toBe(1);
+    });
+});
+
+test("Test delete review controller", () => {
+  return ReviewsController.deleteReview(1)
+    .then((res) => {
+      expect(res.errCode).toBe(0);
+    })
+    .catch((err) => {
+      expect(err.errCode).toBe(0);
+    });
+});
+
+test("Test delete review controller with wrong reviewId", () => {
+  return ReviewsController.deleteReview(0)
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((err) => {
+      expect(err.errCode).toBe(1);
+    });
+});
+
+test("Test delete review controller with empty reviewId", () => {
+  return ReviewsController.deleteReview()
+    .then((res) => {
+      expect(res.errCode).toBe(1);
+    })
+    .catch((err) => {
+      expect(err.errCode).toBe(1);
     });
 });
