@@ -26,6 +26,10 @@ test('validateName() - Validate Firstname/Lastname', () => {
     result = validateName('');
     expect(result).toBe(false);
 
+    //string with space(considered empty)
+    result = validateName(' ');
+    expect(result).toBe(false);
+
     //invalid name
     result = validateName('Bo');
     expect(result).toBe(false);
