@@ -30,15 +30,12 @@ module.exports.getWishListByUserId = (userid) => {
 };
 
 module.exports.deleteWishListById = (id) => {
-  return new Promise((resolve, reject) => {
-    sequelize
-      .query(`DELETE * FROM wishlist WHERE wishlistid='${id}'`)
-      .then(() => {
-        resolve("Delete wishlist item success");
-      })
-      .catch((err) => {
-        reject(err);
-      });
+  return new Promise(async (resolve, reject) => {
+    const [result, metadata] = await sequelize.query(
+      `DELETE FROM wishlist WHERE wishlistid=${id}`
+    );
+
+    console.log(metadata);
   });
 };
 

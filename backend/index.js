@@ -233,6 +233,8 @@ app.post("/library/add", (req, res) => {
     author: req.body.author,
   };
 
+  console.log(newItem);
+
   controllers.library
     .AddLibraryItem(newItem)
     .then((result) => {
@@ -243,11 +245,18 @@ app.post("/library/add", (req, res) => {
     });
 });
 
-app.delete("/library/delete", (req, res) => {
-  const id = req.body.libraryId;
+app.delete("/library/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const idArr = id.split(",");
 
+  console.log(idArr);
+  let condition = `WHERE libraryitemid IN (${idArr[0]}`;
+  for (let i = 1; i < idArr.length; i++) {
+    condition += `,${idArr[i]}`;
+  }
+  condition += ")";
   controllers.library
-    .deleteLibraryItemById(id)
+    .deleteLibraryItemById(condition)
     .then((res) => {
       res.json({ errCode: 0, message: res });
     })

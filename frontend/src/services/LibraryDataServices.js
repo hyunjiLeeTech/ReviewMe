@@ -14,7 +14,18 @@ export default {
   },
 
   addLibraryItem(newBookItem) {
+    console.log(newBookItem);
     return axios.post(`/library/add`, newBookItem).then((res) => {
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  },
+
+  deleteLibraryItem(deleteItemList) {
+    return axios.delete(`/library/delete/${deleteItemList}`).then((res) => {
       if (res.data.errCode === 0) {
         return true;
       } else {

@@ -5,6 +5,9 @@ import Title from "../style/Title";
 import ManageBookItem from "./ManageBookItem";
 import Pagination from "../style/Pagination";
 
+import LibraryDataServices from "../../services/LibraryDataServices";
+import WishListDataServices from "../../services/WishListDataServices";
+
 import "./BookShelf.css";
 
 let PageSize = 12;
@@ -46,6 +49,22 @@ const ManageBookShelf = (props) => {
     ));
   };
 
+  const onClickDeleteIcon = () => {
+    if (title === "Manage Library") {
+      let bookItems = [];
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].isSelected) {
+          bookItems.push(items[i].libraryitemid);
+        }
+      }
+      console.log(bookItems);
+      LibraryDataServices.deleteLibraryItem(bookItems).then((isDeleted) => {
+        getBookshelf();
+      });
+    } else {
+    }
+  };
+
   return (
     <div className="container bookShelfContainer">
       <Title name={title} />
@@ -55,7 +74,7 @@ const ManageBookShelf = (props) => {
           <RiDeleteBin5Fill
             size={50}
             onClick={() => {
-              alert("click");
+              onClickDeleteIcon();
             }}
           />
         </button>
