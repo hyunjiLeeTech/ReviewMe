@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import BooksDataService from "../../services/BooksDataService";
 import ReviewDataServices from "../../services/ReviewDataServices";
 
+import Loading from "../style/Loading";
 import BookDetails from "./BookDetails";
 
 const BookDetailsPage = (props) => {
@@ -40,7 +41,7 @@ const BookDetailsPage = (props) => {
   return (
     <div>
       {isLoading ? (
-        <p>Loading</p>
+        <Loading />
       ) : (
         <BookDetails
           getWishlist={getWishlist}
