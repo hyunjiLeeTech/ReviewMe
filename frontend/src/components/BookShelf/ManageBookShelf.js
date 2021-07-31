@@ -62,6 +62,18 @@ const ManageBookShelf = (props) => {
         getBookshelf();
       });
     } else {
+      let bookItems = [];
+      for (let i = 0; i < items.length; i++) {
+        if (items[i].isSelected) {
+          bookItems.push(items[i].wishlistid);
+        }
+      }
+      console.log("click");
+      console.log(bookItems);
+      console.log(items);
+      WishListDataServices.deleteWishlist(bookItems).then((isDeleted) => {
+        getBookshelf();
+      });
     }
   };
 

@@ -94,6 +94,7 @@ function App() {
             wishlist[i].isSelected = false;
           }
           setWishlist(wishlist);
+          console.log(wishlist);
         }
       );
     }
@@ -204,7 +205,7 @@ function App() {
                 title="Manage Library"
                 items={library}
                 getBookshelf={getLibrary}
-                getManageBookShelf={getManageBookShelf}
+                resetManageBoookItem={resetManageBoookItem}
               />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}

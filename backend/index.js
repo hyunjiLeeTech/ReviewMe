@@ -311,6 +311,26 @@ app.post("/wishlist/add", (req, res) => {
     });
 });
 
+app.delete("/wishlist/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const idArr = id.split(",");
+
+  console.log(idArr);
+  let condition = `WHERE wishlistid IN (${idArr[0]}`;
+  for (let i = 1; i < idArr.length; i++) {
+    condition += `,${idArr[i]}`;
+  }
+  condition += ")";
+
+  controllers.wishlist
+    .deleteWishlistById(condition, idArr.length)
+    .then((res) => {
+      res.json(res);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 //#endregion
 
 //#region Profile

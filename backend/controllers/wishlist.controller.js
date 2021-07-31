@@ -29,13 +29,15 @@ module.exports.getWishListByUserId = (userid) => {
   });
 };
 
-module.exports.deleteWishListById = (id) => {
+module.exports.deleteWishlistById = (id, num) => {
   return new Promise(async (resolve, reject) => {
-    const [result, metadata] = await sequelize.query(
-      `DELETE FROM wishlist WHERE wishlistid=${id}`
-    );
+    const results = await sequelize.query(`DELETE FROM wishlist ${id}`);
 
-    console.log(metadata);
+    if (results[1].rowCount == num) {
+      resolve({ errCode: 0, message: "Delete wishlist item success" });
+    } else {
+      reject({ errCode: 1, message: "Delete wishlist item fail" });
+    }
   });
 };
 
