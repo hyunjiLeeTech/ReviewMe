@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useReducer, useContext } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,7 +17,7 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
 import Report from "./components/Report/Report";
-import BookDetails from "./components/BookDetails/BookDetails";
+import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
 import BookShelf from "./components/BookShelf/BookShelf";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
@@ -28,6 +28,7 @@ import NotFound from "./components/NotFoundPage/NotFound";
 import ReportManager from "./components/ReportManager/ReportManager";
 import ResetLink from "./components/registration/ResetPassword";
 import AuthContext from "./components/context/auth-context";
+import ManageBookShelf from "./components/BookShelf/ManageBookShelf";
 
 import WishListDataServices from "./services/WishListDataServices";
 import LibraryDataServices from "./services/LibraryDataServices";
@@ -36,16 +37,13 @@ function App() {
   const authCtx = useContext(AuthContext);
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const [reviews, setReviews] = useState([]);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    WishListDataServices.getWishListByUseId(30).then((wishlist) => {
-      setWishlist(wishlist);
-    });
-
-    LibraryDataServices.getLibraryByUseId(30).then((library) => {
-      setLibrary(library);
-    });
+    if (authCtx.userTypes === 2) {
+      getWishlist();
+      getLibrary();
+    }
   }, []);
   let userType = authCtx.userTypes;
   let detailsInfo = authCtx.detailsInfo;
@@ -53,8 +51,46 @@ function App() {
   console.log(authCtx.userTypes);
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
-  const editReviewHandler = (reviewsArr) => {
-    setReviews(reviewsArr);
+
+  const getWishlist = () => {
+    if (authCtx.userTypes === 2) {
+      WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
+        (wishlist) => {
+          for (let i = 0; i < wishlist.length; i++) {
+            wishlist[i].isSelected = false;
+          }
+          setWishlist(wishlist);
+          console.log(wishlist);
+        }
+      );
+    }
+  };
+
+  const getManageBookShelf = (type, index) => {
+    if (type === 1) {
+      let libraryItems = library;
+      libraryItems[index].isSelected = !libraryItems[index].isSelected;
+      setLibrary(libraryItems);
+    } else if (type === 2) {
+      let wishlistItems = wishlist;
+      wishlistItems[index].isSelected = !wishlistItems[index].isSelected;
+      setWishlist(wishlistItems);
+    }
+
+    forceUpdate();
+  };
+
+  const getLibrary = () => {
+    if (authCtx.userTypes === 2) {
+      LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
+        (library) => {
+          for (let i = 0; i < library.length; i++) {
+            library[i].isSelected = false;
+          }
+          setLibrary(library);
+        }
+      );
+    }
   };
 
   return (
@@ -97,20 +133,54 @@ function App() {
             <Report />
           </Route>
           <Route exact path="/details/:id">
-            <BookDetails
-              reviews={reviews}
-              editReviewHandler={editReviewHandler}
-            />
+            <BookDetailsPage
+              getWishlist={getWishlist}
+              getLibrary={getLibrary}
+              userType={authCtx.userTypes}
+              userId={authCtx.userIdInfo}
+              wishlist={wishlist}
+              library={library}
+            ></BookDetailsPage>
           </Route>
           <Route exact path="/library">
             {authCtx.isLoggedIn && (
-              <BookShelf title="Library" items={library} />
+              <BookShelf
+                title="Library"
+                items={library}
+                getBookshelf={getLibrary}
+              />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/library/manage">
+            {authCtx.isLoggedIn && (
+              <ManageBookShelf
+                title="Manage Library"
+                items={library}
+                getBookshelf={getLibrary}
+                getManageBookShelf={getManageBookShelf}
+              />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
             {authCtx.isLoggedIn && (
-              <BookShelf title="Wish List" items={wishlist} />
+              <BookShelf
+                title="Wish List"
+                items={wishlist}
+                getBookshelf={getWishlist}
+              />
+            )}
+            {!authCtx.isLoggedIn && <Redirect to="/login" />}
+          </Route>
+          <Route exact path="/wishlist/manage">
+            {authCtx.isLoggedIn && (
+              <ManageBookShelf
+                title="Manage Wish List"
+                items={wishlist}
+                getBookshelf={getWishlist}
+                getManageBookShelf={getManageBookShelf}
+              />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>

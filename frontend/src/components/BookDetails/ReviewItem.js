@@ -1,36 +1,48 @@
+import { useState } from "react";
+
 import ReviewDataServices from "../../services/ReviewDataServices";
 
 import { Rating } from "@material-ui/lab";
 import { Link } from "react-router-dom";
 
+import Popup from "../style/Popup";
 import "./ReviewItem.css";
 
 const ReviewItem = (props) => {
-  const { id, rating, nickname, date, review, index, itemId, onClickEdit } =
-    props;
-  const loginUserId = 0;
+  const {
+    loginUserId,
+    reviewUserId,
+    id,
+    rating,
+    nickname,
+    date,
+    review,
+    index,
+    itemId,
+    onClickEdit,
+    refreshReviews,
+  } = props;
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const onClickDelete = () => {
-    ReviewDataServices.deleteReview(id);
+  const togglePopup = async () => {
+    setIsPopupOpen(!isPopupOpen);
   };
 
-  // const onClickEdit = () => {
-  //   const editReview = {
-  //     reviewId: id,
-  //     rating: 3,
-  //     comment: "this is editted",
-  //   };
-
-  //   ReviewDataServices.editReview(editReview);
-  // };
+  const onClickDelete = () => {
+    ReviewDataServices.deleteReview(id).then((isDeleted) => {
+      if (isDeleted) {
+        refreshReviews();
+      }
+    });
+    togglePopup();
+  };
 
   const onClickEditReview = () => {
-    console.log("clicked: " + itemId);
     onClickEdit(itemId);
   };
 
   const checkUserId = () => {
-    if (loginUserId !== 999) {
+    if (loginUserId === reviewUserId) {
       return (
         <>
           <div className="col-lg-1 col-1">
@@ -39,7 +51,7 @@ const ReviewItem = (props) => {
             </button>
           </div>
           <div className="col-lg-1 col-1">
-            <button className="link" onClick={onClickDelete}>
+            <button className="link" onClick={togglePopup}>
               Delete
             </button>
           </div>
@@ -70,6 +82,24 @@ const ReviewItem = (props) => {
       </div>
 
       <p>{review}</p>
+      {isPopupOpen && (
+        <Popup
+          content={
+            <>
+              <h2>Delete Confirm</h2>
+              <p className="popup-content">
+                Do you want to delete this review?
+              </p>
+              <button className="btnPopup" onClick={() => onClickDelete()}>
+                Yes
+              </button>
+              <button className="btnPopup" onClick={() => togglePopup()}>
+                No
+              </button>
+            </>
+          }
+        />
+      )}
     </div>
   );
 };

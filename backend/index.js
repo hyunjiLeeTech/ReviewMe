@@ -119,10 +119,10 @@ app.get("/reviews", (req, res) => {
   controllers.review
     .getAllReviews()
     .then((data) => {
-      res.json({ errCode: 0, reviews: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting reviews" });
+      res.json(err);
     });
 });
 
@@ -132,36 +132,61 @@ app.get("/reviews/:bookId", (req, res) => {
   controllers.review
     .getReviewsByBookId(bookId)
     .then((data) => {
-      res.json({ errCode: 0, reviews: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: err });
+      res.json(err);
     });
 });
 
 app.post("/reviews/add", (req, res) => {
   const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
 
   const newReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${year}-${month}-${day}`,
     comment: req.body.comment,
     rating: req.body.rating,
     userId: req.body.userId,
     bookId: req.body.bookId,
   };
 
-  controllers.review.addReview(newReview);
+  controllers.review
+    .addReview(newReview)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 app.put("/reviews/edit", (req, res) => {
   const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
 
   const editReview = {
-    date: `${
-      date.getFullYear() + 1
-    }-${date.getMonth()}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`,
+    date: `${year}-${month}-${day}`,
     comment: req.body.comment,
     rating: req.body.rating,
     reviewId: req.body.reviewId,
@@ -170,11 +195,9 @@ app.put("/reviews/edit", (req, res) => {
   controllers.review
     .editReview(editReview)
     .then((result) => {
-      console.log(result);
       res.json({ errCode: 0, message: "Edit review success" });
     })
     .catch((err) => {
-      console.log(err);
       res.json({ errCode: 1, message: "Edit review fail" });
     });
 });
@@ -183,11 +206,11 @@ app.put("/reviews/delete", (req, res) => {
   const reviewId = req.body.reviewId;
   controllers.review
     .deleteReview(reviewId)
-    .then((res) => {
-      res.json({ errCode: 0, message: "delete review success" });
+    .then((result) => {
+      res.json(result);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "delete review fail" });
+      res.json(err);
     });
 });
 //#endregion
@@ -216,11 +239,40 @@ app.get("/library/:userId", (req, res) => {
     });
 });
 
-app.delete("/library/delete", (req, res) => {
-  const id = req.body.libraryId;
+app.post("/library/add", (req, res) => {
+  const newItem = {
+    userId: req.body.userId,
+    bookTitle: req.body.bookTitle,
+    bookcover: req.body.bookcover,
+    bookId: req.body.bookId,
+    author: req.body.author,
+  };
 
   controllers.library
-    .deleteLibraryItemById(id)
+    .AddLibraryItem(newItem)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.delete("/library/delete", (req, res) => {
+  res.json({ errcode: 1, message: "No items selected" });
+});
+
+app.delete("/library/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const idArr = id.split(",");
+
+  let condition = `WHERE libraryitemid IN (${idArr[0]}`;
+  for (let i = 1; i < idArr.length; i++) {
+    condition += `,${idArr[i]}`;
+  }
+  condition += ")";
+  controllers.library
+    .deleteLibraryItemById(condition)
     .then((res) => {
       res.json({ errCode: 0, message: res });
     })
@@ -251,6 +303,49 @@ app.get("/wishlist/:userId", (req, res) => {
     })
     .catch((err) => {
       res.json({ errCode: 1, message: "error while getting wishlist" });
+    });
+});
+
+app.post("/wishlist/add", (req, res) => {
+  const newItem = {
+    userId: req.body.userId,
+    bookTitle: req.body.bookTitle,
+    bookcover: req.body.bookcover,
+    bookId: req.body.bookId,
+    author: req.body.author,
+  };
+
+  controllers.wishlist
+    .AddWishlist(newItem)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.delete("/wishlist/delete", (req, res) => {
+  res.json({ errcode: 1, message: "No items selected" });
+});
+
+app.delete("/wishlist/delete/:id", (req, res) => {
+  const id = req.params.id;
+  const idArr = id.split(",");
+
+  let condition = `WHERE wishlistid IN (${idArr[0]}`;
+  for (let i = 1; i < idArr.length; i++) {
+    condition += `,${idArr[i]}`;
+  }
+  condition += ")";
+
+  controllers.wishlist
+    .deleteWishlistById(condition, idArr.length)
+    .then((res) => {
+      res.json(res);
+    })
+    .catch((err) => {
+      res.json(err);
     });
 });
 //#endregion

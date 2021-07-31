@@ -12,4 +12,25 @@ export default {
       }
     });
   },
+
+  addWishlist(newBookItem) {
+    return axios.post(`/wishlist/add`, newBookItem).then((res) => {
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  },
+
+  deleteWishlist(deleteItemList) {
+    return axios.delete(`/wishlist/delete/${deleteItemList}`).then((res) => {
+      console.log(res.data.errCode);
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  },
 };
