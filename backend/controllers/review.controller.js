@@ -30,29 +30,30 @@ module.exports.getReviewsByBookId = (bookId) => {
 };
 
 module.exports.addReview = (newReview) => {
-  return new Promise((resolve, reject) => {
-    try {
-      sequelize.query(
-        `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
-      );
+  return new Promise(async (resolve, reject) => {
+    const [results, metadata] = await sequelize.query(
+      `INSERT INTO review (createdate, updatedate, comment, rating, userid, bookid, isactive) VALUES(CAST('${newReview.date}' AS date), CAST('${newReview.date}' AS date), '${newReview.comment}', ${newReview.rating}, ${newReview.userId}, '${newReview.bookId}', true)`
+    );
 
-      resolve({ errCode: 0, message: "add review success" });
-    } catch {
-      reject({ errCode: 1, message: "error while add review success" });
+    if (metadata === 1) {
+      resolve({ errCode: 0, message: "Add review success" });
+    } else {
+      reject({ errCode: 1, message: "Add review fail" });
     }
   });
 };
 
 module.exports.deleteReview = (reviewId) => {
-  return new Promise((resolve, reject) => {
-    sequelize
-      .query(`UPDATE review SET isActive=false WHERE reviewid=${reviewId}`)
-      .then(() => {
-        resolve({ errCode: 0, message: "delete success" });
-      })
-      .catch((err) => {
-        reject({ errCode: 1, message: "delete fail" });
-      });
+  return new Promise(async (resolve, reject) => {
+    const results = await sequelize.query(
+      `UPDATE review SET isActive=false WHERE reviewid=${reviewId}`
+    );
+
+    if (results[1].rowCount === 1) {
+      resolve({ errCode: 0, message: "Delete review success" });
+    } else {
+      reject({ errCode: 1, message: "Delete review fail" });
+    }
   });
 };
 

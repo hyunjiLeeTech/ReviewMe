@@ -155,6 +155,7 @@ app.post("/reviews/add", (req, res) => {
   controllers.review
     .addReview(newReview)
     .then((result) => {
+      console.log(result);
       res.json(result);
     })
     .catch((err) => {
@@ -190,11 +191,11 @@ app.put("/reviews/delete", (req, res) => {
   const reviewId = req.body.reviewId;
   controllers.review
     .deleteReview(reviewId)
-    .then((res) => {
-      res.json({ errCode: 0, message: "delete review success" });
+    .then((result) => {
+      res.json(result);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "delete review fail" });
+      res.json(err);
     });
 });
 //#endregion

@@ -216,6 +216,7 @@ const BookDetails = (props) => {
                       date={data.updatedate}
                       review={data.comment}
                       onClickEdit={onClickEdit}
+                      refreshReviews={refreshReviews}
                     />
                   );
                 }

@@ -17,10 +17,17 @@ const ReviewItem = (props) => {
     index,
     itemId,
     onClickEdit,
+    refreshReviews,
   } = props;
 
   const onClickDelete = () => {
-    ReviewDataServices.deleteReview(id);
+    ReviewDataServices.deleteReview(id).then((isDeleted) => {
+      console.log(isDeleted);
+      if (isDeleted) {
+        console.log("refresh");
+        refreshReviews();
+      }
+    });
   };
 
   const onClickEditReview = () => {

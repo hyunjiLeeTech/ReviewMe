@@ -21,11 +21,11 @@ export default {
   },
   deleteReview(reviewId) {
     return axios.put(`/reviews/delete`, { reviewId: reviewId }).then((res) => {
-      //   if (res.data.errcode === 0) {
-      //     console.log(res.data.message);
-      //   } else {
-      //     console.log(res.data.message);
-      //   }
+      if (res.data.errCode === 0) {
+        return true;
+      } else {
+        return false;
+      }
     });
   },
   editReview(editReview) {
