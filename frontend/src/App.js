@@ -29,6 +29,10 @@ import ReportManager from "./components/ReportManager/ReportManager";
 import ResetLink from "./components/registration/ResetPassword";
 import AuthContext from "./components/context/auth-context";
 import ManageBookShelf from "./components/BookShelf/ManageBookShelf";
+import Library from "./components/BookShelf/Library";
+import Wishlist from "./components/BookShelf/Wishlist";
+import ManageWishlist from "./components/BookShelf/ManageWishlist";
+import ManageLibrary from "./components/BookShelf/ManageLibrary";
 
 import WishListDataServices from "./services/WishListDataServices";
 import LibraryDataServices from "./services/LibraryDataServices";
@@ -143,44 +147,22 @@ function App() {
             ></BookDetailsPage>
           </Route>
           <Route exact path="/library">
-            {authCtx.isLoggedIn && (
-              <BookShelf
-                title="Library"
-                items={library}
-                getBookshelf={getLibrary}
-              />
-            )}
+            {authCtx.isLoggedIn && <Library userId={authCtx.userIdInfo} />}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/library/manage">
             {authCtx.isLoggedIn && (
-              <ManageBookShelf
-                title="Manage Library"
-                items={library}
-                getBookshelf={getLibrary}
-                getManageBookShelf={getManageBookShelf}
-              />
+              <ManageLibrary userId={authCtx.userIdInfo} />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wish-list">
-            {authCtx.isLoggedIn && (
-              <BookShelf
-                title="Wish List"
-                items={wishlist}
-                getBookshelf={getWishlist}
-              />
-            )}
+            {authCtx.isLoggedIn && <Wishlist userId={authCtx.userIdInfo} />}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route exact path="/wishlist/manage">
             {authCtx.isLoggedIn && (
-              <ManageBookShelf
-                title="Manage Wish List"
-                items={wishlist}
-                getBookshelf={getWishlist}
-                getManageBookShelf={getManageBookShelf}
-              />
+              <ManageWishlist userId={authCtx.userIdInfo} />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
