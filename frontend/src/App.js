@@ -4,7 +4,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import React, { useState, useEffect, useReducer, useContext } from "react";
+import React, { useContext } from "react";
 
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
@@ -32,68 +32,14 @@ import Wishlist from "./components/BookShelf/Wishlist";
 import ManageWishlist from "./components/BookShelf/ManageWishlist";
 import ManageLibrary from "./components/BookShelf/ManageLibrary";
 
-import WishListDataServices from "./services/WishListDataServices";
-import LibraryDataServices from "./services/LibraryDataServices";
-
 function App() {
   const authCtx = useContext(AuthContext);
-  const [library, setLibrary] = useState([]);
-  const [wishlist, setWishlist] = useState([]);
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-
-  useEffect(() => {
-    if (authCtx.userTypes === 2) {
-      getWishlist();
-      getLibrary();
-    }
-  }, []);
   let userType = authCtx.userTypes;
   let detailsInfo = authCtx.detailsInfo;
 
   console.log(authCtx.userTypes);
   console.log(detailsInfo);
   console.log(authCtx.userIdInfo);
-
-  const getWishlist = () => {
-    if (authCtx.userTypes === 2) {
-      WishListDataServices.getWishListByUseId(authCtx.userIdInfo).then(
-        (wishlist) => {
-          for (let i = 0; i < wishlist.length; i++) {
-            wishlist[i].isSelected = false;
-          }
-          setWishlist(wishlist);
-          console.log(wishlist);
-        }
-      );
-    }
-  };
-
-  const getManageBookShelf = (type, index) => {
-    if (type === 1) {
-      let libraryItems = library;
-      libraryItems[index].isSelected = !libraryItems[index].isSelected;
-      setLibrary(libraryItems);
-    } else if (type === 2) {
-      let wishlistItems = wishlist;
-      wishlistItems[index].isSelected = !wishlistItems[index].isSelected;
-      setWishlist(wishlistItems);
-    }
-
-    forceUpdate();
-  };
-
-  const getLibrary = () => {
-    if (authCtx.userTypes === 2) {
-      LibraryDataServices.getLibraryByUseId(authCtx.userIdInfo).then(
-        (library) => {
-          for (let i = 0; i < library.length; i++) {
-            library[i].isSelected = false;
-          }
-          setLibrary(library);
-        }
-      );
-    }
-  };
 
   return (
     <Router>
@@ -136,13 +82,9 @@ function App() {
           </Route>
           <Route exact path="/details/:id">
             <BookDetailsPage
-              getWishlist={getWishlist}
-              getLibrary={getLibrary}
               userType={authCtx.userTypes}
               userId={authCtx.userIdInfo}
-              wishlist={wishlist}
-              library={library}
-            ></BookDetailsPage>
+            />
           </Route>
           <Route exact path="/library">
             {authCtx.isLoggedIn && <Library userId={authCtx.userIdInfo} />}
