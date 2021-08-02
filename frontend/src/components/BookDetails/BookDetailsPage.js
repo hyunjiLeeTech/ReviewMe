@@ -8,6 +8,7 @@ import WishListDataServices from "../../services/WishListDataServices";
 
 import Loading from "../style/Loading";
 import BookDetails from "./BookDetails";
+import BookLoading from "../style/BookLoading";
 
 const BookDetailsPage = (props) => {
   const { userType, userId } = props;
@@ -61,7 +62,7 @@ const BookDetailsPage = (props) => {
   return (
     <div>
       {isLoading ? (
-        <Loading />
+        <BookLoading />
       ) : (
         <BookDetails
           getWishlist={getWishlist}
