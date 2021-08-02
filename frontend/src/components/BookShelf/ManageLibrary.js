@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useReducer, useMemo } from "react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 
 import Title from "../style/Title";
@@ -6,38 +6,49 @@ import ManageBookItem from "./ManageBookItem";
 import Pagination from "../style/Pagination";
 
 import LibraryDataServices from "../../services/LibraryDataServices";
-import WishListDataServices from "../../services/WishListDataServices";
 
 import "./BookShelf.css";
 
 let PageSize = 12;
 
-const ManageBookShelf = (props) => {
-  const {
-    getManageBookShelf,
-    manageBooks,
-    getBookshelf,
-    title,
-    subTitle,
-    items,
-  } = props;
+const ManageLibrary = (props) => {
+  const { userId } = props;
+
   const [currentPage, setCurrentPage] = useState(1);
+  const [libraryItems, setLibraryItems] = useState([]);
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
   useEffect(() => {
-    getBookshelf();
+    getLibraryItems();
   }, []);
+
+  const getLibraryItems = () => {
+    LibraryDataServices.getLibraryByUseId(userId).then((library) => {
+      for (let i = 0; i < library.length; i++) {
+        library[i].isSelected = false;
+      }
+      setLibraryItems(library);
+    });
+  };
 
   const bookData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
-    return items.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, items]);
+    return libraryItems.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, libraryItems]);
+
+  const getManageBookShelf = (index) => {
+    let libraryItemsArr = libraryItems;
+    libraryItemsArr[index].isSelected = !libraryItemsArr[index].isSelected;
+    setLibraryItems(libraryItemsArr);
+
+    forceUpdate();
+  };
 
   const displayBookShelf = () => {
     return bookData.map((data, index) => (
       <ManageBookItem
         getManageBookShelf={getManageBookShelf}
-        type={title === "Manage Library" ? 1 : 2}
         key={index}
         itemIndex={index}
         image={data.bookcover}
@@ -50,37 +61,24 @@ const ManageBookShelf = (props) => {
   };
 
   const onClickDeleteIcon = () => {
-    if (title === "Manage Library") {
-      let bookItems = [];
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].isSelected) {
-          bookItems.push(items[i].libraryitemid);
-        }
+    let bookItems = [];
+    for (let i = 0; i < libraryItems.length; i++) {
+      if (libraryItems[i].isSelected) {
+        bookItems.push(libraryItems[i].libraryitemid);
       }
-      console.log(bookItems);
-      LibraryDataServices.deleteLibraryItem(bookItems).then((isDeleted) => {
-        getBookshelf();
-      });
-    } else {
-      let bookItems = [];
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].isSelected) {
-          bookItems.push(items[i].wishlistid);
-        }
-      }
-      console.log("click");
-      console.log(bookItems);
-      console.log(items);
-      WishListDataServices.deleteWishlist(bookItems).then((isDeleted) => {
-        getBookshelf();
-      });
     }
+
+    LibraryDataServices.deleteLibraryItem(bookItems).then((isDeleted) => {
+      getLibraryItems();
+    });
   };
 
   return (
     <div className="container bookShelfContainer">
-      <Title name={title} />
-      <h5 className="subTitle">{subTitle}</h5>
+      <Title name="Manage Library" />
+      <h5 className="subTitle">
+        Select book(s) you want to delete on the library and click delete icon
+      </h5>
       <div className="row justify-content-end">
         <button className="col-2 col-lg-1" className="btnManage">
           <RiDeleteBin5Fill
@@ -98,7 +96,7 @@ const ManageBookShelf = (props) => {
           <Pagination
             className="pagination-bar"
             currentPage={currentPage}
-            totalCount={items.length}
+            totalCount={libraryItems.length}
             pageSize={PageSize}
             onPageChange={(page) => setCurrentPage(page)}
           />
@@ -108,4 +106,4 @@ const ManageBookShelf = (props) => {
   );
 };
 
-export default ManageBookShelf;
+export default ManageLibrary;

@@ -20,7 +20,7 @@ const ManageBookItem = (props) => {
           : "col-6 col-md-4 col-lg-3 selectbookItemContainer"
       }
       onClick={() => {
-        getManageBookShelf(type, itemIndex);
+        getManageBookShelf(itemIndex);
       }}
     >
       <div className="text-center manageBookItem">
