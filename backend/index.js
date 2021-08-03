@@ -241,12 +241,15 @@ app.get("/library/:userId", (req, res) => {
 });
 
 app.post("/library/add", (req, res) => {
+  let bookTitle = req.body.bookTitle.replace("'", "''");
+  let author = req.body.author.replace("'", "''");
+
   const newItem = {
     userId: req.body.userId,
-    bookTitle: req.body.bookTitle,
+    bookTitle: bookTitle,
     bookcover: req.body.bookcover,
     bookId: req.body.bookId,
-    author: req.body.author,
+    author: author,
   };
 
   controllers.library
@@ -308,12 +311,15 @@ app.get("/wishlist/:userId", (req, res) => {
 });
 
 app.post("/wishlist/add", (req, res) => {
+  let bookTitle = req.body.bookTitle.replace("'", "''");
+  let author = req.body.author.replace("'", "''");
+
   const newItem = {
     userId: req.body.userId,
-    bookTitle: req.body.bookTitle,
+    bookTitle: bookTitle,
     bookcover: req.body.bookcover,
     bookId: req.body.bookId,
-    author: req.body.author,
+    author: author,
   };
 
   controllers.wishlist
@@ -413,14 +419,28 @@ app.delete("/wishlist/delete", (req, res) => {
 
 //#region Books
 app.get("/homepage", (req, res) => {
+  // const title = req.params.title;
+  // const author = req.params.author;
+  // const search = req.query.q;
+  // if (search != null) {
+  //   controllers.books
+  //     .getBooksBySearch(title, author)
+  //     .then((data) => {
+  //       res.json({ errCode: 0, books: data });
+  //     })
+  //     .catch((err) => {
+  //       res.json({ errCode: 1, message: "error while getting books search" });
+  //     });
+  // } else {
   controllers.books
     .getAllBooks()
     .then((data) => {
-      res.json({ errCode: 0, books: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting books" });
+      res.json(err);
     });
+  // }
 });
 
 app.get("/details/:id", (req, res) => {
@@ -428,38 +448,13 @@ app.get("/details/:id", (req, res) => {
   controllers.books
     .getBooksByID(id)
     .then((data) => {
-      res.json({ errCode: 0, books: data });
+      res.json(data);
       console.log(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting books details" });
+      res.json(err);
     });
 });
-
-app.get("/search"),
-  (req, res) => {
-    const title = req.params.title;
-    const author = req.params.author;
-    if (title) {
-      controllers.books
-        .getBooksByTitle(title)
-        .then((data) => {
-          res.json({ errCode: 0, books: data });
-        })
-        .catch((err) => {
-          res.json({ errCode: 1, message: "error while getting books titles" });
-        });
-    } else if (title && author) {
-      controllers.books
-        .getBooksByAuthor(title, author)
-        .then((data) => {
-          res.json({ errCode: 0, books: data });
-        })
-        .catch((err) => {
-          res.json({ errCode: 1, message: "error while getting books author" });
-        });
-    }
-  };
 
 //#endregion
 if (process.env.NODE_ENV === "production") {

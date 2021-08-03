@@ -22,7 +22,7 @@ const SearchResult = (props) => {
       );
     }
   };
-  const url = "/details/" + props.bookId;
+  const url = "/details/" + props.id;
   return (
     <div className="card search-result  mb-3 mx-3 px-3 py-3">
       <Link to={url} className="bookLink">
@@ -56,11 +56,7 @@ const SearchResult = (props) => {
               </span>
             </span>
             <h5 className="mt-2 smallfont-desc">Description</h5>
-            <p className="card-text smallFont">
-              This is a wider card with supporting text below as a natural
-              lead-in to additional content. This content is a little bit
-              longer.
-            </p>
+            <p className="card-text smallFont">{props.description}</p>
           </div>
         </div>
       </Link>
