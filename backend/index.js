@@ -240,12 +240,15 @@ app.get("/library/:userId", (req, res) => {
 });
 
 app.post("/library/add", (req, res) => {
+  let bookTitle = req.body.bookTitle.replace("'", "''");
+  let author = req.body.author.replace("'", "''");
+
   const newItem = {
     userId: req.body.userId,
-    bookTitle: req.body.bookTitle,
+    bookTitle: bookTitle,
     bookcover: req.body.bookcover,
     bookId: req.body.bookId,
-    author: req.body.author,
+    author: author,
   };
 
   controllers.library
@@ -307,12 +310,15 @@ app.get("/wishlist/:userId", (req, res) => {
 });
 
 app.post("/wishlist/add", (req, res) => {
+  let bookTitle = req.body.bookTitle.replace("'", "''");
+  let author = req.body.author.replace("'", "''");
+
   const newItem = {
     userId: req.body.userId,
-    bookTitle: req.body.bookTitle,
+    bookTitle: bookTitle,
     bookcover: req.body.bookcover,
     bookId: req.body.bookId,
-    author: req.body.author,
+    author: author,
   };
 
   controllers.wishlist
