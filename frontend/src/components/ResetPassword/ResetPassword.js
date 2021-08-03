@@ -27,6 +27,9 @@ const ResetPassword = () => {
     setValidateConfirmedPassword(confirmedPassword === password ? true : false);
   };
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+  };
   return (
     <div className="container light-style mb-5">
       <div className="card-title mb-5 mt-5">
@@ -56,62 +59,64 @@ const ResetPassword = () => {
           <div className="col-md-9">
             <div className="tab-content">
               <div className="tab-pane fade active show" id="resetpassword">
-                <div className="card-body">
-                  <div className="card-body pb-2">
-                    <div className="form-group">
-                      <label className="form-label">Current password</label>
-                      <input type="password" className="form-control" />
-                    </div>
-
-                    <div className="form-group">
-                      <div
-                        className={` ${
-                          validatePassword === false ? "invalid" : ""
-                        }`}
-                      >
-                        <label className="form-label">New password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          onChange={passwordHandler}
-                          onBlur={validatePasswordHandler}
-                        />
-                        {validatePassword === false ? (
-                          <p>Password length should be greater than 8</p>
-                        ) : (
-                          ""
-                        )}
+                <form onSubmit={submitHandler}>
+                  <div className="card-body">
+                    <div className="card-body pb-2">
+                      <div className="form-group">
+                        <label className="form-label">Current password</label>
+                        <input type="password" className="form-control" />
                       </div>
-                    </div>
 
-                    <div className="form-group">
-                      <div
-                        className={` ${
-                          validateConfirmedPassword === false ? "invalid" : ""
-                        }`}
-                      >
-                        <label className="form-label">Confirm password</label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          onChange={confirmedPasswordHandler}
-                          onBlur={validateConfirmedPasswordHandler}
-                        />
-                        {validateConfirmedPassword === false ? (
-                          <p>Passwords don't match. Re-enter the password</p>
-                        ) : (
-                          ""
-                        )}
+                      <div className="form-group">
+                        <div
+                          className={` ${
+                            validatePassword === false ? "invalid" : ""
+                          }`}
+                        >
+                          <label className="form-label">New password</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            onChange={passwordHandler}
+                            onBlur={validatePasswordHandler}
+                          />
+                          {validatePassword === false ? (
+                            <p>Password length should be greater than 8</p>
+                          ) : (
+                            ""
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="form-group">
+                        <div
+                          className={` ${
+                            validateConfirmedPassword === false ? "invalid" : ""
+                          }`}
+                        >
+                          <label className="form-label">Confirm password</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            onChange={confirmedPasswordHandler}
+                            onBlur={validateConfirmedPasswordHandler}
+                          />
+                          {validateConfirmedPassword === false ? (
+                            <p>Passwords don't match. Re-enter the password</p>
+                          ) : (
+                            ""
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
 
-                <div className="text-center mt-3 mb-3">
-                  <button type="button" className="btn saveChange mb-4">
-                    Save changes
-                  </button>
-                </div>
+                  <div className="text-center mt-3 mb-3">
+                    <button type="button" className="btn saveChange mb-4">
+                      Save changes
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>

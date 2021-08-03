@@ -55,12 +55,10 @@ const LogIn = (props) => {
             setDataInfo(data);
             console.log(dataInfo);
             authCtx.showModal();
-            // if (!authCtx.popupIsShown) {
-            //   setDataInfo();
-            // }
           } else {
-            console.log(data.details);
+            console.log(data);
             let pass = data.password;
+            let token = data.tokenInfo;
             let userId;
             let active;
             let userType;
@@ -85,6 +83,7 @@ const LogIn = (props) => {
             console.log(userType);
             if (pass === true && active === true) {
               authCtx.login(
+                token,
                 pass,
                 userType,
                 userId,
@@ -97,20 +96,9 @@ const LogIn = (props) => {
             } else {
               setDataInfo("Login failed. email/password is incorrect");
               authCtx.showModal();
-              // if (!authCtx.popupIsShown) {
-              //   setDataInfo();
-              // }
             }
           }
         });
-
-      // const loadedData = {};
-      // for (const key in responseData) {
-      //   loadedData.push({
-      //     id: key,
-      //     ...responseData[key],
-      //   });
-      // }
     } catch (err) {
       alert(err.message);
     }

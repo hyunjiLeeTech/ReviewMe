@@ -9,6 +9,7 @@ const db = require("./models");
 const sequelize = db.sequelize;
 const controllers = require("./controllers");
 const { userInfo } = require("os");
+const jwtGenerator = require("./utils/jwtGenerator");
 
 app.use(express.json());
 app.use(cors());
@@ -38,7 +39,6 @@ app.post("/auth/login", async (req, res) => {
         data[0].map((dataDetails) => {
           user_id = dataDetails.userid;
         });
-        console.log(user_id);
         let password1;
         data[0].map((dataDetails) => {
           password1 = dataDetails.password;
@@ -46,12 +46,14 @@ app.post("/auth/login", async (req, res) => {
         const userDetailInfo = await sequelize.query(
           `SELECT * from userdetails where userid='${user_id}'`
         );
+        console.log(userDetailInfo);
         const validPassword = await bcrypt.compare(password, password1);
-        console.log(validPassword);
+        const token = jwtGenerator(user_id);
         res.json({
+          tokenInfo: token,
           users: data,
           password: validPassword,
-          details: userDetailInfo,
+          details: userDetailInfo[0],
         });
       }
     });
