@@ -9,8 +9,9 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./SliderImage.css";
 
-const SliderImage = (props) => {
+const SliderImage = () => {
   const [books, setBooks] = useState([]);
+
   let settings = {
     dots: true,
     slidesToShow: 5,
