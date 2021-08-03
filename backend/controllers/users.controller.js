@@ -33,25 +33,5 @@ const login = (email) => {
       });
   });
 };
-const signup = (email, nickname) => {
-  return new Promise(async (resolve, reject) => {
-    const user = await sequelize.query(
-      `SELECT * from usr where email='${email}'`
-    );
-    console.log(user);
-    if (user[0] != "") {
-      resolve(" User already exist!");
-    } else if (user[0] == "") {
-      const nickName = await sequelize.query(
-        `select nickname from userdetails where nickname='${nickname}'`
-      );
-      if (nickName[0] != "") {
-        resolve("Entered nickname already taked. Please enter another!");
-      }
-    } else {
-      reject({ errCode: 1 });
-    }
-  });
-};
 exports.getUsers = getUsers;
 exports.login = login;
