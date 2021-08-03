@@ -89,13 +89,14 @@ app.post("/auth/signup", async (req, res) => {
     const user = await sequelize.query(
       `select userid from usr where email='${email}'`
     );
-    console.log(user);
     const userNickname = await sequelize.query(
       `select nickname from userdetails where nickname='${nickName}'`
     );
-    if (user[0] != "" || userNickname[0] != "") {
+    if (user[0] != "") {
       res.json("User already exist");
-    } else {
+    } else if (userNickname[0] != "") {
+      res.json("Entered nickname already taked. Please enter another!");
+    } else if (user[0] == "" && userNickname[0] == "") {
       const saltRound = 10;
       const salt = await bcrypt.genSalt(saltRound);
 
