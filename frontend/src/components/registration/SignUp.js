@@ -153,14 +153,14 @@ const SignUp = () => {
         console.log(dataInformation);
         authCtx.showModal();
       });
-    setProvidedEmail("");
-    setProvidedPassword("");
-    setProvidedConfirmPassword("");
-    setProvidedFirstName("");
-    setProvidedLastName("");
-    setProvidedNickName("");
-    setProvidedGender("");
-    setProvidedDateOfBirth("");
+    // setProvidedEmail("");
+    // setProvidedPassword("");
+    // setProvidedConfirmPassword("");
+    // setProvidedFirstName("");
+    // setProvidedLastName("");
+    // setProvidedNickName("");
+    // setProvidedGender("");
+    // setProvidedDateOfBirth("");
   };
 
   return (
