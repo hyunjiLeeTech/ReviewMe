@@ -10,6 +10,7 @@ const sequelize = db.sequelize;
 const controllers = require("./controllers");
 const { userInfo } = require("os");
 const jwtGenerator = require("./utils/jwtGenerator");
+const jwt = require("jsonwebtoken");
 
 app.use(express.json());
 app.use(cors());
@@ -21,10 +22,16 @@ app.get("/", (req, res) => {
 });
 
 //#region User
-app.get("/users", (req, res) => {
-  controllers.users.getUsers().then((data) => {
-    console.log(data.rows.userid);
-    res.json({ users: data });
+app.put("/reset-pass", (req, res) => {
+  const { tokenInfo, password, currentPass } = req.body;
+
+  const userInfo = {
+    tokenInfo: tokenInfo,
+    password: password,
+    currentPassword: currentPass,
+  };
+  controllers.users.resetPassword(userInfo).then((data) => {
+    res.json(data);
   });
 });
 
@@ -46,7 +53,6 @@ app.post("/auth/login", async (req, res) => {
         const userDetailInfo = await sequelize.query(
           `SELECT * from userdetails where userid='${user_id}'`
         );
-        console.log(userDetailInfo);
         const validPassword = await bcrypt.compare(password, password1);
         const token = jwtGenerator(user_id);
         res.json({

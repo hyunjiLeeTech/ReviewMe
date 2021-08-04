@@ -1,6 +1,7 @@
 const db = require("../models");
 const sequelize = db.sequelize;
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 const getUsers = () => {
   return new Promise((resolve, reject) => {
@@ -21,7 +22,6 @@ const login = (email) => {
     sequelize
       .query(`SELECT * from usr where email='${email}'`)
       .then((data) => {
-        console.log(data);
         if (data[0] == "") {
           resolve(" User doesn't exist! Please enter correct information");
         } else {
@@ -82,6 +82,39 @@ const signup = (userInfo) => {
   });
 };
 
+const resetPassword = (userInfo) => {
+  const token = userInfo.tokenInfo;
+  const password = userInfo.password;
+  const currentPass = userInfo.currentPassword;
+  console.log(currentPass);
+  const id = jwt.decode(token);
+
+  return new Promise(async (resolve, reject) => {
+    const previousPass = await sequelize.query(
+      `select password from usr where userid=${id.user}`
+    );
+    let pass;
+    previousPass[0].map((dataDetails) => {
+      return (pass = dataDetails.password);
+    });
+    console.log(pass);
+    const validatePassword = await bcrypt.compare(currentPass, pass);
+    console.log(validatePassword);
+    if (!validatePassword) {
+      resolve("Current Password does not match our record");
+    } else if (validatePassword) {
+      const saltRound = 10;
+      const salt = await bcrypt.genSalt(saltRound);
+
+      const bcryptPassword = await bcrypt.hash(password, salt);
+      sequelize.query(
+        `update usr set password='${bcryptPassword}' where userid=${id.user}`
+      );
+      resolve("Password successfully updated");
+    }
+  });
+};
+exports.resetPassword = resetPassword;
 exports.getUsers = getUsers;
 exports.login = login;
 exports.signup = signup;
