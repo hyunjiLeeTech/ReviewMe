@@ -100,7 +100,7 @@ function App() {
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/profile">
-            {authCtx.isLoggedIn && <Profile />}
+            {authCtx.isLoggedIn && <Profile userId={authCtx.userIdInfo} />}
             {!authCtx.isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/resetpassword">
