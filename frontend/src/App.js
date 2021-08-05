@@ -34,12 +34,6 @@ import ManageLibrary from "./components/BookShelf/ManageLibrary";
 
 function App() {
   const authCtx = useContext(AuthContext);
-  let userType = authCtx.userTypes;
-  let detailsInfo = authCtx.detailsInfo;
-
-  console.log(authCtx.userTypes);
-  console.log(detailsInfo);
-  console.log(authCtx.userIdInfo);
 
   return (
     <Router>
