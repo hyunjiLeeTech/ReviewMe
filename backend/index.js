@@ -9,6 +9,7 @@ const db = require("./models");
 const sequelize = db.sequelize;
 const controllers = require("./controllers");
 const { userInfo } = require("os");
+const controller = require("./controllers");
 
 app.use(express.json());
 app.use(cors());
@@ -85,7 +86,7 @@ app.post("/auth/signup", async (req, res) => {
 
   controllers.users
     .login(req)
-    .then((data) => {})
+    .then((data) => { })
     .catch((err) => {
       res.status(401).json();
     });
@@ -190,6 +191,32 @@ app.put("/reviews/delete", (req, res) => {
     .deleteReview(reviewId)
     .then((result) => {
       res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+//#endregion
+
+
+//#region Report
+app.get("/reports", (req, res) => {
+  controllers.report
+    .getAllReports()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/reports/:reportId", (req, res) => {
+  const reportId = req.params.reportId;
+  controllers.report
+    .getReportByReportId(reportId)
+    .then((data) => {
+      res.json(data);
     })
     .catch((err) => {
       res.json(err);
