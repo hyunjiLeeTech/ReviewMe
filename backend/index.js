@@ -9,6 +9,7 @@ const db = require("./models");
 const sequelize = db.sequelize;
 const controllers = require("./controllers");
 const { userInfo } = require("os");
+const controller = require("./controllers");
 const jwtGenerator = require("./utils/jwtGenerator");
 const jwt = require("jsonwebtoken");
 
@@ -93,7 +94,7 @@ app.post("/auth/signup", async (req, res) => {
 
   controllers.users
     .login(req)
-    .then((data) => {})
+    .then((data) => { })
     .catch((err) => {
       res.status(401).json();
     });
@@ -196,6 +197,76 @@ app.put("/reviews/delete", (req, res) => {
   const reviewId = req.body.reviewId;
   controllers.review
     .deleteReview(reviewId)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+//#endregion
+
+
+//#region Report
+app.get("/reports", (req, res) => {
+  controllers.report
+    .getAllReports()
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/reports/:reportId", (req, res) => {
+  const reportId = req.params.reportId;
+  controllers.report
+    .getReportByReportId(reportId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.post("/reports/add", (req, res) => {
+  const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  const newReport = {
+    date: `${year}-${month}-${day}`,
+    userId: req.body.userId,
+    reviewId: req.body.reviewId,
+    comment: req.body.comment,
+    reporttypeId: req.body.reporttypeId
+  };
+
+  controllers.report
+    .addReport(newReport)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.put("/reports/delete", (req, res) => {
+  const reportId = req.body.reportId;
+  controllers.report
+    .deleteReport(reportId)
     .then((result) => {
       res.json(result);
     })
