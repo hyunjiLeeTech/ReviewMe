@@ -18,9 +18,11 @@ const Library = (props) => {
   const [libraryItems, setLibraryItems] = useState([]);
 
   useEffect(() => {
-    LibraryDataServices.getLibraryByUseId(userId).then((library) => {
-      setLibraryItems(library);
-    });
+    LibraryDataServices.getLibraryByUseId(localStorage.getItem("user")).then(
+      (library) => {
+        setLibraryItems(library);
+      }
+    );
   }, []);
 
   const bookData = useMemo(() => {

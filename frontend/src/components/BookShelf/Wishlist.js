@@ -18,9 +18,11 @@ const Wishlist = (props) => {
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
-    WishListDataServices.getWishListByUseId(userId).then((wishlist) => {
-      setWishlistItems(wishlist);
-    });
+    WishListDataServices.getWishListByUseId(localStorage.getItem("user")).then(
+      (wishlist) => {
+        setWishlistItems(wishlist);
+      }
+    );
   }, []);
 
   const bookData = useMemo(() => {

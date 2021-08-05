@@ -6,7 +6,6 @@ import ReviewDataServices from "../../services/ReviewDataServices";
 import LibraryDataServices from "../../services/LibraryDataServices";
 import WishListDataServices from "../../services/WishListDataServices";
 
-import Loading from "../style/Loading";
 import BookDetails from "./BookDetails";
 import BookLoading from "../style/BookLoading";
 
@@ -33,15 +32,19 @@ const BookDetailsPage = (props) => {
   }, []);
 
   const getWishlist = () => {
-    WishListDataServices.getWishListByUseId(userId).then((wishlist) => {
-      setWishlist(wishlist);
-    });
+    WishListDataServices.getWishListByUseId(localStorage.getItem("user")).then(
+      (wishlist) => {
+        setWishlist(wishlist);
+      }
+    );
   };
 
   const getLibrary = () => {
-    LibraryDataServices.getLibraryByUseId(userId).then((library) => {
-      setLibrary(library);
-    });
+    LibraryDataServices.getLibraryByUseId(localStorage.getItem("user")).then(
+      (library) => {
+        setLibrary(library);
+      }
+    );
   };
 
   const setReviewsHandler = (reviewsArr) => {
