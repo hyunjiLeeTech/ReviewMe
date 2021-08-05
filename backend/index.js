@@ -222,6 +222,50 @@ app.get("/reports/:reportId", (req, res) => {
       res.json(err);
     });
 });
+
+app.post("/reports/add", (req, res) => {
+  const date = new Date();
+  let year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  const newReport = {
+    date: `${year}-${month}-${day}`,
+    userId: req.body.userId,
+    reviewId: req.body.reviewId,
+    comment: req.body.comment,
+    reporttypeId: req.body.reporttypeId
+  };
+
+  controllers.report
+    .addReport(newReport)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.put("/reports/delete", (req, res) => {
+  const reportId = req.body.reportId;
+  controllers.report
+    .deleteReport(reportId)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
 //#endregion
 
 //#region Library
