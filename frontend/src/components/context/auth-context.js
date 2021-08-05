@@ -52,13 +52,13 @@ export const AuthContextProvider = (props) => {
     setpopupIsShown(false);
   };
 
-  let userIsLoggedIn;
-  if (!token) {
-    userIsLoggedIn = false;
-  }
-  if (token) {
-    userIsLoggedIn = true;
-  }
+  const userIsLoggedIn = !!token;
+  // if (!token) {
+  //   userIsLoggedIn = false;
+  // }
+  // if (token) {
+  //   userIsLoggedIn = true;
+  // }
 
   const logoutHandler = useCallback(() => {
     setToken(false);
@@ -66,7 +66,6 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem("token");
     localStorage.removeItem("expirationTime");
     localStorage.removeItem("userType");
-    localStorage.removeItem("admin");
     localStorage.removeItem("user");
     setAdminLoggedIn(false);
     setUserIdInfo("");
@@ -81,48 +80,46 @@ export const AuthContextProvider = (props) => {
     const type = Number(localStorage.getItem("userType"));
     setUserTypes(type);
   }, [userTypes]);
+
   useEffect(() => {
-    if (localStorage.getItem("admin") === "true") {
+    if (userTypes === 1) {
       setAdminLoggedIn(true);
-    } else {
-      setAdminLoggedIn(false);
     }
-  }, [adminLoggedIn]);
+  }, [adminLoggedIn, userTypes]);
+
   useEffect(() => {
     const userIdentification = Number(localStorage.getItem("user"));
     setUserIdInfo(userIdentification);
   }, [userIdInfo]);
-  const loginHandler = (token, userType, userId, info, expirationTime) => {
+  const loginHandler = (
+    token,
+    pass,
+    userType,
+    userId,
+    info,
+    expirationTime
+  ) => {
     localStorage.setItem("token", token);
     localStorage.setItem("expirationTime", expirationTime);
     localStorage.setItem("userType", userType);
     localStorage.setItem("user", userId);
-    if (userType === 2) {
-      localStorage.setItem("admin", "false");
-    }
     if (userType === 1) {
-      localStorage.setItem("admin", "true");
       setAdminLoggedIn(true);
     }
     setUserIdInfo(Number(localStorage.getItem("user")));
-    setToken(!!localStorage.getItem("token"));
+    setToken(localStorage.getItem("token"));
     setUserTypes(Number(localStorage.getItem("userType")));
     setDetailsInfo(info);
     const remainingTime = calculateRemainingTime(expirationTime);
 
     logoutTimer = setTimeout(logoutHandler, remainingTime);
   };
+
   useEffect(() => {
     const type = Number(localStorage.getItem("userType"));
     setUserTypes(type);
   }, [userTypes]);
-  console.log(userTypes);
 
-  console.log(adminLoggedIn);
-  useEffect(() => {
-    const userIdentification = Number(localStorage.getItem("user"));
-    setUserIdInfo(userIdentification);
-  }, [userIdInfo]);
   useEffect(() => {
     if (tokenData) {
       logoutTimer = setTimeout(logoutHandler, tokenData.duration);
