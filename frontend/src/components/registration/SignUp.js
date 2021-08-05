@@ -148,9 +148,7 @@ const SignUp = () => {
         }
       })
       .then(async (data) => {
-        console.log(data);
         setDataInformation(await data);
-        console.log(dataInformation);
         authCtx.showModal();
       });
     setProvidedEmail("");
