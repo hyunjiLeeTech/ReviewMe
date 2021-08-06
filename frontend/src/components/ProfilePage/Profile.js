@@ -7,22 +7,16 @@ import Title from "../style/Title";
 import "./Profile.css";
 
 const Profile = ({ profileItem, userID }) => {
-
   console.log("User Id:", userID);
   console.log("Profile:", profileItem);
   console.log("First Name:", profileItem.firstname);
 
-  const initialState = {
-    firstName: "John",
-    lastName: "Doe",
-    nickname: "JohnDoe12",
-    gender: "Male",
-    dob: "11/13/1999",
-    email: "johndoe@mail.com",
-  };
+  const initialState = profileItem;
 
-  const [{ firstName, lastName, nickname, gender, dob, email }, setState] =
-    useState(initialState);
+  const [
+    { firstname, lastname, nickname, genderid, dateofbirth, email },
+    setState,
+  ] = useState(initialState);
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -40,11 +34,11 @@ const Profile = ({ profileItem, userID }) => {
   const [validateNickname, setValidateNickname] = useState(true);
 
   const validatedFirstNameHandler = () => {
-    setValidateFirstName(firstName.trim().length >= 3 ? true : false);
+    setValidateFirstName(firstname.trim().length >= 3 ? true : false);
   };
 
   const validatedLastNameHandler = () => {
-    setValidateLastName(lastName.trim().length >= 3 ? true : false);
+    setValidateLastName(lastname.trim().length >= 3 ? true : false);
   };
 
   const validateNicknameHandler = () => {
@@ -64,8 +58,10 @@ const Profile = ({ profileItem, userID }) => {
   };
 
   const onDeleteButtonHandler = () => {
-    const answer = window.confirm("Are you sure you want to delete your Account?")
-  }
+    const answer = window.confirm(
+      "Are you sure you want to delete your Account?"
+    );
+  };
 
   const onSaveChangesButtonHandler = () => {
     if (
@@ -131,8 +127,9 @@ const Profile = ({ profileItem, userID }) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateFirstName === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateFirstName === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">First Name</label>
                           <input
@@ -140,7 +137,7 @@ const Profile = ({ profileItem, userID }) => {
                             id="fname"
                             type="text"
                             className="form-control"
-                            value={firstName}
+                            value={initialState.firstname}
                             onBlur={validatedFirstNameHandler}
                             onChange={onChange}
                             disabled
@@ -157,8 +154,9 @@ const Profile = ({ profileItem, userID }) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateLastName === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateLastName === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">Last Name</label>
                           <input
@@ -166,7 +164,7 @@ const Profile = ({ profileItem, userID }) => {
                             id="lname"
                             type="text"
                             className="form-control"
-                            value={lastName}
+                            value={initialState.lastname}
                             onBlur={validatedLastNameHandler}
                             onChange={onChange}
                             disabled
@@ -183,8 +181,9 @@ const Profile = ({ profileItem, userID }) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateNickname === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateNickname === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">Nickname</label>
                           <input
@@ -192,7 +191,7 @@ const Profile = ({ profileItem, userID }) => {
                             id="nname"
                             type="text"
                             className="form-control"
-                            value={nickname}
+                            value={initialState.nickname}
                             onBlur={validateNicknameHandler}
                             onChange={onChange}
                             disabled
@@ -208,10 +207,14 @@ const Profile = ({ profileItem, userID }) => {
 
                     <div className="col-md-6">
                       <label className="form-label">Gender</label>
-                      <select className="form-select" value={gender} disabled>
-                        <option> {options[0]} </option>
-                        <option> {options[1]} </option>
-                        <option> {options[2]} </option>
+                      <select
+                        className="form-select"
+                        value={initialState.genderid}
+                        disabled
+                      >
+                        <option value="1"> {options[0]} </option>
+                        <option value="2"> {options[1]} </option>
+                        <option value="3"> {options[2]} </option>
                       </select>
                     </div>
 
@@ -221,7 +224,7 @@ const Profile = ({ profileItem, userID }) => {
                         <input
                           type="text"
                           className="form-control"
-                          value={dob}
+                          value={initialState.dateofbirth}
                           disabled
                         />
                       </div>
@@ -233,7 +236,7 @@ const Profile = ({ profileItem, userID }) => {
                         <input
                           type="email"
                           className="form-control"
-                          value={email}
+                          value={initialState.email}
                           disabled
                         />
                       </div>
@@ -274,7 +277,6 @@ const Profile = ({ profileItem, userID }) => {
                   >
                     Cancel
                   </button>
-
                 </div>
               </div>
             </div>
