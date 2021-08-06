@@ -446,7 +446,7 @@ app.put("/profile/edit", (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     nickname: req.body.nickname,
-    //userId = req.body.userId
+    userId: req.body.userId
   };
   controllers.profile
     .editProfile(newData)
