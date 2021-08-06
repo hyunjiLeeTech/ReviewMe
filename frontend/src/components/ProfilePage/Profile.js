@@ -1,29 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import ProfileDataService from "../../services/ProfileDataService";
 import Title from "../style/Title";
 import "./Profile.css";
 
-const Profile = ({ userId }) => {
+const Profile = ({ profileItem, userID }) => {
 
-  console.log("UserId:", userId);
-
-  const [userID, setUserID] = useState(userId);
-  const [profileItem, setProfileItem] = useState([]);
-
-
-  useEffect(() => {
-    if (userID !== null || userID !== undefined || userID !== "") {
-      ProfileDataService.getProfileByUserId(userId).then((profile) => {
-        setProfileItem(profile);
-      })
-    }
-  }, [userID]);
-
+  console.log("User Id:", userID);
   console.log("Profile:", profileItem);
-  //console.log("First Name:", profileItem[0].firstname);
+  console.log("First Name:", profileItem.firstname);
 
   const initialState = {
     firstName: "John",
