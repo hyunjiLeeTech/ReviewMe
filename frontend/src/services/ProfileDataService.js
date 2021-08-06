@@ -6,7 +6,7 @@ export default {
             if (res.data.errCode === 0) {
                 console.log("service id:", userId);
                 console.log("service profile:", res.data.profile[0]);
-                return res.data.profile[0];
+                return res.data.profile[0][0];
             } else {
                 console.log(res.data);
             }

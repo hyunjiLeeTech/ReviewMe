@@ -8,7 +8,6 @@ import ProfileDataService from "../../services/ProfileDataService";
 import "./Profile.css";
 
 const ProfilePage = () => {
-
     const [profileItem, setProfileItem] = useState({});
     const [isLoading, setIsLoading] = useState(true);
 
@@ -17,8 +16,9 @@ const ProfilePage = () => {
 
     useEffect(() => {
         ProfileDataService.getProfileByUserId(userID).then((profile) => {
+            console.log(profile);
             setProfileItem(profile);
-        })
+        });
         setIsLoading(false);
     }, []);
 
@@ -26,13 +26,11 @@ const ProfilePage = () => {
 
     return (
         <div>
-            {isLoading ? (<Loading />)
-                : (
-                    <Profile
-                        profileItem={profileItem}
-                        userID={userID}
-                    />
-                )}
+            {isLoading ? (
+                <Loading />
+            ) : (
+                <Profile profileItem={profileItem} userID={userID} />
+            )}
         </div>
     );
 };
