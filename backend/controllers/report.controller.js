@@ -35,7 +35,6 @@ module.exports.addReport = (newReport) => {
             typeof newReport.userId === "undefined" ||
             typeof newReport.reviewId === "undefined" ||
             typeof newReport.date === "undefined" ||
-            typeof newReport.comment === "undefined" ||
             typeof newReport.reporttypeId === "undefined"
         ) {
             reject({ errCode: 1, message: "Add report failed" });
