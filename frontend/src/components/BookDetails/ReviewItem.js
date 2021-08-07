@@ -129,6 +129,7 @@ const ReviewItem = (props) => {
       {isReportPopupOpen && (
         <Report
           userId={reviewUserId}
+          reporterId={loginUserId}
           reviewId={id}
           nickname={nickname}
           rating={rating}

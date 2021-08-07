@@ -4,7 +4,17 @@ const sequelize = db.sequelize;
 module.exports.getAllReports = () => {
     return new Promise((resolve, reject) => {
         sequelize
-            .query("SELECT * FROM report r INNER JOIN reporttype rt ON r.reporttypeid=rt.reporttypeid AND isActive=true")
+            .query(`SELECT r.reportid,r.reviewid,r.reporttypeid,r.comment AS "reportComment",rw.comment AS "reviewComment",
+            rt.reporttype,rd.firstname ||' '|| rd.lastname AS "reporterName",
+            rwd.firstname ||' '|| rwd.lastname AS "reviewerName",
+            rd.userid as "reporterId",
+            rwd.userid as "reviewerId"
+            FROM report r 
+            INNER JOIN reporttype rt ON r.reporttypeid=rt.reporttypeid
+            INNER JOIN userdetails rd ON rd.userid=r.userid 
+            INNER JOIN review rw ON rw.reviewid=r.reviewid
+            LEFT JOIN userdetails rwd ON rwd.userid=rw.userid
+            WHERE r.isactive=true`)
             .then((data) => {
                 resolve({ errCode: 0, reports: data });
             })
@@ -68,16 +78,26 @@ module.exports.addReport = (newReport) => {
     });
 };
 
-module.exports.deleteReport = (reportId) => {
+module.exports.deleteReport = (reportId, reviewId) => {
     return new Promise(async (resolve, reject) => {
-        if (typeof reportId === "undefined") {
+        if (typeof reportId === "undefined"
+            || typeof reviewId === "undefined") {
             resolve({
                 errCode: 1,
                 message: "Delete report failed",
             });
         } else {
             const results = await sequelize.query(
-                `UPDATE report SET isActive=false WHERE reportid=${reportId}`
+                `WITH rp AS (
+                    UPDATE report 
+                    SET isactive = false
+                    WHERE reportid=${reportId}
+                    RETURNING *
+                    )
+            UPDATE review rw
+            SET isactive = false
+            FROM rp
+            WHERE rw.reviewid=${reviewId}`
             );
 
             if (results[1].rowCount === 1) {
@@ -88,3 +108,24 @@ module.exports.deleteReport = (reportId) => {
         }
     });
 };
+
+module.exports.keepReport = (reportId) => {
+    return new Promise(async (resolve, reject) => {
+        if (typeof reportId === "undefined") {
+            resolve({
+                errCode: 1,
+                message: "Keep report failed",
+            });
+        } else {
+            const results = await sequelize.query(`UPDATE report SET isactive = false WHERE reportid = ${reportId}`
+            );
+
+            if (results[1].rowCount === 1) {
+                resolve({ errCode: 0, message: "Keep report successful" });
+            } else {
+                reject({ errCode: 1, message: "Keep report failed" });
+            }
+        }
+    });
+};
+

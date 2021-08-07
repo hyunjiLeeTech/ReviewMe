@@ -288,10 +288,23 @@ app.post("/reports/add", (req, res) => {
     });
 });
 
-app.put("/reports/delete", (req, res) => {
+app.post("/reports/delete", (req, res) => {
+  const reportId = req.body.reportId;
+  const reviewId = req.body.reviewId
+  controllers.report
+    .deleteReport(reportId, reviewId)
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.post("/reports/keep", (req, res) => {
   const reportId = req.body.reportId;
   controllers.report
-    .deleteReport(reportId)
+    .keepReport(reportId)
     .then((result) => {
       res.json(result);
     })
