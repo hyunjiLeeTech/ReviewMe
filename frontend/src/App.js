@@ -16,7 +16,6 @@ import Footer from "./components/style/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
-import Report from "./components/Report/Report";
 import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
@@ -69,9 +68,6 @@ function App() {
           </Route>
           <Route path="/reset-password">
             <ResetLink />
-          </Route>
-          <Route path="/report">
-            <Report />
           </Route>
           <Route exact path="/details/:id">
             <BookDetailsPage

@@ -4,6 +4,7 @@ import ReviewDataServices from "../../services/ReviewDataServices";
 
 import { Rating } from "@material-ui/lab";
 import { Link } from "react-router-dom";
+import Report from "../Report/Report";
 
 import Popup from "../style/Popup";
 import "./ReviewItem.css";
@@ -23,9 +24,18 @@ const ReviewItem = (props) => {
     refreshReviews,
   } = props;
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isReportPopupOpen, setIsReportPopupOpen] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const togglePopup = async () => {
     setIsPopupOpen(!isPopupOpen);
+  };
+
+  const toggleReportPopup = async (isSaved = false) => {
+    if (isSaved) {
+      setShowSuccess(true)
+    }
+    setIsReportPopupOpen(!isReportPopupOpen);
   };
 
   const onClickDelete = () => {
@@ -60,13 +70,28 @@ const ReviewItem = (props) => {
     } else {
       return (
         <div className="col-lg-1 col-1">
-          <Link to="/report">
-            <p className="link">Report</p>
-          </Link>
+          <button className="link" onClick={() => toggleReportPopup(false)}>
+            Report
+          </button>
         </div>
       );
     }
   };
+
+  const successDialog = () => {
+    return (
+      <Popup
+        content={
+          <>
+            <h4>"Record saved Successfully."</h4>
+            <button className="btnPopup" onClick={() => toggleReportPopup()}>
+              Close
+            </button>
+          </>
+        }
+      />
+    )
+  }
 
   return (
     <div className="reviewItemContainer" key={index}>
@@ -100,6 +125,33 @@ const ReviewItem = (props) => {
           }
         />
       )}
+
+      {isReportPopupOpen && (
+        <Report
+          userId={reviewUserId}
+          reviewId={id}
+          nickname={nickname}
+          rating={rating}
+          reviewDate={date}
+          comment={review}
+          toggleReportPopup={toggleReportPopup}
+        />
+      )}
+
+      {showSuccess && (
+        <Popup
+          content={
+            <>
+              <h4>"Record Saved Successfully."</h4>
+              <button className="btnPopup" onClick={() => setShowSuccess(false)}>
+                Close
+              </button>
+            </>
+          }
+        />
+      )}
+
+
     </div>
   );
 };

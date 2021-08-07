@@ -29,6 +29,21 @@ module.exports.getReportByReportId = (reportId) => {
     });
 };
 
+module.exports.getReportByReviewId = (reviewId) => {
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(
+                `SELECT * FROM report WHERE reviewid=${reviewId} AND isActive=true`
+            )
+            .then((data) => {
+                resolve({ errCode: 0, reports: data });
+            })
+            .catch((err) => {
+                reject({ errCode: 1, message: "Failed to get report by review id" });
+            });
+    });
+};
+
 module.exports.addReport = (newReport) => {
     return new Promise(async (resolve, reject) => {
         if (
