@@ -58,7 +58,7 @@ const Profile = ({ profileItem, userID }) => {
   };
 
   const onDeleteButtonHandler = () => {
-    const answer = window.confirm(
+    window.confirm(
       "Are you sure you want to delete your Account?"
     );
   };

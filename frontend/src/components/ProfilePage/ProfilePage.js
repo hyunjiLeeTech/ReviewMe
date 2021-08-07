@@ -20,7 +20,7 @@ const ProfilePage = () => {
             setProfileItem(profile);
         });
         setIsLoading(false);
-    }, []);
+    }, [userID]);
 
     console.log("Page Profile:", profileItem);
 
