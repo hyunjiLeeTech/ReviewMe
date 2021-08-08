@@ -170,7 +170,7 @@ const HomePage = () => {
   }, [currentPage, selectedBook]);
 
   useEffect(() => {
-    BooksDataService.getAllBooks().then((books) => {
+    BooksDataService.getAllBooks("fiction", 15).then((books) => {
       setBooks(books.items);
     });
   }, []);

@@ -46,7 +46,7 @@ const SliderImage = () => {
     ],
   };
   useEffect(() => {
-    BooksDataService.getAllBooks().then((books) => {
+    BooksDataService.getAllBooks("action", 10).then((books) => {
       setBooks(books.items);
     });
   }, []);

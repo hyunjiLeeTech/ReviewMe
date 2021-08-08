@@ -94,7 +94,7 @@ app.post("/auth/signup", async (req, res) => {
 
   controllers.users
     .login(req)
-    .then((data) => { })
+    .then((data) => {})
     .catch((err) => {
       res.status(401).json();
     });
@@ -206,7 +206,6 @@ app.put("/reviews/delete", (req, res) => {
 });
 //#endregion
 
-
 //#region Report
 app.get("/reports", (req, res) => {
   controllers.report
@@ -250,7 +249,7 @@ app.post("/reports/add", (req, res) => {
     userId: req.body.userId,
     reviewId: req.body.reviewId,
     comment: req.body.comment,
-    reporttypeId: req.body.reporttypeId
+    reporttypeId: req.body.reporttypeId,
   };
 
   controllers.report
@@ -479,28 +478,20 @@ app.delete("/wishlist/delete", (req, res) => {
 
 //#region Books
 app.get("/homepage", (req, res) => {
-  // const title = req.params.title;
-  // const author = req.params.author;
-  // const search = req.query.q;
-  // if (search != null) {
-  //   controllers.books
-  //     .getBooksBySearch(title, author)
-  //     .then((data) => {
-  //       res.json({ errCode: 0, books: data });
-  //     })
-  //     .catch((err) => {
-  //       res.json({ errCode: 1, message: "error while getting books search" });
-  //     });
-  // } else {
+  const q = req.query.q;
+  const maxResults = req.query.maxResults;
   controllers.books
-    .getAllBooks()
+    .getAllBooks(req.params.q, req.params.maxResults)
     .then((data) => {
       res.json(data);
+      console.log("data " + req.params.q);
+      console.log("data " + req.params.maxResults);
     })
     .catch((err) => {
       res.json(err);
     });
-  // }
+  console.log(req.params.q);
+  console.log(req.params.maxResults);
 });
 
 app.get("/details/:id", (req, res) => {
