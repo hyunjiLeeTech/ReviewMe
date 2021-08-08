@@ -481,17 +481,15 @@ app.get("/homepage", (req, res) => {
   const q = req.query.q;
   const maxResults = req.query.maxResults;
   controllers.books
-    .getAllBooks(req.params.q, req.params.maxResults)
+    .getAllBooks(q, maxResults)
     .then((data) => {
       res.json(data);
-      console.log("data " + req.params.q);
-      console.log("data " + req.params.maxResults);
     })
     .catch((err) => {
       res.json(err);
     });
-  console.log(req.params.q);
-  console.log(req.params.maxResults);
+  console.log(q);
+  console.log(maxResults);
 });
 
 app.get("/details/:id", (req, res) => {
