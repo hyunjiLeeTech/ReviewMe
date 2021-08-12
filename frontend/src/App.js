@@ -30,6 +30,7 @@ import Library from "./components/BookShelf/Library";
 import Wishlist from "./components/BookShelf/Wishlist";
 import ManageWishlist from "./components/BookShelf/ManageWishlist";
 import ManageLibrary from "./components/BookShelf/ManageLibrary";
+import SignUpAdmin from "./components/registration/SignUpAdmin";
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -62,6 +63,9 @@ function App() {
           </Route>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/signupadmin">
+            <SignUpAdmin />
           </Route>
           <Route path="/forgot-password">
             <ForgotPassword />

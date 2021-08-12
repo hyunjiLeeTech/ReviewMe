@@ -90,11 +90,48 @@ app.post("/auth/signup", async (req, res) => {
     lastName: lastName,
     gender: gender,
     dob: dob,
+    userType: 2,
   };
 
   controllers.users
     .login(req)
-    .then((data) => { })
+    .then((data) => {})
+    .catch((err) => {
+      res.status(401).json();
+    });
+
+  controllers.users.signup(userInfo).then((result) => {
+    res.json(result);
+  });
+});
+
+app.post("/auth/signupadmin", async (req, res) => {
+  const {
+    nickName,
+    email,
+    password,
+    password2,
+    firstName,
+    lastName,
+    gender,
+    dob,
+  } = req.body;
+
+  const userInfo = {
+    nickName: nickName,
+    email: email,
+    password: password,
+    password2: password2,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    dob: dob,
+    userType: 1,
+  };
+
+  controllers.users
+    .login(req)
+    .then((data) => {})
     .catch((err) => {
       res.status(401).json();
     });
@@ -219,7 +256,6 @@ app.put("/reviews/delete", (req, res) => {
 });
 //#endregion
 
-
 //#region Report
 app.get("/reports", (req, res) => {
   controllers.report
@@ -275,7 +311,7 @@ app.post("/reports/add", (req, res) => {
     userId: req.body.userId,
     reviewId: req.body.reviewId,
     comment: req.body.comment,
-    reporttypeId: req.body.reporttypeId
+    reporttypeId: req.body.reporttypeId,
   };
 
   controllers.report
@@ -471,7 +507,7 @@ app.put("/profile/edit", (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     nickname: req.body.nickname,
-    userId: req.body.userId
+    userId: req.body.userId,
   };
   controllers.profile
     .editProfile(newData)

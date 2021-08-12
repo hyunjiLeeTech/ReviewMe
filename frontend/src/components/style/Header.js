@@ -55,6 +55,13 @@ const Header = (props) => {
             )}
           </ul>
           <ul className="navbar-nav ml-auto mb-2 mb-lg-0">
+            {authCtx.adminLoggedIn && (
+              <li className="nav-item">
+                <NavLink id="head-link" className="nav-link" to="/signupadmin">
+                  Add Admin
+                </NavLink>
+              </li>
+            )}
             {!authCtx.isLoggedIn && (
               <li className="nav-item">
                 <NavLink id="head-link" className="nav-link" to="/login">
