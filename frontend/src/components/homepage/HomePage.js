@@ -3,6 +3,7 @@ import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
 import SearchResult from "./SearchResult";
 import Pagination from "../style/Pagination";
+import Popup from "../style/Popup";
 
 import BooksDataService from "../../services/BooksDataService";
 
@@ -20,27 +21,27 @@ const HomePage = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedRating, setSelectedRating] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [popupTitle, setPopupTitle] = useState("");
+  const [popupContent, setPopupContent] = useState("");
+
+  const togglePopup = async () => {
+    setIsPopupOpen(!isPopupOpen);
+  };
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
     setSearching(true);
     let filtered = [];
-    if (
-      selectedCategory &&
-      bookName === "" &&
-      year === "" &&
-      authorName === ""
-    ) {
-      const filteredArray = books.filter((entry) => {
-        return (
-          entry.volumeInfo.categories.toLowerCase() ===
-          selectedCategory.toLowerCase()
-        );
-      });
+    if (bookName === "" && year === "" && authorName === "") {
+      setPopupTitle("Please Check the following");
+      setPopupContent("Add Book Name or Author Name");
+      togglePopup();
+      setSearching(false);
       let newFiltered = [];
       if (authorName !== "") {
-        newFiltered = filteredArray.filter((entry) => {
+        newFiltered = books.filter((entry) => {
           return (
             entry.volumeInfo.authors.toLowerCase().search(authorName) !== -1
           );
@@ -51,8 +52,6 @@ const HomePage = () => {
           return entry.volumeInfo.publishedDate.toString().search(year) !== -1;
         });
         setSelectedBook(filtered);
-      } else {
-        setSelectedBook(filteredArray);
       }
     } else if (bookName !== "") {
       let newFiltering = [];
@@ -354,6 +353,19 @@ const HomePage = () => {
             </div>
           )}
         </div>
+        {isPopupOpen && (
+          <Popup
+            content={
+              <>
+                <h2>{popupTitle}</h2>
+                <p className="popup-content">{popupContent}</p>
+                <button className="btn btnPopup" onClick={() => togglePopup()}>
+                  Close
+                </button>
+              </>
+            }
+          />
+        )}
       </div>
     </>
   );
