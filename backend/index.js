@@ -478,8 +478,8 @@ app.delete("/wishlist/delete", (req, res) => {
 
 //#region Books
 app.get("/homepage", (req, res) => {
-  const q = req.query.q;
-  const maxResults = req.query.maxResults;
+  const q = req.body.q;
+  const maxResults = req.body.maxResults;
   controllers.books
     .getAllBooks(q, maxResults)
     .then((data) => {
