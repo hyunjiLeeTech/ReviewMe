@@ -196,7 +196,7 @@ const BookDetails = (props) => {
                 onClick={handleRatingChange}
                 name="rating"
                 value={rating}
-                precision={0.5}
+                precision={1}
               />
               <textarea
                 placeholder="You have a comment ? *"
