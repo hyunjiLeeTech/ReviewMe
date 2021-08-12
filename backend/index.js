@@ -130,6 +130,19 @@ app.get("/reviews/:bookId", (req, res) => {
     });
 });
 
+app.get("/review/:reviewId", (req, res) => {
+  const reviewId = req.params.reviewId;
+
+  controllers.review
+    .getReviewsByReviewId(reviewId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
 app.post("/reviews/add", (req, res) => {
   const date = new Date();
   let year = date.getFullYear();
@@ -223,6 +236,18 @@ app.get("/reports/:reportId", (req, res) => {
   const reportId = req.params.reportId;
   controllers.report
     .getReportByReportId(reportId)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/report/:reviewId", (req, res) => {
+  const reviewId = req.params.reviewId;
+  controllers.report
+    .getReportByReviewId(reviewId)
     .then((data) => {
       res.json(data);
     })

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AnnouncementOutlinedIcon from "@material-ui/icons/AnnouncementOutlined";
