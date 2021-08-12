@@ -522,11 +522,11 @@ app.get("/homepage/:name&:max", (req, res) => {
     });
 });
 
-app.get("/homepage/:name&:author", (req, res) => {
-  const { name, author } = req.params;
+app.get("/homepage/:name", (req, res) => {
+  const { name } = req.params;
 
   controllers.books
-    .getBooksBySearch(name, author)
+    .getBooksBySearch(name)
     .then((data) => {
       res.json(data);
     })

@@ -31,10 +31,10 @@ module.exports.getBooksByID = (id) => {
   });
 };
 
-module.exports.getBooksBySearch = (q, inauthor) => {
+module.exports.getBooksBySearch = (q) => {
   return new Promise((resolve, reject) => {
     fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${q}+inauthor:${inauthor}&key=${process.env.API_KEY}&maxResults=40`
+      `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${process.env.API_KEY}&maxResults=40`
     )
       .then((response) => response.json())
       .then((json) => {
