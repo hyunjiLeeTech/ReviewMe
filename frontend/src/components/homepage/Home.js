@@ -1,15 +1,18 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+
 import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
 import SearchResult from "./SearchResult";
 import Pagination from "../style/Pagination";
+import BooksDataService from "../../services/BooksDataService";
 
 import "./HomePage.css";
 
 let PageSize = 8;
 
 const Home = (props) => {
-  const { books } = props;
+  const { book } = props;
+  const [books, setBooks] = useState([]);
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [year, setYear] = useState("");
@@ -167,6 +170,15 @@ const Home = (props) => {
     return selectedBook.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, selectedBook]);
 
+  useEffect(() => {
+    BooksDataService.getBooksBySearch({
+      q: bookName,
+      inauthor: authorName,
+    }).then((books) => {
+      setBooks(books.items);
+    });
+  }, [bookName, authorName]);
+
   return (
     <>
       <div className="container">
@@ -298,7 +310,7 @@ const Home = (props) => {
         <div>
           {!searching && (
             <div className="mt-4">
-              <SliderImage className="mb-2" />
+              <SliderImage className="mb-2" book={book} />
             </div>
           )}
           {!searching && (

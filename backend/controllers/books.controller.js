@@ -30,3 +30,18 @@ module.exports.getBooksByID = (id) => {
       });
   });
 };
+
+module.exports.getBooksBySearch = (q, inauthor) => {
+  return new Promise((resolve, reject) => {
+    fetch(
+      `https://www.googleapis.com/books/v1/volumes?q=${q}+inauthor:${inauthor}&key=${process.env.API_KEY}&maxResults=40`
+    )
+      .then((response) => response.json())
+      .then((json) => {
+        resolve({ errCode: 0, books: json });
+      })
+      .catch((error) => {
+        reject({ errCode: 1, message: "error while getting books search" });
+      });
+  });
+};

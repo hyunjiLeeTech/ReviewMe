@@ -470,7 +470,7 @@ app.put("/profile/edit", (req, res) => {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     nickname: req.body.nickname,
-    userId: req.body.userId
+    userId: req.body.userId,
   };
   controllers.profile
     .editProfile(newData)
@@ -514,6 +514,19 @@ app.get("/homepage/:name&:max", (req, res) => {
 
   controllers.books
     .getAllBooks(name, max)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
+});
+
+app.get("/homepage/:name&:author", (req, res) => {
+  const { name, author } = req.params;
+
+  controllers.books
+    .getBooksBySearch(name, author)
     .then((data) => {
       res.json(data);
     })

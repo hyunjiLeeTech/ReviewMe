@@ -9,8 +9,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./SliderImage.css";
 
-const SliderImage = () => {
-  const [books, setBooks] = useState([]);
+const SliderImage = (props) => {
+  // const [books, setBooks] = useState([]);
+  const { book } = props;
+
   let settings = {
     dots: true,
     slidesToShow: 5,
@@ -45,17 +47,17 @@ const SliderImage = () => {
     ],
   };
 
-  useEffect(() => {
-    BooksDataService.getAllBooks({ q: "action", maxResults: 10 }).then(
-      (books) => {
-        setBooks(books.items);
-      }
-    );
-  }, []);
+  // useEffect(() => {
+  //   BooksDataService.getAllBooks({ q: "action", maxResults: 10 }).then(
+  //     (books) => {
+  //       setBooks(books.items);
+  //     }
+  //   );
+  // }, []);
 
   return (
     <Slider {...settings}>
-      {books.map((post, index) => (
+      {book.map((post, index) => (
         <div key={index} className="slidePoster">
           <Link to={`/details/${post.id}`}>
             <img

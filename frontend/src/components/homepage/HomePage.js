@@ -6,10 +6,10 @@ import BooksDataService from "../../services/BooksDataService";
 
 const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [books, setBooks] = useState();
+  const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    BooksDataService.getAllBooks({ q: "fiction", maxResults: 40 }).then(
+    BooksDataService.getAllBooks({ q: "action", maxResults: 10 }).then(
       (books) => {
         setBooks(books.items);
         setIsLoading(false);
@@ -17,7 +17,7 @@ const HomePage = () => {
     );
   }, []);
 
-  return <div>{isLoading ? <BookLoading /> : <Home books={books} />}</div>;
+  return <div>{isLoading ? <BookLoading /> : <Home book={books} />}</div>;
 };
 
 export default HomePage;
