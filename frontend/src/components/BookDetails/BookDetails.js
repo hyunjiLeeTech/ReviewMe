@@ -116,6 +116,17 @@ const BookDetails = (props) => {
     forceUpdate();
   };
 
+  const showDescription = () => {
+    let description = bookInfo.volumeInfo.description;
+    description = description.replace(/<br>/gi, "\n");
+    description = description.replace(/<\/br>/gi, "");
+    description = description.replace(/<\/i>/gi, "");
+    description = description.replace(/<i>/gi, "");
+    description = description.replace(/<b>/gi, "");
+
+    return description;
+  };
+
   const reviewData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
@@ -187,7 +198,7 @@ const BookDetails = (props) => {
           </div>
           <div className="subContainer">
             <h3>Description</h3>
-            <p>{bookInfo.volumeInfo.description}</p>
+            <p>{showDescription()}</p>
           </div>
           <div className="subContainer">
             <h3>Reviews</h3>
