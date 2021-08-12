@@ -171,28 +171,14 @@ const LogIn = (props) => {
           </div>
         </div>
 
-        <div className="row mb-4">
-          <div className="col d-flex justify-content-center">
-            <div className="form-check">
-              <label className="form-check-label" htmlFor="rememberMe">
-                {" "}
-                Remember me{" "}
-              </label>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="rememberMe"
-              />
-            </div>
-          </div>
-          <button
+        <div className="row mb-2">
+          <div
             type="button"
-            className="btn col"
+            className="forgot_pass d-flex justify-content-end col-10"
             onClick={forgotPasswordHandler}
           >
             Forgot password?
-          </button>
+          </div>
         </div>
         <div className="mb-5 d-flex justify-content-center">
           <button type="submit" className="btn login mb-4">
