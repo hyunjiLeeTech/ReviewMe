@@ -9,7 +9,7 @@ const HomePage = () => {
   const [books, setBooks] = useState();
 
   useEffect(() => {
-    BooksDataService.getAllBooks({ q: "fiction", maxResults: 15 }).then(
+    BooksDataService.getAllBooks({ q: "fiction", maxResults: 40 }).then(
       (books) => {
         setBooks(books.items);
         setIsLoading(false);

@@ -1,10 +1,8 @@
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import BookListing from "./BookListing";
 import SliderImage from "./SliderImage";
 import SearchResult from "./SearchResult";
 import Pagination from "../style/Pagination";
-
-import BooksDataService from "../../services/BooksDataService";
 
 import "./HomePage.css";
 
@@ -12,7 +10,6 @@ let PageSize = 8;
 
 const Home = (props) => {
   const { books } = props;
-  //   const [books, setBooks] = useState([]);
   const [bookName, setBookName] = useState("");
   const [authorName, setAuthorName] = useState("");
   const [year, setYear] = useState("");
@@ -170,12 +167,6 @@ const Home = (props) => {
     return selectedBook.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, selectedBook]);
 
-  //   useEffect(() => {
-  //     BooksDataService.getAllBooks("fiction", 15).then((books) => {
-  //       setBooks(books.items);
-  //     });
-  //   }, []);
-
   return (
     <>
       <div className="container">
@@ -307,23 +298,14 @@ const Home = (props) => {
         <div>
           {!searching && (
             <div className="mt-4">
-              <SliderImage className="mb-2" books={books} />
-              {/* <SliderImage className="mb-2" /> */}
+              <SliderImage className="mb-2" />
             </div>
           )}
           {!searching && (
             <div className="text-center mb-4">
-              <h4 className="mt-5">Recommendation of the Week</h4>
-              <div className="books mb-5">
-                {books.map((book) => (
-                  <BookListing
-                    key={book.id}
-                    image={book.volumeInfo.imageLinks.thumbnail}
-                    title={book.volumeInfo.title}
-                    author={book.volumeInfo.authors}
-                    bookId={book.id}
-                  />
-                ))}
+              <h4 className="my-5">Recommendation of the Week</h4>
+              <div className="mb-5">
+                <BookListing />
               </div>
             </div>
           )}

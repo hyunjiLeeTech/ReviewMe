@@ -9,8 +9,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import "./SliderImage.css";
 
-const SliderImage = (props) => {
-  const { books } = props;
+const SliderImage = () => {
+  const [books, setBooks] = useState([]);
   let settings = {
     dots: true,
     slidesToShow: 5,
@@ -44,6 +44,14 @@ const SliderImage = (props) => {
       },
     ],
   };
+
+  useEffect(() => {
+    BooksDataService.getAllBooks({ q: "action", maxResults: 10 }).then(
+      (books) => {
+        setBooks(books.items);
+      }
+    );
+  }, []);
 
   return (
     <Slider {...settings}>
