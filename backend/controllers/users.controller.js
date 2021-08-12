@@ -44,6 +44,7 @@ const signup = (userInfo) => {
     const lastName = userInfo.lastName;
     const gender = userInfo.gender;
     const dob = userInfo.dob;
+    const uerType = userInfo.userType;
 
     if (gender === "Male") {
       gender_type = 1;
@@ -71,7 +72,7 @@ const signup = (userInfo) => {
       const bcryptPassword = await bcrypt.hash(password, salt);
 
       const newUser = await sequelize.query(
-        `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', 2, true) returning *`
+        `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', ${uerType}, true) returning *`
       );
       sequelize.query(
         `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
