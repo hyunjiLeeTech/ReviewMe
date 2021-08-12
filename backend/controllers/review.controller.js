@@ -24,7 +24,22 @@ module.exports.getReviewsByBookId = (bookId) => {
         resolve({ errCode: 0, reviews: data });
       })
       .catch((err) => {
-        reject({ errCode: 1, message: "fail to get reviews by user it" });
+        reject({ errCode: 1, message: "fail to get reviews by book id" });
+      });
+  });
+};
+
+module.exports.getReviewsByReviewId = (reviewId) => {
+  return new Promise((resolve, reject) => {
+    sequelize
+      .query(
+        `SELECT * FROM review r INNER JOIN userdetails u ON r.userid=u.userid WHERE r.reviewid='${reviewId}' AND isActive=true`
+      )
+      .then((data) => {
+        resolve({ errCode: 0, reviews: data });
+      })
+      .catch((err) => {
+        reject({ errCode: 1, message: "Failed to get reviews by review id" });
       });
   });
 };

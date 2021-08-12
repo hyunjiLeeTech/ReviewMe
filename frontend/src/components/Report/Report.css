@@ -1,6 +1,6 @@
 .reportContainer {
-  margin-top: 5vh;
-  margin-bottom: 5vh;
+  margin-top: 2vh;
+  margin-bottom: 3vh;
 }
 
 .textarea {
@@ -16,10 +16,12 @@
 
 .questionContainer {
   margin-bottom: 1vh;
+  text-align: left;
 }
 
 .dropdown {
   width: 50%;
+  text-align: left;
 }
 
 .btn.report {
@@ -32,4 +34,28 @@
 .btnContainer {
   background-color: aqua;
   text-align: center;
+}
+
+.popup-box1 {
+  position: fixed;
+  text-align: center;
+  background-color: #00000050;
+  width: 100%;
+  height: 200vh;
+  top: 0;
+  left: 0;
+}
+
+.box1 {
+  position: relative;
+  width: 65%;
+  margin: 0 auto;
+  height: auto;
+  max-height: 80vh;
+  margin-top: calc(100vh - 90vh - 20px);
+  background-color: #fff;
+  border-radius: 4px;
+  /* padding: 20px; */
+  border: 1px solid #999;
+  overflow: auto;
 }

@@ -16,11 +16,10 @@ import Footer from "./components/style/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
 import ForgotPassword from "./components/registration/ForgotPassword";
-import Report from "./components/Report/Report";
 import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
-import Profile from "./components/ProfilePage/Profile";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 import ResetPassword from "./components/ResetPassword/ResetPassword";
 import TermCondition from "./components/TermCondition/TermCondition";
 import NotFound from "./components/NotFoundPage/NotFound";
@@ -70,9 +69,6 @@ function App() {
           <Route path="/reset-password">
             <ResetLink />
           </Route>
-          <Route path="/report">
-            <Report />
-          </Route>
           <Route exact path="/details/:id">
             <BookDetailsPage
               userType={authCtx.userTypes}
@@ -100,7 +96,7 @@ function App() {
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
           </Route>
           <Route path="/profile">
-            {authCtx.isLoggedIn && <Profile />}
+            {authCtx.isLoggedIn && <ProfilePage />}
             {!authCtx.isLoggedIn && <Redirect to="/" />}
           </Route>
           <Route path="/resetpassword">
