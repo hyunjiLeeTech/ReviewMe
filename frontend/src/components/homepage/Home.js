@@ -340,7 +340,7 @@ const Home = (props) => {
                 <Pagination
                   className="pagination-bar"
                   currentPage={currentPage}
-                  totalCount={bookData.length}
+                  totalCount={selectedBook.length}
                   pageSize={PageSize}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
