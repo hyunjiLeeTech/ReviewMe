@@ -123,6 +123,7 @@ const BookDetails = (props) => {
     description = description.replace(/<\/i>/gi, "");
     description = description.replace(/<i>/gi, "");
     description = description.replace(/<b>/gi, "");
+    description = description.replace(/<\/b>/gi, "");
 
     return description;
   };
