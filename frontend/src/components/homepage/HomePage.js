@@ -307,7 +307,6 @@ const HomePage = () => {
           {!searching && (
             <div className="mt-4">
               <SliderImage className="mb-2" books={books} />
-              {/* <SliderImage className="mb-2" /> */}
             </div>
           )}
           {!searching && (
@@ -329,23 +328,25 @@ const HomePage = () => {
           {searching && (
             <div className="mt-5 mb-5">
               {bookData.map((book, index) => (
-                <SearchResult
-                  key={index}
-                  image={book.volumeInfo.imageLinks.thumbnail}
-                  rating={book.volumeInfo.averageRating}
-                  title={book.volumeInfo.title}
-                  author={book.volumeInfo.authors}
-                  date={book.volumeInfo.publishedDate}
-                  category={book.volumeInfo.categories}
-                  id={book.id}
-                  description={book.volumeInfo.description}
-                />
+                <div>
+                  <SearchResult
+                    key={index}
+                    image={book.volumeInfo.imageLinks.thumbnail}
+                    rating={book.volumeInfo.averageRating}
+                    title={book.volumeInfo.title}
+                    author={book.volumeInfo.authors}
+                    date={book.volumeInfo.publishedDate}
+                    category={book.volumeInfo.categories}
+                    id={book.id}
+                    description={book.volumeInfo.description}
+                  />
+                </div>
               ))}
               <div className="d-flex justify-content-center">
                 <Pagination
                   className="pagination-bar"
                   currentPage={currentPage}
-                  totalCount={books.length}
+                  totalCount={bookData.length}
                   pageSize={PageSize}
                   onPageChange={(page) => setCurrentPage(page)}
                 />
