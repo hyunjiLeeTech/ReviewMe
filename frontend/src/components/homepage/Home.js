@@ -34,107 +34,154 @@ const Home = (props) => {
   const onSubmitHandler = (e) => {
     e.preventDefault();
 
-    setSearching(true);
-    let filtered = [];
-    if (bookName === "" && year === "" && authorName === "") {
+    if (bookName === "") {
       setPopupTitle("Please Check the following");
-      setPopupContent("Add Book Name or Author Name");
+      setPopupContent(
+        "Book Title is a required field. Please enter the book name"
+      );
       togglePopup();
-      setSearching(false);
-
-      let newFiltered = [];
-      if (authorName !== "") {
-        newFiltered = books.filter((entry) => {
-          return (
-            entry.volumeInfo.authors.toLowerCase().search(authorName) !== -1
-          );
-        });
-        setSelectedBook(newFiltered);
-      } else if (authorName !== "" && year !== "") {
-        filtered = newFiltered.filter((entry) => {
-          return entry.volumeInfo.publishedDate.toString().search(year) !== -1;
-        });
-        setSelectedBook(filtered);
-      }
-    } else if (bookName !== "") {
-      let newFiltering = [];
-      const value = bookName.toLowerCase();
-      filtered = books.filter((entry) => {
-        return entry.volumeInfo.title.toLowerCase().search(value) !== -1;
+    } else {
+      setSearching(true);
+      let filtered = [];
+      filtered = books.filter((book) => {
+        return book.volumeInfo.title.includes(bookName) === true;
       });
 
-      if (authorName !== "") {
-        const author = authorName.toLowerCase();
-        filtered = filtered.filter((entry) => {
-          return (
-            entry.volumeInfo.authors.toString().toLowerCase().search(author) !==
-            -1
-          );
-        });
-        setSelectedBook(newFiltering);
-      } else if (selectedCategory !== "") {
-        let filteredByCategory = filtered.filter((entry) => {
-          return entry.volumeInfo.categories.toLowerCase() === selectedCategory;
-        });
-        setSelectedBook(filteredByCategory);
-      } else if (selectedCategory !== "" && authorName !== "") {
-        const author = authorName.toLowerCase();
-        newFiltering = filtered.filter((entry) => {
-          return entry.volumeInfo.authors.toLowerCase().search(author) !== -1;
-        });
-        setSelectedBook(newFiltering);
-
-        let filteredByCategory = newFiltering.filter((entry) => {
-          return (
-            entry.volumeInfo.categories
-              .toLowerCase()
-              .search(selectedCategory) !== -1
-          );
-        });
-
-        setSelectedBook(filteredByCategory);
-      } else {
-        setSelectedBook(filtered);
-      }
-    } else if (authorName !== "") {
-      const temp = authorName.toLowerCase();
-      filtered = books.filter((entry) => {
-        return (
-          entry.volumeInfo.authors.toString().toLowerCase().search(temp) !== -1
-        );
-      });
       if (year !== "") {
-        let newFilter = filtered.filter((entry) => {
-          return entry.volumeInfo.publishedDate.toString().search(year) !== -1;
+        let yearFiltered = [];
+        filtered.map((book) => {
+          if (typeof book.volumeInfo.publishedDate !== "undefined") {
+            let bookPublish = book.volumeInfo.publishedDate.split("-");
+            bookPublish = bookPublish[0];
+
+            if (Number(bookPublish) === Number(year)) {
+              yearFiltered.push(book);
+            }
+          }
         });
-        setSelectedBook(newFilter);
-      } else {
-        setSelectedBook(filtered);
+
+        filtered = yearFiltered;
       }
-    } else if (year !== "") {
-      const tempYear = year;
-      filtered = books.filter((entry) => {
-        return (
-          entry.volumeInfo.publishedDate.toString().search(tempYear) !== -1
-        );
-      });
+
+      if (authorName !== "") {
+        let authFiltered = [];
+        filtered.map((book) => {
+          if (typeof book.volumeInfo.authors !== "undefined") {
+            const authors = book.volumeInfo.authors;
+            console.log(authors);
+            for (let i = 0; i < authors.length; i++) {
+              if (authors[i].toLowerCase().includes(authorName.toLowerCase())) {
+                authFiltered.push(book);
+              }
+            }
+          }
+        });
+
+        filtered = authFiltered;
+      }
+
       setSelectedBook(filtered);
     }
-    if (selectedRating) {
-      if (selectedRating === "rating_hi_low") {
-        filtered = books.sort(
-          (a, b) => b.volumeInfo.averageRating - a.volumeInfo.averageRating
-        );
-        setSelectedBook(filtered);
-        setSelectedRating("");
-      } else if (selectedRating === "rating_low_hi") {
-        filtered = books.sort(
-          (a, b) => a.volumeInfo.averageRating - b.volumeInfo.averageRating
-        );
-        setSelectedBook(filtered);
-        setSelectedRating("");
-      }
-    }
+
+    // if (bookName === "" && year === "" && authorName === "") {
+    //   setPopupTitle("Please Check the following");
+    //   setPopupContent("Add Book Name or Author Name");
+    //   togglePopup();
+    //   setSearching(false);
+
+    //   let newFiltered = [];
+    //   if (authorName !== "") {
+    //     newFiltered = books.filter((entry) => {
+    //       return (
+    //         entry.volumeInfo.authors.toLowerCase().search(authorName) !== -1
+    //       );
+    //     });
+    //     setSelectedBook(newFiltered);
+    //   } else if (authorName !== "" && year !== "") {
+    //     filtered = newFiltered.filter((entry) => {
+    //       return entry.volumeInfo.publishedDate.toString().search(year) !== -1;
+    //     });
+    //     setSelectedBook(filtered);
+    //   }
+    // } else if (bookName !== "") {
+    //   let newFiltering = [];
+    //   const value = bookName.toLowerCase();
+    //   filtered = books.filter((entry) => {
+    //     return entry.volumeInfo.title.toLowerCase().search(value) !== -1;
+    //   });
+
+    //   if (authorName !== "") {
+    //     const author = authorName.toLowerCase();
+    //     filtered = filtered.filter((entry) => {
+    //       return (
+    //         entry.volumeInfo.authors.toString().toLowerCase().search(author) !==
+    //         -1
+    //       );
+    //     });
+    //     setSelectedBook(newFiltering);
+    //   } else if (selectedCategory !== "") {
+    //     let filteredByCategory = filtered.filter((entry) => {
+    //       return entry.volumeInfo.categories.toLowerCase() === selectedCategory;
+    //     });
+    //     setSelectedBook(filteredByCategory);
+    //   } else if (selectedCategory !== "" && authorName !== "") {
+    //     const author = authorName.toLowerCase();
+    //     newFiltering = filtered.filter((entry) => {
+    //       return entry.volumeInfo.authors.toLowerCase().search(author) !== -1;
+    //     });
+    //     setSelectedBook(newFiltering);
+
+    //     let filteredByCategory = newFiltering.filter((entry) => {
+    //       return (
+    //         entry.volumeInfo.categories
+    //           .toLowerCase()
+    //           .search(selectedCategory) !== -1
+    //       );
+    //     });
+
+    //     setSelectedBook(filteredByCategory);
+    //   } else {
+    //     setSelectedBook(filtered);
+    //   }
+    // } else if (authorName !== "") {
+    //   const temp = authorName.toLowerCase();
+    //   filtered = books.filter((entry) => {
+    //     return (
+    //       entry.volumeInfo.authors.toString().toLowerCase().search(temp) !== -1
+    //     );
+    //   });
+    //   if (year !== "") {
+    //     let newFilter = filtered.filter((entry) => {
+    //       return entry.volumeInfo.publishedDate.toString().search(year) !== -1;
+    //     });
+    //     setSelectedBook(newFilter);
+    //   } else {
+    //     setSelectedBook(filtered);
+    //   }
+    // } else if (year !== "") {
+    //   const tempYear = year;
+    //   filtered = books.filter((entry) => {
+    //     return (
+    //       entry.volumeInfo.publishedDate.toString().search(tempYear) !== -1
+    //     );
+    //   });
+    //   setSelectedBook(filtered);
+    // }
+    // if (selectedRating) {
+    //   if (selectedRating === "rating_hi_low") {
+    //     filtered = books.sort(
+    //       (a, b) => b.volumeInfo.averageRating - a.volumeInfo.averageRating
+    //     );
+    //     setSelectedBook(filtered);
+    //     setSelectedRating("");
+    //   } else if (selectedRating === "rating_low_hi") {
+    //     filtered = books.sort(
+    //       (a, b) => a.volumeInfo.averageRating - b.volumeInfo.averageRating
+    //     );
+    //     setSelectedBook(filtered);
+    //     setSelectedRating("");
+    //   }
+    // }
   };
 
   const onChangeBookNameHandler = (name) => {
