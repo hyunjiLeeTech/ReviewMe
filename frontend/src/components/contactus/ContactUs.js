@@ -1,11 +1,28 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
 import emailjs from "emailjs-com";
 
+import Modal from "../style/Modal";
+import AuthContext from "../context/auth-context";
 import Title from "../style/Title";
 import "./ContactUs.css";
 
-export default function ContactUs() {
+function ContactUs() {
+  const authCtx = useContext(AuthContext);
+  const [dataInfo, setDataInfo] = useState("");
+  const [name, setName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [message, setMessage] = useState("");
+
+  const nameHandler = (e) => {
+    setName(e.target.value);
+  };
+  const userEmailHandler = (e) => {
+    setUserEmail(e.target.value);
+  };
+  const messageHandler = (e) => {
+    setMessage(e.target.value);
+  };
   function sendEmail(e) {
     e.preventDefault();
 
@@ -18,7 +35,11 @@ export default function ContactUs() {
       )
       .then(
         (result) => {
-          console.log(result.text);
+          setDataInfo("Email was sent to Administrators of the Website");
+          authCtx.showModal();
+          setName("");
+          setUserEmail("");
+          setMessage("");
         },
         (error) => {
           console.log(error.text);
@@ -44,16 +65,30 @@ export default function ContactUs() {
               className="form-control"
               type="text"
               autoFocus
+              value={name}
+              onChange={nameHandler}
               name="from_name"
             />
           </div>
           <div className="mb-4">
             <label className="form-label">Email</label>
-            <input className="form-control" type="email" name="user_email" />
+            <input
+              className="form-control"
+              type="email"
+              value={userEmail}
+              onChange={userEmailHandler}
+              name="user_email"
+            />
           </div>
           <label className="form-label">Message</label>
           <div className="mb-4">
-            <textarea className="form-control" name="message" rows="6" />
+            <textarea
+              className="form-control"
+              value={message}
+              onChange={messageHandler}
+              name="message"
+              rows="6"
+            />
           </div>
           <div className="d-flex justify-content-center mb-5">
             <button className="btn contact" type="submit">
@@ -61,7 +96,12 @@ export default function ContactUs() {
             </button>
           </div>
         </form>
+        {authCtx.popupIsShown && (
+          <Modal onClose={authCtx.closeModal} info={dataInfo} />
+        )}
       </div>
     </div>
   );
 }
+
+export default ContactUs;

@@ -31,6 +31,13 @@ const LogIn = (props) => {
   const validatePasswordHandler = () => {
     setValidPassword(providedPassword.trim().length >= 8);
   };
+
+  const forgotPasswordHandler = () => {
+    setDataInfo(
+      "Please navigate to Contact Us page by going down of page and click on the link. Include your real email by which we will contact you with your reset password. Also, please include your email, full name and username that you have in the account for security purposes."
+    );
+    authCtx.showModal();
+  };
   const submitHandler = async (event) => {
     event.preventDefault();
 
@@ -179,11 +186,13 @@ const LogIn = (props) => {
               />
             </div>
           </div>
-          <div className="col">
-            <Link className="link-forgot" to="/forgot-password">
-              Forgot password?
-            </Link>
-          </div>
+          <button
+            type="button"
+            className="btn col"
+            onClick={forgotPasswordHandler}
+          >
+            Forgot password?
+          </button>
         </div>
         <div className="mb-5 d-flex justify-content-center">
           <button type="submit" className="btn login mb-4">
