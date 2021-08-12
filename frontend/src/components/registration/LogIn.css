@@ -28,6 +28,10 @@
     float: none;
   }
 
+  .forgot_pass {
+    text-decoration: none;
+  }
+
   .link-forgot {
     margin-left: 0;
   }
