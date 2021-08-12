@@ -22,15 +22,4 @@ export default {
       }
     });
   },
-  getBooksBySearch(title, author) {
-    return axios
-      .get(`/homepage`, { bookName: title, authorName: author })
-      .then((res) => {
-        if (res.data.errCode === 0) {
-          return res.data.books;
-        } else {
-          console.log(res.data);
-        }
-      });
-  },
 };
