@@ -49,6 +49,8 @@ const BookDetails = (props) => {
       for (let i = 1; i < authors.length; i++) {
         authorsArr += `, ${authors[i]}`;
       }
+    } else {
+      authorsArr = "No Authors";
     }
 
     return authorsArr;
@@ -64,14 +66,49 @@ const BookDetails = (props) => {
 
   const displayCategories = (categories) => {
     let categoryArr = "";
-    if (categories.length > 0) {
+    if (typeof categories !== "undefined") {
       categoryArr = categories[0];
       for (let i = 1; i < categories.length; i++) {
         categoryArr += ", " + categories[i];
       }
+    } else {
+      categoryArr = "No Category";
     }
 
     return categoryArr;
+  };
+
+  const displayPulbisher = (publishers) => {
+    let publisherArr = "";
+    if (typeof publishers !== "undefined") {
+      publisherArr = publishers;
+    } else {
+      publisherArr = "No Publiser";
+    }
+
+    return publisherArr;
+  };
+
+  const displayPublishDate = (date) => {
+    let publishDate = "";
+    if (typeof date !== "undefined") {
+      publishDate = date;
+    } else {
+      publishDate = "No Publiser";
+    }
+
+    return publishDate;
+  };
+
+  const displayISBN = (ISBN) => {
+    let isbn = "";
+    if (typeof ISBN !== "undefined") {
+      isbn = ISBN;
+    } else {
+      isbn = "No ISBN";
+    }
+
+    return isbn;
   };
 
   const handleSubmit = (e) => {
@@ -129,14 +166,16 @@ const BookDetails = (props) => {
           <h1>{bookInfo.volumeInfo.title}</h1>
           <p className="bookInfo">Author: {getAuthor()}</p>
           <p className="bookInfo">
-            Published date: {bookInfo.volumeInfo.publishedDate}
+            Published date:{" "}
+            {displayPublishDate(bookInfo.volumeInfo.publishedDate)}
           </p>
           <p className="bookInfo">
-            Publisher: {bookInfo.volumeInfo.publisher}{" "}
+            Publisher: {displayPulbisher(bookInfo.volumeInfo.publisher)}
           </p>
           <p className="bookInfo">Category: {displayCategories(categories)}</p>
           <p className="bookInfo">
-            ISBN: {bookInfo.volumeInfo.industryIdentifiers[0].identifier}
+            ISBN:{" "}
+            {displayISBN(bookInfo.volumeInfo.industryIdentifiers[0].identifier)}
           </p>
         </div>
         <div className="col-lg-4 col-5 imageContainer">
