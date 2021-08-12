@@ -477,19 +477,17 @@ app.delete("/wishlist/delete", (req, res) => {
 //#endregion
 
 //#region Books
-app.get("/homepage", (req, res) => {
-  const q = req.body.q;
-  const maxResults = req.body.maxResults;
+app.get("/homepage/:name&:max", (req, res) => {
+  const { name, max } = req.params;
+
   controllers.books
-    .getAllBooks(q, maxResults)
+    .getAllBooks(name, max)
     .then((data) => {
       res.json(data);
     })
     .catch((err) => {
       res.json(err);
     });
-  console.log(q);
-  console.log(maxResults);
 });
 
 app.get("/details/:id", (req, res) => {

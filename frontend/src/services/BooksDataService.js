@@ -1,12 +1,10 @@
 import axios from "axios";
 
 export default {
-  getAllBooks(q, maxResults) {
+  getAllBooks(bookParams) {
+    console.log(bookParams);
     return axios
-      .get(`/homepage`, {
-        q: q,
-        maxResults: maxResults,
-      })
+      .get(`/homepage/${bookParams.q}&${bookParams.maxResults}`, bookParams)
       .then((res) => {
         if (res.data.errCode === 0) {
           return res.data.books;
