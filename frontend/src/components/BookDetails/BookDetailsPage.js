@@ -13,6 +13,7 @@ const BookDetailsPage = (props) => {
   const { userType, userId } = props;
   const { id } = useParams();
   const [book, setBook] = useState();
+  const [bookCover, setBookCover] = useState("");
   const [library, setLibrary] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const [reviews, setReviews] = useState([]);
@@ -21,6 +22,12 @@ const BookDetailsPage = (props) => {
   useEffect(() => {
     BooksDataService.getBooksByID(id).then((book) => {
       setBook(book);
+
+      const bookCoverImage =
+        typeof book.volumeInfo.imageLinks === "undefined"
+          ? `${process.env.PUBLIC_URL}/images/no_image.jpg`
+          : book.volumeInfo.imageLinks.thumbnail;
+      setBookCover(bookCoverImage);
 
       if (userType === 2) {
         getWishlist();
@@ -68,6 +75,7 @@ const BookDetailsPage = (props) => {
         <BookLoading />
       ) : (
         <BookDetails
+          bookCover={bookCover}
           getWishlist={getWishlist}
           getLibrary={getLibrary}
           wishlist={wishlist}
