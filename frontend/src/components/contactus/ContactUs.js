@@ -41,9 +41,7 @@ function ContactUs() {
           setUserEmail("");
           setMessage("");
         },
-        (error) => {
-          console.log(error.text);
-        }
+        (error) => {}
       );
   }
 

@@ -19,11 +19,9 @@ module.exports.getWishListByUserId = (userid) => {
     sequelize
       .query(`SELECT * FROM wishlist WHERE userid=${userid}`)
       .then((data) => {
-        console.log(data);
         resolve(data);
       })
       .catch((err) => {
-        console.log("fail");
         reject(err);
       });
   });

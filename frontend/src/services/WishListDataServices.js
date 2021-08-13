@@ -25,7 +25,6 @@ export default {
     return axios
       .delete(`/wishlist-item/delete/${deleteItemList}`)
       .then((res) => {
-        console.log(res.data.errCode);
         if (res.data.errCode === 0) {
           return true;
         } else {

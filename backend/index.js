@@ -596,7 +596,6 @@ app.get("/book-details/:id", (req, res) => {
     .getBooksByID(id)
     .then((data) => {
       res.json(data);
-      console.log(data);
     })
     .catch((err) => {
       res.json(err);

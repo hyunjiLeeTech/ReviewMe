@@ -23,12 +23,9 @@ const Button = (props) => {
   };
 
   const addData = () => {
-    console.log("click");
     const bookId = addBookShelfInfo.bookId;
-    console.log(addBookShelfInfo.userId);
     if (addBookShelfInfo.userId !== 0) {
       if (name === "Library") {
-        console.log("library");
         let isExist = checkExist(bookId);
 
         if (isExist) {
@@ -36,7 +33,6 @@ const Button = (props) => {
           setPopupContent("This book is already on the library");
           togglePopup();
         } else {
-          console.log("test");
           LibraryDataServices.addLibraryItem(addBookShelfInfo).then(
             (isAdded) => {
               if (isAdded) {

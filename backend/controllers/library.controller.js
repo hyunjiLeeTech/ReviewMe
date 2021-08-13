@@ -29,7 +29,6 @@ module.exports.getAllLibraryByUserId = (userid) => {
 
 module.exports.deleteLibraryItemById = (id) => {
   return new Promise(async (resolve, reject) => {
-    console.log(id);
     const [results, metadata] = await sequelize.query(
       `DELETE FROM libraryitem ${id}`
     );

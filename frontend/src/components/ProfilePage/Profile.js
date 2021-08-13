@@ -9,8 +9,7 @@ import ProfileDataService from "../../services/ProfileDataService";
 import Title from "../style/Title";
 import "./Profile.css";
 const Profile = (props) => {
-  const history = useHistory()
-
+  const history = useHistory();
 
   const authCtx = useContext(AuthContext);
 
@@ -19,7 +18,7 @@ const Profile = (props) => {
   const [rowData, setRowData] = useState({ ...props.profileItem });
 
   useEffect(() => {
-    setRowData(props.profileItem)
+    setRowData(props.profileItem);
   }, [props.profileItem]);
 
   const onChange = (e) => {
@@ -47,7 +46,10 @@ const Profile = (props) => {
 
   const validateNicknameHandler = () => {
     setValidateNickname(
-      rowData.nickname.trim().length >= 3 && rowData.nickname.trim().length <= 10 ? true : false
+      rowData.nickname.trim().length >= 3 &&
+        rowData.nickname.trim().length <= 10
+        ? true
+        : false
     );
   };
 
@@ -63,7 +65,7 @@ const Profile = (props) => {
 
   const onDeleteButtonHandler = () => {
     ProfileDataService.deleteAccountProfile(props.userID).then((data) => {
-      history.push("/homepage")
+      history.push("/homepage");
       authCtx.logout();
     });
   };
@@ -78,11 +80,9 @@ const Profile = (props) => {
         userId: props.userID,
         firstname: rowData.firstname,
         lastname: rowData.lastname,
-        nickname: rowData.nickname
-      }
-      ProfileDataService.editProfile(params).then((data) => {
-        console.log(data)
-      });
+        nickname: rowData.nickname,
+      };
+      ProfileDataService.editProfile(params).then((data) => {});
       document.getElementById("fname").disabled = true;
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
@@ -141,8 +141,9 @@ const Profile = (props) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateFirstName === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateFirstName === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">First Name</label>
                           <input
@@ -167,8 +168,9 @@ const Profile = (props) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateLastName === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateLastName === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">Last Name</label>
                           <input
@@ -193,8 +195,9 @@ const Profile = (props) => {
                     <div className="col-md-6">
                       <div className="form-group">
                         <div
-                          className={` ${validateNickname === false ? "invalid" : ""
-                            }`}
+                          className={` ${
+                            validateNickname === false ? "invalid" : ""
+                          }`}
                         >
                           <label className="form-label">Nickname</label>
                           <input

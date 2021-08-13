@@ -87,7 +87,6 @@ const resetPassword = (userInfo) => {
   const token = userInfo.tokenInfo;
   const password = userInfo.password;
   const currentPass = userInfo.currentPassword;
-  console.log(currentPass);
   const id = jwt.decode(token);
 
   return new Promise(async (resolve, reject) => {
@@ -98,9 +97,9 @@ const resetPassword = (userInfo) => {
     previousPass[0].map((dataDetails) => {
       return (pass = dataDetails.password);
     });
-    console.log(pass);
+
     const validatePassword = await bcrypt.compare(currentPass, pass);
-    console.log(validatePassword);
+
     if (!validatePassword) {
       resolve("Current Password does not match our record");
     } else if (validatePassword) {

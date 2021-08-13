@@ -119,7 +119,7 @@ const SignUpAdmin = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    fetch("http://localhost:3001/auth/signupadmin", {
+    fetch("/auth/signupadmin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
