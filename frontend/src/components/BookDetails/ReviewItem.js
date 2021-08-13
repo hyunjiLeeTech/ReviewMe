@@ -67,17 +67,14 @@ const ReviewItem = (props) => {
         </>
       );
     } else {
-      if (loginUserId === 0) {
-        return <></>;
-      } else {
-        return (
-          <div className="col-lg-1 col-1">
-            <button className="link" onClick={() => toggleReportPopup(false)}>
-              Report
-            </button>
-          </div>
-        );
-      }
+      return (
+        <div className="col-lg-1 col-1">
+          <button className="link" onClick={() => toggleReportPopup(false)}>
+            Report
+          </button>
+        </div>
+      );
+     
     }
   };
 
@@ -135,6 +132,7 @@ const ReviewItem = (props) => {
       {isReportPopupOpen && (
         <Report
           userId={reviewUserId}
+          reporterId={loginUserId}
           reviewId={id}
           nickname={nickname}
           rating={rating}
@@ -149,11 +147,8 @@ const ReviewItem = (props) => {
           content={
             <>
               <h4>"Record Saved Successfully."</h4>
-              <button
-                className="btn btnPopup"
-                onClick={() => setShowSuccess(false)}
-              >
-                Close
+              <button className="btnPopup" onClick={() => setShowSuccess(false)}>
+                  Close
               </button>
             </>
           }

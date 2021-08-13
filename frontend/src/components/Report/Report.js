@@ -17,7 +17,7 @@ const Report = (props) => {
     const reportData = {
       reporttypeId: (reportType === "Spoiler" ? 1 : 2),
       comment: comment,
-      userId: props.userId,
+      userId: props.reporterId,
       date: new Date(),
       reviewId: props.reviewId
 

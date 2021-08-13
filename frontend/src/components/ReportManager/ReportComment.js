@@ -1,7 +1,7 @@
 import React from "react";
 
 const ReportComment = (props) => {
-  const { reporterName, reporterComment, reviewerName, reviewerComment } =
+  const { reporterName, reporterComment, reviewerName, reviewerComment, reviewId, reportId } =
     props;
   return (
     <div className="mb-2">
@@ -21,12 +21,12 @@ const ReportComment = (props) => {
         </div>
         <div className="row text-center">
           <div className="col">
-            <button className="btn delete mx-4" type="button">
+            <button className="btn delete mx-4" type="button" onClick={() => props.onDelete(reviewId, reportId)}>
               Delete
             </button>
           </div>
           <div className="col">
-            <button className="btn keep mx-4" type="button">
+            <button className="btn keep mx-4" type="button" onClick={() => props.onKeep(reportId)}>
               Keep
             </button>
           </div>

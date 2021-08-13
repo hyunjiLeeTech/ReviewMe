@@ -2,6 +2,15 @@
 import axios from "axios";
 
 export default {
+    getAllReports() {
+        return axios.get(`/reports`).then((res) => {
+            if (res.data.errCode === 0) {
+                return res.data.reports[0];
+            } else {
+                console.log(res.data);
+            }
+        });
+    },
     getReportByReportId(reportId) {
         return axios.get(`/reports/${reportId}`).then((res) => {
             if (res.data.errCode === 0) {
@@ -29,8 +38,18 @@ export default {
             }
         });
     },
-    deleteReport(reportId) {
-        return axios.put(`/reports/delete`, { reportId: reportId }).then((res) => {
+    deleteReport(reportId, reviewId) {
+        return axios.post(`/reports/delete`, { reportId: reportId, reviewId: reviewId }).then((res) => {
+            if (res.data.errCode === 0) {
+                return true;
+            } else {
+                return false;
+            }
+        });
+    },
+    keepReport(reportId) {
+        return axios.post(`/reports/keep`, { reportId: reportId }).then((res) => {
+
             if (res.data.errCode === 0) {
                 return true;
             } else {
