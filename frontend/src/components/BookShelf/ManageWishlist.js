@@ -23,12 +23,14 @@ const ManageWishlist = (props) => {
   }, []);
 
   const getWishlistItems = () => {
-    WishListDataServices.getWishListByUseId(userId).then((wishlist) => {
-      for (let i = 0; i < wishlist.length; i++) {
-        wishlist[i].isSelected = false;
+    WishListDataServices.getWishListByUseId(localStorage.getItem("user")).then(
+      (wishlist) => {
+        for (let i = 0; i < wishlist.length; i++) {
+          wishlist[i].isSelected = false;
+        }
+        setWishlistItems(wishlist);
       }
-      setWishlistItems(wishlist);
-    });
+    );
   };
 
   const bookData = useMemo(() => {

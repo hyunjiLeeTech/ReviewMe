@@ -23,12 +23,14 @@ const ManageLibrary = (props) => {
   }, []);
 
   const getLibraryItems = () => {
-    LibraryDataServices.getLibraryByUseId(userId).then((library) => {
-      for (let i = 0; i < library.length; i++) {
-        library[i].isSelected = false;
+    LibraryDataServices.getLibraryByUseId(localStorage.getItem("user")).then(
+      (library) => {
+        for (let i = 0; i < library.length; i++) {
+          library[i].isSelected = false;
+        }
+        setLibraryItems(library);
       }
-      setLibraryItems(library);
-    });
+    );
   };
 
   const bookData = useMemo(() => {
