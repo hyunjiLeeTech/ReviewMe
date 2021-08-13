@@ -126,7 +126,6 @@ const Home = (props) => {
         }
       }
       setSelectedBook(filtered);
-      console.log(filtered);
     }
   };
 
@@ -161,6 +160,7 @@ const Home = (props) => {
   const bookData = useMemo(() => {
     const firstPageIndex = (currentPage - 1) * PageSize;
     const lastPageIndex = firstPageIndex + PageSize;
+
     return selectedBook.slice(firstPageIndex, lastPageIndex);
   }, [currentPage, selectedBook]);
 

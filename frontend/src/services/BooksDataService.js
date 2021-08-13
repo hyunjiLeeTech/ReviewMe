@@ -26,7 +26,10 @@ export default {
       if (res.data.errCode === 0) {
         return res.data.books;
       } else {
-        return [];
+        const noBook = {
+          items: [],
+        };
+        return noBook;
       }
     });
   },

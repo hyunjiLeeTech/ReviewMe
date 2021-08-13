@@ -559,6 +559,11 @@ app.put("/user-profile/delete", (req, res) => {
 //#endregion
 
 //#region Books
+
+app.get("/home", (req, res) => {
+  res.json({ errcode: 0, message: "No items selected", books: { items: [] } });
+});
+
 app.get("/home/:name&:max", (req, res) => {
   const { name, max } = req.params;
 
