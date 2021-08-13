@@ -186,10 +186,19 @@ const BookDetails = (props) => {
           <p className="bookInfo">
             Publisher: {displayPulbisher(bookInfo.volumeInfo.publisher)}
           </p>
-          <p className="bookInfo">Category: {displayCategories(categories)}</p>
+          <p className="bookInfo">
+            Category:{" "}
+            {typeof categories === "undefined"
+              ? "No Categories"
+              : displayCategories(categories)}
+          </p>
           <p className="bookInfo">
             ISBN:{" "}
-            {displayISBN(bookInfo.volumeInfo.industryIdentifiers[0].identifier)}
+            {typeof bookInfo.volumeInfo.industryIdentifiers === "undefined"
+              ? "No ISBN"
+              : displayISBN(
+                  bookInfo.volumeInfo.industryIdentifiers[0].identifier
+                )}
           </p>
         </div>
         <div className="col-lg-4 col-5 imageContainer">
