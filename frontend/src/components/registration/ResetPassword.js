@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import Title from "../style/Title";
-import "./ForgotPassword.css";
+import "./ResetPassword.css";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
