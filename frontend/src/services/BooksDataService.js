@@ -1,14 +1,16 @@
 import axios from "axios";
 
 export default {
-  getAllBooks() {
-    return axios.get(`/homepage`).then((res) => {
-      if (res.data.errCode === 0) {
-        return res.data.books;
-      } else {
-        console.log(res.data);
-      }
-    });
+  getAllBooks(bookParams) {
+    return axios
+      .get(`/homepage/${bookParams.q}&${bookParams.maxResults}`, bookParams)
+      .then((res) => {
+        if (res.data.errCode === 0) {
+          return res.data.books;
+        } else {
+          console.log(res.data);
+        }
+      });
   },
   getBooksByID(id) {
     return axios.get(`/details/${id}`).then((res) => {
@@ -19,24 +21,14 @@ export default {
       }
     });
   },
-  getBooksBySearch(title, author) {
-    return axios
-      .get(`/homepage`, { bookName: title, authorName: author })
-      .then((res) => {
-        if (res.data.errCode === 0) {
-          return res.data.books;
-        } else {
-          console.log(res.data);
-        }
-      });
+  getBooksBySearch(bookParams) {
+    console.log(bookParams);
+    return axios.get(`/homepage/${bookParams.q}`, bookParams).then((res) => {
+      if (res.data.errCode === 0) {
+        return res.data.books;
+      } else {
+        console.log(res.data);
+      }
+    });
   },
-  // getBooksByAuthor(author) {
-  //   return axios.get(`/homepage`, author).then((res) => {
-  //     if (res.data.errCode === 0) {
-  //       return res.data.books;
-  //     } else {
-  //       console.log(res.data);
-  //     }
-  //   });
-  // },
 };

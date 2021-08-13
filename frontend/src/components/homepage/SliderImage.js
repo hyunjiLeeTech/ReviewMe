@@ -1,16 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Slider from "react-slick";
 import { Link } from "react-router-dom";
-
-import BooksDataService from "../../services/BooksDataService";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "./SliderImage.css";
 
-const SliderImage = () => {
-  const [books, setBooks] = useState([]);
+const SliderImage = (props) => {
+  const { book } = props;
 
   let settings = {
     dots: true,
@@ -45,14 +43,10 @@ const SliderImage = () => {
       },
     ],
   };
-  useEffect(() => {
-    BooksDataService.getAllBooks().then((books) => {
-      setBooks(books.items);
-    });
-  }, []);
+
   return (
     <Slider {...settings}>
-      {books.map((post, index) => (
+      {book.map((post, index) => (
         <div key={index} className="slidePoster">
           <Link to={`/details/${post.id}`}>
             <img

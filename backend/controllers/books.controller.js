@@ -1,10 +1,10 @@
 const fetch = require("node-fetch");
 require("dotenv").config();
 
-module.exports.getAllBooks = () => {
+module.exports.getAllBooks = (q, maxResults) => {
   return new Promise((resolve, reject) => {
     fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=fiction&key=${process.env.API_KEY}&maxResults=15`
+      `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${process.env.API_KEY}&maxResults=${maxResults}`
     )
       .then((response) => response.json())
       .then((json) => {
@@ -31,10 +31,10 @@ module.exports.getBooksByID = (id) => {
   });
 };
 
-module.exports.getBooksBySearch = (title, author) => {
-  return new Promise(async (resolve, reject) => {
+module.exports.getBooksBySearch = (q) => {
+  return new Promise((resolve, reject) => {
     fetch(
-      `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}&key=${process.env.API_KEY}&maxResults=40`
+      `https://www.googleapis.com/books/v1/volumes?q=${q}&key=${process.env.API_KEY}&maxResults=40`
     )
       .then((response) => response.json())
       .then((json) => {
