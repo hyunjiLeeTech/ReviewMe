@@ -15,7 +15,6 @@ import LogIn from "./components/registration/LogIn";
 import Footer from "./components/style/Footer";
 import AboutUs from "./components/AboutUs/AboutUs";
 import SignUp from "./components/registration/SignUp";
-import ForgotPassword from "./components/registration/ForgotPassword";
 import BookDetailsPage from "./components/BookDetails/BookDetailsPage";
 import HomePage from "./components/homepage/HomePage";
 import SearchResult from "./components/homepage/SearchResult";
@@ -66,9 +65,6 @@ function App() {
           </Route>
           <Route path="/signupadmin">
             <SignUpAdmin />
-          </Route>
-          <Route path="/forgot-password">
-            <ForgotPassword />
           </Route>
           <Route path="/reset-password">
             <ResetLink />
