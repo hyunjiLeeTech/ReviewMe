@@ -318,7 +318,11 @@ const Home = (props) => {
               {bookData.map((book, index) => (
                 <SearchResult
                   key={index}
-                  image={book.volumeInfo.imageLinks.thumbnail}
+                  image={
+                    typeof book.volumeInfo.imageLinks === "undefined"
+                      ? `${process.env.PUBLIC_URL}/images/no_image.jpg`
+                      : book.volumeInfo.imageLinks.thumbnail
+                  }
                   rating={book.volumeInfo.averageRating}
                   title={book.volumeInfo.title}
                   author={book.volumeInfo.authors}
