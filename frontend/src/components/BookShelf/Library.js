@@ -12,8 +12,7 @@ import "./BookShelf.css";
 
 let PageSize = 12;
 
-const Library = (props) => {
-  const { userId } = props;
+const Library = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [libraryItems, setLibraryItems] = useState([]);
 
