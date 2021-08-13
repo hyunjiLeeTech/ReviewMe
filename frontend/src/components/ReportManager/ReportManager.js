@@ -15,7 +15,6 @@ import "./ReportManager.css";
 let PageSize = 8;
 
 const ReportManager = () => {
-
   const [allReports, setAllReports] = useState([]);
   const [filteredReports, setFilteredReports] = useState([]);
 
@@ -29,14 +28,13 @@ const ReportManager = () => {
   const filterFunction = (reportType) => {
     if (reportType === "All") {
       setFilteredReports(allReports);
-    }
-    else {
+    } else {
       const dummyData = allReports.filter((item) => {
         return item.reporttype === reportType;
-      })
+      });
       setFilteredReports(dummyData);
     }
-  }
+  };
 
   const onDelete = (reviewId, reportId) => {
     ReportDataService.deleteReport(reportId, reviewId).then((data) => {
@@ -46,8 +44,8 @@ const ReportManager = () => {
           setFilteredReports(reportData);
         });
       }
-    })
-  }
+    });
+  };
 
   const onKeep = (reportId) => {
     ReportDataService.keepReport(reportId).then((data) => {
@@ -57,8 +55,8 @@ const ReportManager = () => {
           setFilteredReports(reportData);
         });
       }
-    })
-  }
+    });
+  };
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -81,19 +79,31 @@ const ReportManager = () => {
               id="menu"
             >
               <li className="nav-item mt-2">
-                <Link to="report-admin" className="nav-link align-middle px-0" onClick={() => filterFunction("All")}>
+                <Link
+                  to="report-admin"
+                  className="nav-link align-middle px-0"
+                  onClick={() => filterFunction("All")}
+                >
                   <MessageIcon />
                   <span className="ms-1 d-none d-sm-inline">All</span>
                 </Link>
               </li>
               <li className="nav-item mt-2">
-                <a href="#spoiler" className="nav-link align-middle px-0" onClick={() => filterFunction("Spoilers")}>
+                <a
+                  href="#spoiler"
+                  className="nav-link align-middle px-0"
+                  onClick={() => filterFunction("Spoilers")}
+                >
                   <AnnouncementOutlinedIcon />
                   <span className="ms-1 d-none d-sm-inline">Spoiler</span>
                 </a>
               </li>
               <li className="nav-item mt-2">
-                <a href="#hateSpeech" className="nav-link px-0 align-middle" onClick={() => filterFunction("Hate Speech")}>
+                <a
+                  href="#hateSpeech"
+                  className="nav-link px-0 align-middle"
+                  onClick={() => filterFunction("Hate Speech")}
+                >
                   <SpeakerNotesOffOutlinedIcon />
                   <span className="ms-1 d-none d-sm-inline">Hate Speech</span>
                 </a>
@@ -103,7 +113,6 @@ const ReportManager = () => {
           </div>
         </div>
         <div className="col py-3">
-
           <div className="text-center mt-3">
             <Title name="Reports" />
           </div>
@@ -111,20 +120,19 @@ const ReportManager = () => {
           <div className="row d-flex justify-content-center">
             <div className="col-md-8">
               <div className="cards">
-                {filteredReportsData
-                  .map((data, index) => (
-                    <ReportComment
-                      key={index.toString()}
-                      reporterName={data.reporterName}
-                      reporterComment={data.reportComment}
-                      reviewerName={data.reviewerName}
-                      reviewerComment={data.reviewComment}
-                      reviewId={data.reviewid}
-                      reportId={data.reportid}
-                      onDelete={onDelete}
-                      onKeep={onKeep}
-                    />
-                  ))}
+                {filteredReportsData.map((data, index) => (
+                  <ReportComment
+                    key={index.toString()}
+                    reporterName={data.reporterName}
+                    reporterComment={data.reportComment}
+                    reviewerName={data.reviewerName}
+                    reviewerComment={data.reviewComment}
+                    reviewId={data.reviewid}
+                    reportId={data.reportid}
+                    onDelete={onDelete}
+                    onKeep={onKeep}
+                  />
+                ))}
               </div>
 
               <div className="d-flex justify-content-center">
@@ -136,7 +144,6 @@ const ReportManager = () => {
                   onPageChange={(page) => setCurrentPage(page)}
                 />
               </div>
-
             </div>
           </div>
         </div>

@@ -37,10 +37,26 @@
   #side-navigation {
     margin-bottom: -19%;
   }
+  .comments-box {
+    width: 85%;
+  }
+
+  .pagination-bar {
+    left: 0;
+    padding: 0;
+    right: 0;
+    margin: 0;
+  }
 }
 
 @media (min-width: 735px) and (max-width: 1024px) {
   #side-navigation {
     margin-bottom: -10%;
+  }
+  .pagination-bar {
+    left: 0;
+    padding: 0;
+    right: 0;
+    margin: 0;
   }
 }

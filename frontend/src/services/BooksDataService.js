@@ -22,7 +22,6 @@ export default {
     });
   },
   getBooksBySearch(bookParams) {
-    console.log(bookParams);
     return axios.get(`/homepage/${bookParams.q}`, bookParams).then((res) => {
       if (res.data.errCode === 0) {
         return res.data.books;
