@@ -559,29 +559,30 @@ app.delete("/wishlist/delete", (req, res) => {
 });
 
 //#region Books
-app.get("/homepage", (req, res) => {
-  // const title = req.params.title;
-  // const author = req.params.author;
-  // const search = req.query.q;
-  // if (search != null) {
-  //   controllers.books
-  //     .getBooksBySearch(title, author)
-  //     .then((data) => {
-  //       res.json({ errCode: 0, books: data });
-  //     })
-  //     .catch((err) => {
-  //       res.json({ errCode: 1, message: "error while getting books search" });
-  //     });
-  // } else {
+app.get("/homepage/:name&:max", (req, res) => {
+  const { name, max } = req.params;
+
   controllers.books
-    .getAllBooks()
+    .getAllBooks(name, max)
     .then((data) => {
       res.json(data);
     })
     .catch((err) => {
       res.json(err);
     });
-  // }
+});
+
+app.get("/homepage/:name", (req, res) => {
+  const { name } = req.params;
+
+  controllers.books
+    .getBooksBySearch(name)
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 app.get("/details/:id", (req, res) => {

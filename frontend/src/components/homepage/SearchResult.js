@@ -23,6 +23,7 @@ const SearchResult = (props) => {
     }
   };
   const url = "/details/" + props.id;
+
   return (
     <div className="card search-result  mb-3 mx-3 px-3 py-3">
       <Link to={url} className="bookLink">
@@ -31,7 +32,7 @@ const SearchResult = (props) => {
             <img
               src={props.image}
               className="img-thumbnail mx-auto d-block"
-              alt="..."
+              alt={props.title}
             />
           </div>
           <div className="col-md">

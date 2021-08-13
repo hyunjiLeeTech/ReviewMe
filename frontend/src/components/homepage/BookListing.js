@@ -1,19 +1,35 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import "./BookListing.css";
+import BooksDataService from "../../services/BooksDataService";
 
-const BookListing = (props) => {
-  const url = "/details/" + props.bookId;
+const BookListing = () => {
+  const [books, setBooks] = useState([]);
+
+  useEffect(() => {
+    BooksDataService.getAllBooks({ q: "fiction", maxResults: 18 }).then(
+      (books) => {
+        setBooks(books.items);
+      }
+    );
+  }, []);
+
   return (
-    <div className="bookContainer">
-      <Link to={url}>
-        <img src={props.image} alt="" />
-      </Link>
-      <Link to={url} className="bookLink">
-        <h3>{props.title}</h3>
-        <p className="author"> by {props.author}</p>
-      </Link>
+    <div className="container">
+      <div className="row">
+        {books.map((post) => (
+          <div key={post.id} className="col-md-2">
+            <Link to={`/details/${post.id}`}>
+              <img src={post.volumeInfo.imageLinks.thumbnail} alt="" />
+            </Link>
+            <Link to={`/details/${post.id}`} className="bookLink">
+              <h4>{post.volumeInfo.title}</h4>
+              <p className="author"> by {post.volumeInfo.authors}</p>
+            </Link>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
