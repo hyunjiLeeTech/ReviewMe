@@ -12,8 +12,7 @@ import "./BookShelf.css";
 
 let PageSize = 12;
 
-const Wishlist = (props) => {
-  const { userId } = props;
+const Wishlist = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [wishlistItems, setWishlistItems] = useState([]);
 

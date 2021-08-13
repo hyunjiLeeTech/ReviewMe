@@ -5,7 +5,6 @@ import Title from "../style/Title";
 import ManageBookItem from "./ManageBookItem";
 import Pagination from "../style/Pagination";
 
-import LibraryDataServices from "../../services/LibraryDataServices";
 import WishListDataServices from "../../services/WishListDataServices";
 
 import "./BookShelf.css";

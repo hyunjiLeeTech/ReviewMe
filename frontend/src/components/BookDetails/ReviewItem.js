@@ -3,7 +3,6 @@ import { useState } from "react";
 import ReviewDataServices from "../../services/ReviewDataServices";
 
 import { Rating } from "@material-ui/lab";
-import { Link } from "react-router-dom";
 import Report from "../Report/Report";
 
 import Popup from "../style/Popup";
@@ -85,7 +84,10 @@ const ReviewItem = (props) => {
         content={
           <>
             <h4>"Record saved Successfully."</h4>
-            <button className="btnPopup" onClick={() => toggleReportPopup()}>
+            <button
+              className="btn btnPopup"
+              onClick={() => toggleReportPopup()}
+            >
               Close
             </button>
           </>
@@ -116,10 +118,10 @@ const ReviewItem = (props) => {
               <p className="popup-content">
                 Do you want to delete this review?
               </p>
-              <button className="btnPopup" onClick={() => onClickDelete()}>
+              <button className="btn btnPopup" onClick={() => onClickDelete()}>
                 Yes
               </button>
-              <button className="btnPopup" onClick={() => togglePopup()}>
+              <button className="btn btnPopup" onClick={() => togglePopup()}>
                 No
               </button>
             </>
@@ -146,7 +148,7 @@ const ReviewItem = (props) => {
             <>
               <h4>"Record Saved Successfully."</h4>
               <button className="btnPopup" onClick={() => setShowSuccess(false)}>
-                Close
+                  Close
               </button>
             </>
           }

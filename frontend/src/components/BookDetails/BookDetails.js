@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useReducer } from "react";
+import { useState, useMemo, useReducer } from "react";
 import { Rating } from "@material-ui/lab";
 
 import ReviewDataServices from "../../services/ReviewDataServices";
@@ -314,7 +314,7 @@ const BookDetails = (props) => {
             <>
               <h2>{popupTitle}</h2>
               <p className="popup-content">{popupContent}</p>
-              <button className="btnPopup" onClick={() => togglePopup()}>
+              <button className="btn btnPopup" onClick={() => togglePopup()}>
                 Close
               </button>
             </>
