@@ -24,6 +24,7 @@ const BookDetails = (props) => {
     refreshReviews,
     wishlist,
     library,
+    bookCover,
   } = props;
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState("");
@@ -59,7 +60,7 @@ const BookDetails = (props) => {
   const addBookShelfInfo = {
     userId: userId,
     bookTitle: bookInfo.volumeInfo.title,
-    bookcover: bookInfo.volumeInfo.imageLinks.thumbnail,
+    bookcover: bookCover,
     bookId: bookInfo.id,
     author: getAuthor(),
   };
@@ -155,14 +156,19 @@ const BookDetails = (props) => {
 
   const showDescription = () => {
     let description = bookInfo.volumeInfo.description;
-    description = description.split(/<br>/).join("\n");
-    description = description.replace(/<\/br>/gi, "");
-    description = description.replace(/<\/i>/gi, "");
-    description = description.replace(/<i>/gi, "");
-    description = description.replace(/<b>/gi, "");
-    description = description.replace(/<\/b>/gi, "");
-    description = description.replace(/<p>/gi, "");
-    description = description.replace(/<\/p>/gi, "");
+
+    if (typeof description === "undefined") {
+      description = "No Description Available";
+    } else {
+      description = description.split(/<br>/).join("\n");
+      description = description.replace(/<\/br>/gi, "");
+      description = description.replace(/<\/i>/gi, "");
+      description = description.replace(/<i>/gi, "");
+      description = description.replace(/<b>/gi, "");
+      description = description.replace(/<\/b>/gi, "");
+      description = description.replace(/<p>/gi, "");
+      description = description.replace(/<\/p>/gi, "");
+    }
 
     return description;
   };
@@ -186,16 +192,25 @@ const BookDetails = (props) => {
           <p className="bookInfo">
             Publisher: {displayPulbisher(bookInfo.volumeInfo.publisher)}
           </p>
-          <p className="bookInfo">Category: {displayCategories(categories)}</p>
+          <p className="bookInfo">
+            Category:{" "}
+            {typeof categories === "undefined"
+              ? "No Categories"
+              : displayCategories(categories)}
+          </p>
           <p className="bookInfo">
             ISBN:{" "}
-            {displayISBN(bookInfo.volumeInfo.industryIdentifiers[0].identifier)}
+            {typeof bookInfo.volumeInfo.industryIdentifiers === "undefined"
+              ? "No ISBN"
+              : displayISBN(
+                  bookInfo.volumeInfo.industryIdentifiers[0].identifier
+                )}
           </p>
         </div>
         <div className="col-lg-4 col-5 imageContainer">
           <img
             className="bookImage"
-            src={bookInfo.volumeInfo.imageLinks.thumbnail}
+            src={bookCover}
             alt={bookInfo.volumeInfo.title}
           />
         </div>

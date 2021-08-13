@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   getLibraryByUseId(userId) {
     console.log(userId);
-    return axios.get(`/library/${userId}`).then((res) => {
+    return axios.get(`/library-item/${userId}`).then((res) => {
       if (res.data.errCode === 0) {
         return res.data.libraries[0];
       } else {
@@ -14,7 +14,7 @@ export default {
 
   addLibraryItem(newBookItem) {
     console.log(newBookItem);
-    return axios.post(`/library/add`, newBookItem).then((res) => {
+    return axios.post(`/library-item/add`, newBookItem).then((res) => {
       if (res.data.errCode === 0) {
         return true;
       } else {
@@ -24,12 +24,14 @@ export default {
   },
 
   deleteLibraryItem(deleteItemList) {
-    return axios.delete(`/library/delete/${deleteItemList}`).then((res) => {
-      if (res.data.errCode === 0) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    return axios
+      .delete(`/library-item/delete/${deleteItemList}`)
+      .then((res) => {
+        if (res.data.errCode === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
   },
 };

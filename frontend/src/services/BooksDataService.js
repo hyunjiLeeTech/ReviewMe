@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
   getAllBooks(bookParams) {
     return axios
-      .get(`/homepage/${bookParams.q}&${bookParams.maxResults}`, bookParams)
+      .get(`/home/${bookParams.q}&${bookParams.maxResults}`, bookParams)
       .then((res) => {
         if (res.data.errCode === 0) {
           return res.data.books;
@@ -13,7 +13,7 @@ export default {
       });
   },
   getBooksByID(id) {
-    return axios.get(`/details/${id}`).then((res) => {
+    return axios.get(`/book-details/${id}`).then((res) => {
       if (res.data.errCode === 0) {
         return res.data.books;
       } else {
@@ -22,12 +22,14 @@ export default {
     });
   },
   getBooksBySearch(bookParams) {
-    console.log(bookParams);
-    return axios.get(`/homepage/${bookParams.q}`, bookParams).then((res) => {
+    return axios.get(`/home/${bookParams.q}`, bookParams).then((res) => {
       if (res.data.errCode === 0) {
         return res.data.books;
       } else {
-        console.log(res.data);
+        const noBook = {
+          items: [],
+        };
+        return noBook;
       }
     });
   },

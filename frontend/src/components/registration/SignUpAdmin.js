@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { Link } from "react-router-dom";
-
 import Title from "../style/Title";
 import AuthContext from "../context/auth-context";
 import Modal from "../style/Modal";
