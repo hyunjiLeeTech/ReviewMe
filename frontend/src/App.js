@@ -58,14 +58,19 @@ function App() {
           <Route path="/login">
             {!authCtx.isLoggedIn && !authCtx.adminLoggedIn && <LogIn />}
             {authCtx.isLoggedIn && <Redirect to="/" />}
+            {authCtx.isLoggedIn && authCtx.adminLoggedIn && <Redirect to="/" />}
             {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/signup">
-            <SignUp />
+            {!authCtx.isLoggedIn && !authCtx.adminLoggedIn && <SignUp />}
+            {authCtx.isLoggedIn && <Redirect to="/" />}
+            {authCtx.isLoggedIn && authCtx.adminLoggedIn && <Redirect to="/" />}
           </Route>
-          <Route path="/signupadmin">
-            <SignUpAdmin />
-          </Route>
+          {authCtx.adminLoggedIn && (
+            <Route path="/signupadmin">
+              <SignUpAdmin />
+            </Route>
+          )}
           <Route path="/reset-password">
             <ResetLink />
           </Route>
@@ -78,22 +83,26 @@ function App() {
           <Route exact path="/library">
             {authCtx.isLoggedIn && <Library userId={authCtx.userIdInfo} />}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route exact path="/library/manage">
             {authCtx.isLoggedIn && (
               <ManageLibrary userId={authCtx.userIdInfo} />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route exact path="/wish-list">
             {authCtx.isLoggedIn && <Wishlist userId={authCtx.userIdInfo} />}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route exact path="/wishlist/manage">
             {authCtx.isLoggedIn && (
               <ManageWishlist userId={authCtx.userIdInfo} />
             )}
             {!authCtx.isLoggedIn && <Redirect to="/login" />}
+            {authCtx.adminLoggedIn && <Redirect to="/report-admin" />}
           </Route>
           <Route path="/profile">
             {authCtx.isLoggedIn && <ProfilePage />}
