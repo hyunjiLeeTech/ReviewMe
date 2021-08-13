@@ -49,6 +49,7 @@ export default {
     },
     keepReport(reportId) {
         return axios.post(`/reports/keep`, { reportId: reportId }).then((res) => {
+
             if (res.data.errCode === 0) {
                 return true;
             } else {

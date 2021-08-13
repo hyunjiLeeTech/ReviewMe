@@ -33,7 +33,7 @@ const ReviewItem = (props) => {
 
   const toggleReportPopup = async (isSaved = false) => {
     if (isSaved) {
-      setShowSuccess(true)
+      setShowSuccess(true);
     }
     setIsReportPopupOpen(!isReportPopupOpen);
   };
@@ -75,6 +75,7 @@ const ReviewItem = (props) => {
           </button>
         </div>
       );
+     
     }
   };
 
@@ -90,8 +91,8 @@ const ReviewItem = (props) => {
           </>
         }
       />
-    )
-  }
+    );
+  };
 
   return (
     <div className="reviewItemContainer" key={index}>
@@ -151,8 +152,6 @@ const ReviewItem = (props) => {
           }
         />
       )}
-
-
     </div>
   );
 };

@@ -1,31 +1,34 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import AuthContext from "../context/auth-context";
+
+import { useHistory } from "react-router-dom";
+import ProfileDataService from "../../services/ProfileDataService";
 
 import Title from "../style/Title";
 import "./Profile.css";
+const Profile = (props) => {
+  const history = useHistory()
 
-const Profile = () => {
 
-  const initialState = {
-    firstName: "John",
-    lastName: "Doe",
-    nickname: "JohnDoe12",
-    gender: "Male",
-    dob: "11/13/1999",
-    email: "johndoe@mail.com",
-  };
+  const authCtx = useContext(AuthContext);
 
-  const [{ firstName, lastName, nickname, gender, dob, email }, setState] =
-    useState(initialState);
+  const profileData = { ...props.profileItem };
+
+  const [rowData, setRowData] = useState({ ...props.profileItem });
+
+  useEffect(() => {
+    setRowData(props.profileItem)
+  }, [props.profileItem]);
 
   const onChange = (e) => {
     const { name, value } = e.target;
-    setState((prevState) => ({ ...prevState, [name]: value }));
+    setRowData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const clearState = () => {
-    setState({ ...initialState });
+    setRowData(profileData);
   };
 
   const options = ["Male", "Female", "Other"];
@@ -35,16 +38,16 @@ const Profile = () => {
   const [validateNickname, setValidateNickname] = useState(true);
 
   const validatedFirstNameHandler = () => {
-    setValidateFirstName(firstName.trim().length >= 3 ? true : false);
+    setValidateFirstName(rowData.firstname.trim().length >= 3 ? true : false);
   };
 
   const validatedLastNameHandler = () => {
-    setValidateLastName(lastName.trim().length >= 3 ? true : false);
+    setValidateLastName(rowData.lastname.trim().length >= 3 ? true : false);
   };
 
   const validateNicknameHandler = () => {
     setValidateNickname(
-      nickname.trim().length >= 3 && nickname.trim().length <= 10 ? true : false
+      rowData.nickname.trim().length >= 3 && rowData.nickname.trim().length <= 10 ? true : false
     );
   };
 
@@ -59,8 +62,11 @@ const Profile = () => {
   };
 
   const onDeleteButtonHandler = () => {
-    const answer = window.confirm("Are you sure you want to delete your Account?")
-  }
+    ProfileDataService.deleteAccountProfile(props.userID).then((data) => {
+      history.push("/homepage")
+      authCtx.logout();
+    });
+  };
 
   const onSaveChangesButtonHandler = () => {
     if (
@@ -68,6 +74,15 @@ const Profile = () => {
       validateLastName === true &&
       validateNickname === true
     ) {
+      const params = {
+        userId: props.userID,
+        firstname: rowData.firstname,
+        lastname: rowData.lastname,
+        nickname: rowData.nickname
+      }
+      ProfileDataService.editProfile(params).then((data) => {
+        console.log(data)
+      });
       document.getElementById("fname").disabled = true;
       document.getElementById("lname").disabled = true;
       document.getElementById("nname").disabled = true;
@@ -131,11 +146,11 @@ const Profile = () => {
                         >
                           <label className="form-label">First Name</label>
                           <input
-                            name="firstName"
+                            name="firstname"
                             id="fname"
                             type="text"
                             className="form-control"
-                            value={firstName}
+                            value={rowData.firstname}
                             onBlur={validatedFirstNameHandler}
                             onChange={onChange}
                             disabled
@@ -157,11 +172,11 @@ const Profile = () => {
                         >
                           <label className="form-label">Last Name</label>
                           <input
-                            name="lastName"
+                            name="lastname"
                             id="lname"
                             type="text"
                             className="form-control"
-                            value={lastName}
+                            value={rowData.lastname}
                             onBlur={validatedLastNameHandler}
                             onChange={onChange}
                             disabled
@@ -187,7 +202,7 @@ const Profile = () => {
                             id="nname"
                             type="text"
                             className="form-control"
-                            value={nickname}
+                            value={rowData.nickname}
                             onBlur={validateNicknameHandler}
                             onChange={onChange}
                             disabled
@@ -203,10 +218,14 @@ const Profile = () => {
 
                     <div className="col-md-6">
                       <label className="form-label">Gender</label>
-                      <select className="form-select" value={gender} disabled>
-                        <option> {options[0]} </option>
-                        <option> {options[1]} </option>
-                        <option> {options[2]} </option>
+                      <select
+                        className="form-select"
+                        value={rowData.genderid}
+                        disabled
+                      >
+                        <option value="1"> {options[0]} </option>
+                        <option value="2"> {options[1]} </option>
+                        <option value="3"> {options[2]} </option>
                       </select>
                     </div>
 
@@ -216,7 +235,7 @@ const Profile = () => {
                         <input
                           type="text"
                           className="form-control"
-                          value={dob}
+                          value={rowData.dateofbirth}
                           disabled
                         />
                       </div>
@@ -228,7 +247,7 @@ const Profile = () => {
                         <input
                           type="email"
                           className="form-control"
-                          value={email}
+                          value={rowData.email}
                           disabled
                         />
                       </div>
@@ -269,7 +288,6 @@ const Profile = () => {
                   >
                     Cancel
                   </button>
-
                 </div>
               </div>
             </div>

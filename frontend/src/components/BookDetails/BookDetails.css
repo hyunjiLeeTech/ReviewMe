@@ -44,6 +44,10 @@ textarea {
   color: white;
 }
 
+.desc {
+  white-space: pre-line;
+}
+
 @media only screen and (max-width: 576px) {
   .btn.submit {
     width: 35vw;

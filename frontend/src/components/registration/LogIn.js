@@ -31,6 +31,13 @@ const LogIn = (props) => {
   const validatePasswordHandler = () => {
     setValidPassword(providedPassword.trim().length >= 8);
   };
+
+  const forgotPasswordHandler = () => {
+    setDataInfo(
+      "Please navigate to Contact Us page by going down of page and click on the link. Include your real email by which we will contact you with your reset password. Also, please include your email, full name and username that you have in the account for security purposes."
+    );
+    authCtx.showModal();
+  };
   const submitHandler = async (event) => {
     event.preventDefault();
 
@@ -164,25 +171,13 @@ const LogIn = (props) => {
           </div>
         </div>
 
-        <div className="row mb-4">
-          <div className="col d-flex justify-content-center">
-            <div className="form-check">
-              <label className="form-check-label" htmlFor="rememberMe">
-                {" "}
-                Remember me{" "}
-              </label>
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="rememberMe"
-              />
-            </div>
-          </div>
-          <div className="col">
-            <Link className="link-forgot" to="/forgot-password">
-              Forgot password?
-            </Link>
+        <div className="row mb-2">
+          <div
+            type="button"
+            className="forgot_pass d-flex justify-content-end col-10"
+            onClick={forgotPasswordHandler}
+          >
+            Forgot password?
           </div>
         </div>
         <div className="mb-5 d-flex justify-content-center">

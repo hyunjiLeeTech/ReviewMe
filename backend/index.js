@@ -90,11 +90,48 @@ app.post("/auth/signup", async (req, res) => {
     lastName: lastName,
     gender: gender,
     dob: dob,
+    userType: 2,
   };
 
   controllers.users
     .login(req)
-    .then((data) => { })
+    .then((data) => {})
+    .catch((err) => {
+      res.status(401).json();
+    });
+
+  controllers.users.signup(userInfo).then((result) => {
+    res.json(result);
+  });
+});
+
+app.post("/auth/signupadmin", async (req, res) => {
+  const {
+    nickName,
+    email,
+    password,
+    password2,
+    firstName,
+    lastName,
+    gender,
+    dob,
+  } = req.body;
+
+  const userInfo = {
+    nickName: nickName,
+    email: email,
+    password: password,
+    password2: password2,
+    firstName: firstName,
+    lastName: lastName,
+    gender: gender,
+    dob: dob,
+    userType: 1,
+  };
+
+  controllers.users
+    .login(req)
+    .then((data) => {})
     .catch((err) => {
       res.status(401).json();
     });
@@ -219,7 +256,6 @@ app.put("/reviews/delete", (req, res) => {
 });
 //#endregion
 
-
 //#region Report
 app.get("/reports", (req, res) => {
   controllers.report
@@ -275,7 +311,7 @@ app.post("/reports/add", (req, res) => {
     userId: req.body.userId,
     reviewId: req.body.reviewId,
     comment: req.body.comment,
-    reporttypeId: req.body.reporttypeId
+    reporttypeId: req.body.reporttypeId,
   };
 
   controllers.report
@@ -460,10 +496,10 @@ app.get("/profile", (req, res) => {
   controllers.profile
     .getAllProfiles()
     .then((data) => {
-      res.json({ errCode: 0, profile: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting profile" });
+      res.json(err);
     });
 });
 
@@ -472,21 +508,28 @@ app.get("/profile/:userId", (req, res) => {
   controllers.profile
     .getProfileByUserId(userId)
     .then((data) => {
-      res.json({ errCode: 0, profile: data });
+      res.json(data);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "error while getting profile" });
+      res.json(err);
     });
 });
 
-app.put("/profile/edit/:userId", (req, res) => {
-  const userId = req.params.userId;
+app.put("/profile/edit", (req, res) => {
   const newData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
     nickname: req.body.nickname,
+    userId: req.body.userId,
   };
-  controllers.profile.editProfile(newData, userId);
+  controllers.profile
+    .editProfile(newData)
+    .then((result) => {
+      res.json({ errCode: 0, message: "Edit Profile successful" });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: "Edit Profile failed" });
+    });
 });
 
 app.put("/profile/delete", (req, res) => {
@@ -494,12 +537,13 @@ app.put("/profile/delete", (req, res) => {
   controllers.profile
     .deleteAccountProfile(userId)
     .then((res) => {
-      res.json({ errCode: 0, message: "account deletion successful" });
+      res.json(res);
     })
     .catch((err) => {
-      res.json({ errCode: 1, message: "account deletion failed" });
+      res.json(err);
     });
 });
+//#endregion
 
 app.delete("/wishlist/delete", (req, res) => {
   const id = req.body.wishlistId;
@@ -513,7 +557,6 @@ app.delete("/wishlist/delete", (req, res) => {
       res.json({ errCode: 1, message: err });
     });
 });
-//#endregion
 
 //#region Books
 app.get("/homepage", (req, res) => {

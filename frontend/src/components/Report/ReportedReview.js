@@ -10,7 +10,7 @@ const ReportedReview = (props) => {
         <div className="col-lg-4 col-6">
           <h5 className="textLeft">{nickname}</h5>
         </div>
-        <div className="col-lg-2 col-5">{date}</div>
+        <div className="col-lg-4 col-5">{date}</div>
         <div className="col-lg-2 col-11">
           <Rating name="rating" value={rating} />
         </div>
