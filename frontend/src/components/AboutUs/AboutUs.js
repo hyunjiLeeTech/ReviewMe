@@ -16,7 +16,7 @@ const AboutUs = () => {
     {
       name: "Hyun Ji Lee",
       content:
-        "Hi! I'm Jane (Hyun Ji) Lee. I worked as a lead developer on this team. We helped each other a lot to complete this project. I had lots of fun while we were working as a team! I participated in setups, implementing frontend and backend. In my free time, I love watching some videos and reading books!",
+        "Hi! I'm Jane (Hyun Ji) Lee. I participated in this project as a lead developer. We helped each other a lot to complete this project. I had lots of fun while we were spending time as a team! I participated in setups, implementing frontend and backend. In my free time, I love watching videos and reading books!",
       image: `${process.env.PUBLIC_URL}/images/koala.png`,
     },
     {
