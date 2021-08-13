@@ -36,7 +36,7 @@ const ResetPassword = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    fetch("http://localhost:3001/reset-pass", {
+    fetch("/reset-pass", {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -42,7 +42,7 @@ const LogIn = (props) => {
     event.preventDefault();
 
     try {
-      fetch("http://localhost:3001/auth/login", {
+      fetch("/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,34 +60,30 @@ const LogIn = (props) => {
         .then((data) => {
           if (typeof data === "string") {
             setDataInfo(data);
-            console.log(dataInfo);
+
             authCtx.showModal();
           } else {
-            console.log(data);
             let pass = data.password;
             let token = data.tokenInfo;
             let userId;
             let active;
             let userType;
             const detailsInfo = data.details;
-            console.log(detailsInfo);
+
             data.users[0].map((dataDetails) => {
               return (userId = dataDetails.userid);
             });
-            console.log(userId);
-            console.log(data.users[0]);
             data.users[0].map((dataDetails) => {
               return (userType = dataDetails.usertypeid);
             });
             data.users[0].map((dataDetail) => {
               return (active = dataDetail.isactive);
             });
-            console.log(active);
+
             const expirationTime = new Date(
               new Date().getTime() + 60 * 60 * 1000
             );
-            console.log(expirationTime);
-            console.log(userType);
+
             if (pass === true && active === true) {
               authCtx.login(
                 token,

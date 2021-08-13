@@ -121,7 +121,7 @@ const SignUp = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault();
-    fetch("http://localhost:3001/auth/signup", {
+    fetch("/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
