@@ -8,18 +8,49 @@ import "./SearchResult.css";
 const SearchResult = (props) => {
   const renderRating = (rating) => {
     if ($(window).width() > 280) {
-      return (
-        <Rating
-          // className="stars"
-          name="size-small"
-          value={rating}
-          disabled={true}
-        />
-      );
+      if (typeof rating === "undefined") {
+        return (
+          <Rating
+            // className="stars"
+            name="size-small"
+            value={0}
+            precision={0.5}
+            disabled={true}
+          />
+        );
+      } else {
+        return (
+          <Rating
+            // className="stars"
+            name="size-small"
+            value={rating}
+            precision={0.5}
+            disabled={true}
+          />
+        );
+      }
     } else {
-      return (
-        <Rating name="size-small" value={rating} size="small" disabled={true} />
-      );
+      if (typeof rating === "undefined") {
+        return (
+          <Rating
+            name="size-small"
+            value={0}
+            size="small"
+            precision={0.5}
+            disabled={true}
+          />
+        );
+      } else {
+        return (
+          <Rating
+            name="size-small"
+            value={rating}
+            size="small"
+            precision={0.5}
+            disabled={true}
+          />
+        );
+      }
     }
   };
   const url = "/details/" + props.id;
