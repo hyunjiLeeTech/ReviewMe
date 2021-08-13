@@ -326,7 +326,7 @@ app.post("/reports/add", (req, res) => {
 
 app.post("/reports/delete", (req, res) => {
   const reportId = req.body.reportId;
-  const reviewId = req.body.reviewId
+  const reviewId = req.body.reviewId;
   controllers.report
     .deleteReport(reportId, reviewId)
     .then((result) => {
@@ -351,7 +351,7 @@ app.post("/reports/keep", (req, res) => {
 //#endregion
 
 //#region Library
-app.get("/library", (req, res) => {
+app.get("/library-item", (req, res) => {
   controllers.library
     .getAllLibraries()
     .then((data) => {
@@ -362,7 +362,7 @@ app.get("/library", (req, res) => {
     });
 });
 
-app.get("/library/:userId", (req, res) => {
+app.get("/library-item/:userId", (req, res) => {
   const userId = req.params.userId;
   controllers.library
     .getAllLibraryByUserId(userId)
@@ -374,7 +374,7 @@ app.get("/library/:userId", (req, res) => {
     });
 });
 
-app.post("/library/add", (req, res) => {
+app.post("/library-item/add", (req, res) => {
   let bookTitle = req.body.bookTitle.replace("'", "''");
   let author = req.body.author.replace("'", "''");
 
@@ -396,11 +396,11 @@ app.post("/library/add", (req, res) => {
     });
 });
 
-app.delete("/library/delete", (req, res) => {
+app.delete("/library-item/delete", (req, res) => {
   res.json({ errcode: 1, message: "No items selected" });
 });
 
-app.delete("/library/delete/:id", (req, res) => {
+app.delete("/library-item/delete/:id", (req, res) => {
   const id = req.params.id;
   const idArr = id.split(",");
 
@@ -421,7 +421,7 @@ app.delete("/library/delete/:id", (req, res) => {
 //#endregion
 
 //#region Wish List
-app.get("/wishlist", (req, res) => {
+app.get("/wishlist-item", (req, res) => {
   controllers.wishlist
     .getAllWishList()
     .then((data) => {
@@ -432,7 +432,7 @@ app.get("/wishlist", (req, res) => {
     });
 });
 
-app.get("/wishlist/:userId", (req, res) => {
+app.get("/wishlist-item/:userId", (req, res) => {
   const userId = req.params.userId;
   controllers.wishlist
     .getWishListByUserId(userId)
@@ -444,7 +444,7 @@ app.get("/wishlist/:userId", (req, res) => {
     });
 });
 
-app.post("/wishlist/add", (req, res) => {
+app.post("/wishlist-item/add", (req, res) => {
   let bookTitle = req.body.bookTitle.replace("'", "''");
   let author = req.body.author.replace("'", "''");
 
@@ -466,11 +466,24 @@ app.post("/wishlist/add", (req, res) => {
     });
 });
 
-app.delete("/wishlist/delete", (req, res) => {
+app.delete("/wishlist-item/delete", (req, res) => {
   res.json({ errcode: 1, message: "No items selected" });
 });
 
-app.delete("/wishlist/delete/:id", (req, res) => {
+app.delete("/wishlist-item/delete", (req, res) => {
+  const id = req.body.wishlistId;
+
+  controllers.wishlist
+    .deleteWishListById(id)
+    .then((res) => {
+      res.json({ errCode: 0, message: res });
+    })
+    .catch((err) => {
+      res.json({ errCode: 1, message: err });
+    });
+});
+
+app.delete("/wishlist-item/delete/:id", (req, res) => {
   const id = req.params.id;
   const idArr = id.split(",");
 
@@ -492,7 +505,7 @@ app.delete("/wishlist/delete/:id", (req, res) => {
 //#endregion
 
 //#region Profile
-app.get("/profile", (req, res) => {
+app.get("/user-profile", (req, res) => {
   controllers.profile
     .getAllProfiles()
     .then((data) => {
@@ -503,7 +516,7 @@ app.get("/profile", (req, res) => {
     });
 });
 
-app.get("/profile/:userId", (req, res) => {
+app.get("/user-profile/:userId", (req, res) => {
   const userId = req.params.userId;
   controllers.profile
     .getProfileByUserId(userId)
@@ -515,7 +528,7 @@ app.get("/profile/:userId", (req, res) => {
     });
 });
 
-app.put("/profile/edit", (req, res) => {
+app.put("/user-profile/edit", (req, res) => {
   const newData = {
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -532,7 +545,7 @@ app.put("/profile/edit", (req, res) => {
     });
 });
 
-app.put("/profile/delete", (req, res) => {
+app.put("/user-profile/delete", (req, res) => {
   const userId = req.body.userId;
   controllers.profile
     .deleteAccountProfile(userId)
@@ -545,21 +558,8 @@ app.put("/profile/delete", (req, res) => {
 });
 //#endregion
 
-app.delete("/wishlist/delete", (req, res) => {
-  const id = req.body.wishlistId;
-
-  controllers.wishlist
-    .deleteWishListById(id)
-    .then((res) => {
-      res.json({ errCode: 0, message: res });
-    })
-    .catch((err) => {
-      res.json({ errCode: 1, message: err });
-    });
-});
-
 //#region Books
-app.get("/homepage/:name&:max", (req, res) => {
+app.get("/home/:name&:max", (req, res) => {
   const { name, max } = req.params;
 
   controllers.books
@@ -572,7 +572,7 @@ app.get("/homepage/:name&:max", (req, res) => {
     });
 });
 
-app.get("/homepage/:name", (req, res) => {
+app.get("/home/:name", (req, res) => {
   const { name } = req.params;
 
   controllers.books
@@ -585,7 +585,7 @@ app.get("/homepage/:name", (req, res) => {
     });
 });
 
-app.get("/details/:id", (req, res) => {
+app.get("/book-details/:id", (req, res) => {
   const id = req.params.id;
   controllers.books
     .getBooksByID(id)
