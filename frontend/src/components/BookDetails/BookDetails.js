@@ -245,12 +245,18 @@ const BookDetails = (props) => {
               isMargin={true}
               isRedirect={true}
               link={bookInfo.saleInfo.buyLink}
+              setPopupContent={setPopupContent}
+              setPopupTitle={setPopupTitle}
+              togglePopup={togglePopup}
             />
             <Button
               name="Preview"
               isMargin={false}
               isRedirect={true}
               link={bookInfo.volumeInfo.previewLink}
+              setPopupContent={setPopupContent}
+              setPopupTitle={setPopupTitle}
+              togglePopup={togglePopup}
             />
           </div>
           <div className="subContainer">

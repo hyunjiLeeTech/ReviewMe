@@ -81,10 +81,20 @@ const Button = (props) => {
     return false;
   };
 
+  const linkCheck = (link) => {
+    if (typeof link === "undefined") {
+      setPopupTitle("Link Check from Google Book API");
+      setPopupContent("Link doesn't exist");
+      togglePopup();
+    } else {
+      openInNewTab(link);
+    }
+  };
+
   return (
     <button
       className={isMargin === true ? "btn buttonWithMargin" : "btn details"}
-      onClick={isRedirect ? () => openInNewTab(link) : () => addData()}
+      onClick={isRedirect ? () => linkCheck(link) : () => addData()}
     >
       {name}
     </button>
