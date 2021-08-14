@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import ReviewDataServices from "../../services/ReviewDataServices";
 
@@ -6,6 +6,7 @@ import { Rating } from "@material-ui/lab";
 import Report from "../Report/Report";
 
 import Popup from "../style/Popup";
+import AuthContext from "../context/auth-context";
 import "./ReviewItem.css";
 
 const ReviewItem = (props) => {
@@ -25,6 +26,7 @@ const ReviewItem = (props) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isReportPopupOpen, setIsReportPopupOpen] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const authCtx = useContext(AuthContext);
 
   const togglePopup = async () => {
     setIsPopupOpen(!isPopupOpen);
@@ -67,14 +69,15 @@ const ReviewItem = (props) => {
         </>
       );
     } else {
-      return (
-        <div className="col-lg-1 col-1">
-          <button className="link" onClick={() => toggleReportPopup(false)}>
-            Report
-          </button>
-        </div>
-      );
-     
+      if (authCtx.isLoggedIn) {
+        return (
+          <div className="col-lg-1 col-1">
+            <button className="link" onClick={() => toggleReportPopup(false)}>
+              Report
+            </button>
+          </div>
+        );
+      }
     }
   };
 
@@ -147,8 +150,11 @@ const ReviewItem = (props) => {
           content={
             <>
               <h4>"Record Saved Successfully."</h4>
-              <button className="btnPopup" onClick={() => setShowSuccess(false)}>
-                  Close
+              <button
+                className="btnPopup"
+                onClick={() => setShowSuccess(false)}
+              >
+                Close
               </button>
             </>
           }
