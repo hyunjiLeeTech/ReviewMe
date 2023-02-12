@@ -3,7 +3,7 @@ const path = require("path");
 const app = express();
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 10000;
 
 const db = require("./models");
 const sequelize = db.sequelize;
