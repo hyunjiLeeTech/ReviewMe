@@ -72,11 +72,10 @@ const signup = (userInfo) => {
       const bcryptPassword = await bcrypt.hash(password, salt);
 
       const newUser = await sequelize.query(
-        `insert into usr (userid, email, password, usertypeid, isactive) values((select max(userid)+1 from usr),'${email}', '${bcryptPassword}', ${uerType}, true) returning *`
+        `insert into usr (email, password, usertypeid, isactive) values('${email}', '${bcryptPassword}', ${uerType}, true) returning *`
       );
       sequelize.query(
-        `insert into userdetails(userdetailid, firstname, lastname, nickname, dateofbirth, genderid, userid) values((select max(userdetailid)+1 from userdetails),
-         '${firstName}', '${lastName}', '${nickName}','${dob}','${gender_type}', (select max(userid) from usr))`
+        `insert into userdetails(firstname, lastname, nickname, dateofbirth, genderid, userid) values('${firstName}', '${lastName}', '${nickName}','${dob}','${gender_type}', ${newUser[0][0].userid})`
       );
       resolve("User successfully created");
     }
